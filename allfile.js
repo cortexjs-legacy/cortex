@@ -17,7 +17,7 @@ function is_dir(dir){
 	return fs.statSync(dir).isDirectory();
 }
 
-function allfile(dir,exts,arr,entry){
+function allfile(dir,exts,arr){
 	if(!is_dir(dir)){
 		console.error(dir+" is not a directory!");
 		return false;
@@ -29,7 +29,6 @@ function allfile(dir,exts,arr,entry){
 	}
 	
 	if(dir.lastIndexOf("/") !== dir.length-1 ){
-		console.log(dir.lastIndexOf("/")+dir)
 		dir = dir + "/";
 	}	
 	
@@ -53,4 +52,12 @@ function allfile(dir,exts,arr,entry){
 
 }
 
-module.exports = allfile;
+function allfile_relative(dir,exts,absolute){
+	var arr = allfile(dir,exts);
+	
+	return absolute ? arr : arr.map(function(path){
+		return path.split(dir+"/")[1];
+	});
+}
+
+module.exports = allfile_relative;
