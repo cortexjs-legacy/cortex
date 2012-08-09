@@ -1,0 +1,4 @@
+.asd{background:url("./i/bg.png");}
+.abc{background-image:url('i/bg.png');}
+.abcdd{background-image:url(../i/bg.png);}
+.sd{background:url('http://i2.static.dp/s/c/i/bg.png');}
