@@ -1,12 +1,52 @@
 var fs = require('fs');
 var mod_path = require('path');
+
+/**
+ * 
+ * @param  {[type]} parsed [description]
+ * @return {[type]}        [description]
+ */
+function connector(parsed){
+	var host = parsed.host,
+		ext = parsed.ext,
+		name = parsed.name,
+		image_versions = this.image_versions || [],
+		filename,
+		version,
+		ret;
+
+	var reg_with_version = /([\w\/\.]+)(\.v\d+)/;
+
+	function getVersion(path){
+		var r = image_versions.filter(function(row){
+			return row.URL === path;
+		});
+
+		return r[0] ? r[0]["Version"] : "";
+	}
+
+	if(reg_with_version.test(name)){
+		name = name.match(reg_with_version)[1];
+	}
+
+	version = getVersion(name+ext);
+	version = version ? ".v"+version : "";
+	ret = host+name+version+ext;
+	return ret;
+}
+
+
+
+
 /**
  * @param {String} base css文件的根目录
  * @param {String} host 绝对路径的host地址
  */
-function CssParser(base, host) {
-	this.base = base;
-	this.host = host;
+function CssParser(opt) {
+	this.base = opt.base;
+	this.host = opt.host;
+	this.image_versions = opt.image_versions; // image image_versions
+	this.connector = opt.connector || connector
 }
 
 CssParser.prototype = {
@@ -62,7 +102,8 @@ CssParser.prototype = {
 			 * 匹配 url('path/to/image.png')
 			 * 中的 path/to/image.png
 			 */
-			var reg = /\(\s*(['"]?)([\w\.\/:]+)\1\s*\)/,
+			var reg = /\(\s*(['"]?)([\w\.\/:]+)\1\s*\)/,	
+				parsed = "",
 				imgpath = match.match(reg)[2];
 
 			/**
@@ -70,8 +111,8 @@ CssParser.prototype = {
 			 */
 			if (isRelative(imgpath)) {
 				changed = 1;
-				imgpath = self.calculatePath(csspath,imgpath);
-				content = content.replace(match, "url(" + imgpath + ")");
+				parsed = self.calculatePath(csspath,imgpath);
+				content = content.replace(match, "url(" + self.connector(parsed) + ")");
 			};
 		}
 
@@ -99,9 +140,14 @@ CssParser.prototype = {
 	calculatePath:function(csspath,imgpath) {
 		var host = this.host,
 			base = mod_path.dirname(csspath),
-			fullpath = mod_path.join(base,imgpath);
+			fullpath = "/" + mod_path.join(base,imgpath),
+			ext = mod_path.extname(fullpath);
 
-		return host + "/" + fullpath;
+		return {
+			host:host,
+			ext:ext,
+			name:fullpath.split(ext)[0]
+		};
 	}
 }
 
