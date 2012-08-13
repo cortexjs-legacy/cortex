@@ -1,6 +1,8 @@
 /**
  * Parser: deps
  * parse the dependencies of a neuron module
+ 
+ * @require uglify-js [github](https://github.com/mishoo/UglifyJS)
  */
 
 
@@ -11,9 +13,9 @@ var
     [^.]                    // can't start with `.`, require should not be an object method
 
     \brequire               // require is the first letter
-    \s*                     // whitespaces which allowed by JavaScript grammar
+    // \s*                     // whitespaces which allowed by JavaScript grammar
     \(                
-        \s*                 // whitespaces which allowed by JavaScript grammar
+        // \s*                 // whitespaces which allowed by JavaScript grammar
         (["'])              // `"` or `'`
         
         ([a-zA-Z0-9-\/.~]+)  // alphabets, 
@@ -24,7 +26,7 @@ var
                             // `~`, for app home, ex: '~/index'
                             
         \1                  // matched `"` or `'`
-        \s*                 // whitespaces which allowed by JavaScript grammar
+        // \s*                 // whitespaces which allowed by JavaScript grammar
     \)                
  /g
 
@@ -35,22 +37,42 @@ var
  .require('io/ajax')
 
 */
-REGEX_EXECUTOR_REQUIRE = /[^.]\brequire\s*\(\s*(["'])([a-zA-Z0-9-\/.~]+)\1\s*\)/g,
+REGEX_EXECUTOR_REQUIRE = /[^.]\brequire\((["'])([a-zA-Z0-9-\/.~]+)\1\)/g,
+
+/**
+ * Something about CRLF (`\r`, carrage return & `\n`, line feed)
+ * in Windows, a line ends with a '\r\n', but only a '\n' in Linux.
+ * so, I use:
+     /(?:^|\n)/ to match the beginning of a new line(or the beginning of the document string)
+     /(?:\r|\n|$)/ to match the end of a line(or the end of the document string)
+     
+ /
+    (?:^|\n)                // new line
+    [\s\/*]*                // a really simple pattern to match `//`, `/*`, `/**` or just whitespace(s)
+    @require
+    \s+                     // must be at least one whitespace after `@require`
+    ([a-zA-Z0-9-\/.~]+)
+    \s*
+    (?:\r|\n|$)             // line end
+ /
+ 
+ */
+REGEX_EXECUTOR_COMMENT_REQUIRE = /(?:^|\n)[\s\/*]*@require\s+([a-zA-Z0-9-\/.~]+)\s*(?:\r|\n|$)/g,
 
 /**
  * .provide('io/ajax'
  */
-REGEX_EXECUTOR_NR_PROVIDE_ONE = /\.provide\s*\(\s*(["'])([a-zA-Z0-9-\/.~]+)\1/g,
+REGEX_EXECUTOR_NR_PROVIDE_ONE = /\.provide\((["'])([a-zA-Z0-9-\/.~]+)\1/g,
 
 /**
  
  /
     \.provide               // must use .provide
-    \s*                     // allowed whitespaces
+    // \s*                     // allowed whitespaces
     \(
-        \s*                 // allowed whitespaces or line wraps
+        // \s*                 // allowed whitespaces or line wraps
         \[
-            ([a-zA-Z0-9-\/\s,"'.~]+)
+            ([a-zA-Z0-9-\/,"'.~]+)  // no whitespaces
         \]
  /g
  
@@ -64,30 +86,44 @@ REGEX_EXECUTOR_NR_PROVIDE_ONE = /\.provide\s*\(\s*(["'])([a-zA-Z0-9-\/.~]+)\1/g,
         'io/jsonp'
     ], 
  */
-REGEX_EXECUTOR_NR_PROVIDE_MORE = /\.provide\s*\(\s*\[\s*([a-zA-Z0-9-\/\s,"'.~]+)\],/g,
+REGEX_EXECUTOR_NR_PROVIDE_MORE = /\.provide\(\[([a-zA-Z0-9-\/,"'.~]+)\],/g,
 
 /**
  * "abc", 'def', 'ddd" -> ['abc', 'def']
  */
 REGEX_EXECUTOR_ARRAY_STRING = /(["'])([a-zA-Z0-9-\/.~]+)\1/g,
 
-pushUnique = require('../util/push-unique');
+pushUnique = require('../util/push-unique'),
+
+uglify_js = require('uglify-js'),
+parser = uglify_js.parser,
+generator = uglify_js.uglify;
 
 
 /**
  * @returns {Array.<string>} an array contains all dependencies
  */
 function parseAllDeps(content){
-    var deps = [];
+    var deps = [],
     
-    // parse require()
-    executor(content, REGEX_EXECUTOR_REQUIRE, 2, deps);
+        // ast parser could not accept a file buffer returned by fs.readFileSync
+        // should convert to string first
+        ast = parser.parse(content.toString()),
+        
+        // re-generate code
+        compressed = generator.gen_code(ast);
+       
+    // parse `@require dep` 
+    executor(content, REGEX_EXECUTOR_COMMENT_REQUIRE, 1, deps);
     
-    // parse .provide('dep')
-    executor(content, REGEX_EXECUTOR_NR_PROVIDE_ONE, 2, deps);
+    // parse `require()`
+    executor(compressed, REGEX_EXECUTOR_REQUIRE, 2, deps);
     
-    // parse .provide(['dep', 'dep2'])
-    executor(content, REGEX_EXECUTOR_NR_PROVIDE_MORE, function(m){
+    // parse `.provide('dep')`
+    executor(compressed, REGEX_EXECUTOR_NR_PROVIDE_ONE, 2, deps);
+    
+    // parse `.provide(['dep', 'dep2'])`
+    executor(compressed, REGEX_EXECUTOR_NR_PROVIDE_MORE, function(m){
         return executor(m[1], REGEX_EXECUTOR_ARRAY_STRING, 2, []);
     }, deps);
     
@@ -136,7 +172,10 @@ module.exports = function(content){
  
  change log:
  
- 2012-08-11 Kael
+ 2012-08-13 Kael:
+ - TODO[08-11].A
+ 
+ 2012-08-11 Kael:
  - complete main functionalities
  
  TODO:
