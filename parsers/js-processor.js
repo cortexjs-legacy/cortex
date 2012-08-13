@@ -1,9 +1,5 @@
 var 
 
-deps = require('./deps'),
-spawn = require('child_process').spawn,
-path = require('path'),
-
 NULL = null,
 
 /**
@@ -36,8 +32,7 @@ default_config = {
 };
 
 
-// java -jar compiler.jar --js hello.js --js_output_file hello-compiled.js
-function Parser(config){
+function Processor(config){
     
     // merge default configurations
     Object.keys(default_config).forEach(function(key, i){
@@ -46,13 +41,14 @@ function Parser(config){
 };
 
 
-Parser.prototype = {
+Processor.prototype = {
     isLibPkg: function(){
         return this.pkg === this.lib_pkg;
     },
     
     /**
      * @param {string|buffer} file_content
+     * @param {string} path
      */
     parse: function(file_content, path){
         
@@ -103,19 +99,10 @@ Parser.prototype = {
         }
         
         return identifier;
-    },
-    
-    get appName(){
-        if(!this._appName){
-            // if is app pkg
-            if(!this.isLibPkg()){
-                
-            }
-        }
-        
-        return this._appName;
     }
 };
 
+
+module.exports = Processor;
 
 
