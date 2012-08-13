@@ -1,9 +1,9 @@
 
 var config = {
 	dbhost:"192.168.8.44",
-	dbuser:"aspnet_user",
-	dbpassword:"dp!@78()-=",
-	dbdatabase:"DianPing"
+	dbuser:"dpcom_comm",
+	dbpassword:"dp!@C5NsYGTPg",
+	dbdatabase:"DianPingCOMM"
 };
 
 

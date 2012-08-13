@@ -39,8 +39,10 @@ function connector(parsed){
 
 
 /**
- * @param {String} base css文件的根目录
- * @param {String} host 绝对路径的host地址
+ * @param {Object} opt
+ * @param {String} opt.base css文件的根目录
+ * @param {String} opt.host 绝对路径的host地址
+ * @param {String} image_version 所有图片文件的结果集，参考DianPing. DP_StaticFileVersion
  */
 function CssParser(opt) {
 	this.base = opt.base;
