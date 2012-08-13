@@ -6,8 +6,6 @@
 
 var
 
-ext = "js",
-
 /**
  /
     [^.]                    // can't start with `.`, require should not be an object method
@@ -17,7 +15,14 @@ ext = "js",
     \(                
         \s*                 // whitespaces which allowed by JavaScript grammar
         (["'])              // `"` or `'`
-        ([a-zA-Z0-9-/]+)    // alphabets, numbers, `-` (dash), or `/` (slash), `.` (dot)
+        
+        ([a-zA-Z0-9-\/.~]+)  // alphabets, 
+                            // numbers, 
+                            // `-` (dash), ex: 'my-mod'
+                            // `/` (slash), ex: 'io/ajax'
+                            // `.` (dot), allowed by neuron, ex: './mymod'
+                            // `~`, for app home, ex: '~/index'
+                            
         \1                  // matched `"` or `'`
         \s*                 // whitespaces which allowed by JavaScript grammar
     \)                
@@ -45,7 +50,7 @@ REGEX_EXECUTOR_NR_PROVIDE_ONE = /\.provide\s*\(\s*(["'])([a-zA-Z0-9-\/.~]+)\1/g,
     \(
         \s*                 // allowed whitespaces or line wraps
         \[
-            ([a-zA-Z0-9-\/\s,"']+)
+            ([a-zA-Z0-9-\/\s,"'.~]+)
         \]
  /g
  
@@ -59,7 +64,7 @@ REGEX_EXECUTOR_NR_PROVIDE_ONE = /\.provide\s*\(\s*(["'])([a-zA-Z0-9-\/.~]+)\1/g,
         'io/jsonp'
     ], 
  */
-REGEX_EXECUTOR_NR_PROVIDE_MORE = /\.provide\s*\(\s*\[\s*([a-zA-Z0-9-\/'",\s.~]+)\],/g,
+REGEX_EXECUTOR_NR_PROVIDE_MORE = /\.provide\s*\(\s*\[\s*([a-zA-Z0-9-\/\s,"'.~]+)\],/g,
 
 /**
  * "abc", 'def', 'ddd" -> ['abc', 'def']
@@ -69,7 +74,9 @@ REGEX_EXECUTOR_ARRAY_STRING = /(["'])([a-zA-Z0-9-\/.~]+)\1/g,
 pushUnique = require('../util/push-unique');
 
 
-
+/**
+ * @returns {Array.<string>} an array contains all dependencies
+ */
 function parseAllDeps(content){
     var deps = [];
     
@@ -114,15 +121,27 @@ function executor(content, regex, fn, append){
 };
 
 
-/**
- * normalize dependency identifiers, elimilating relative ids
- */
-function santitizeDeps(deps){
-    
-};
-
-
 module.exports = function(content){
-    return parseAllDeps(content);
+    return {
+    
+        // Kael(2012-08-11):
+        // the reason why not returns the dependencies directly 
+        // is that Cortex will treat dynamic deps and static deps differently in the near future
+        deps: parseAllDeps(content)
+    }
 };
+
+
+/**
+ 
+ change log:
+ 
+ 2012-08-11 Kael
+ - complete main functionalities
+ 
+ TODO:
+ A. use uglifyJS to do AST parsing, removing all JavaScript annotations before parsing dependencies
+ B. try something to solve the problem parsing some sort of dynamic deps
+ 
+ */
 
