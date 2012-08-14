@@ -5,6 +5,19 @@
  * @require uglify-js [github](https://github.com/mishoo/UglifyJS)
  */
 
+/**
+ 
+ parse content
+ ->
+ parse deps in comment
+ ->
+ remove comment
+ ->
+ parse deps in codes
+ 
+ 
+ 
+ */
 
 var
 
