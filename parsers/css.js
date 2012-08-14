@@ -1,5 +1,7 @@
 var fs = require('fs');
+var mod_url = require('url');
 var mod_path = require('path');
+var mod_crypto = require('crypto');
 
 /**
  * 
@@ -39,12 +41,14 @@ function connector(parsed){
 
 
 /**
- * @param {String} base css文件的根目录
- * @param {String} host 绝对路径的host地址
+ * @param {Object} opt
+ * @param {String} opt.base css文件的根目录
+ * @param {String} opt.host 绝对路径的host地址
+ * @param {String} image_version 所有图片文件的结果集，参考DianPing. DP_StaticFileVersion
  */
 function CssParser(opt) {
 	this.base = opt.base;
-	this.host = opt.host;
+	this.hosts = opt.hosts.constructor === Array ? opt.hosts : [opt.hosts];
 	this.image_versions = opt.image_versions; // image image_versions
 	this.connector = opt.connector || connector
 }
@@ -90,6 +94,7 @@ CssParser.prototype = {
 		 * 例：  http://i2.static.dp/s/c/i/a.png 返回 true
 		 *		c/i/a.png 返回false
 		 */
+
 		function isRelative(imgpath) {
 			return !/^http:\/\//.test(imgpath);
 		}
@@ -97,23 +102,32 @@ CssParser.prototype = {
 		/**
 		 * 将文件content中的相对地址替换为绝对地址
 		 */
-		function replaceMatch(match) {
+		function replaceMatch(match,i) {
 			/**
 			 * 匹配 url('path/to/image.png')
 			 * 中的 path/to/image.png
 			 */
 			var reg = /\(\s*(['"]?)([\w\.\/:]+)\1\s*\)/,	
 				parsed = "",
-				imgpath = match.match(reg)[2];
+				imgpath = match.match(reg)[2],
+				parsed_url;
 
 			/**
-			 * 若非相对路径则跳过
+			 * 若非相对路径则取得其相对路径进行parse
 			 */
-			if (isRelative(imgpath)) {
-				changed = 1;
+			if(!isRelative(imgpath)){
+				parsed = self.calculatePath(null,imgpath,true);
+			}else{
 				parsed = self.calculatePath(csspath,imgpath);
-				content = content.replace(match, "url(" + self.connector(parsed) + ")");
-			};
+			}
+
+			parsed_url = "url(" + self.connector(parsed) + ")";
+
+			if(parsed_url !== match){
+				console.log("%s : %s -> %s",csspath,match,parsed_url);
+				content = content.replace(match, parsed_url);;
+				changed = 1;
+			}
 		}
 
 		/**
@@ -128,6 +142,20 @@ CssParser.prototype = {
 	},
 
 	/**
+	 * 计算CDN域名
+	 * @param  {[type]} path [description]
+	 * @return {[type]}      [description]
+	 */
+	calculateCDNHost:function(path){
+		var md5 = mod_crypto.createHash("md5"),
+			hosts = this.hosts,
+			count = hosts.length;
+
+		md5.update(path);
+		return hosts[parseInt(md5.digest("hex"),16) % count];
+	},
+
+	/**
 	 * 计算文件的绝对路径
 	 * 若:
 	 * 1.当前css文件路径为 /s/c/a.css
@@ -136,12 +164,28 @@ CssParser.prototype = {
 	 * 1. i/pic.png -> http://i2.static.dp/s/c/i/pic.png
 	 * 2. ./i/pic.png -> http://i2.static.dp/s/i/pic.png
 	 * 3. ../pic.png -> http://i2.static.dp/s/pic.png
+	 *
+	 * 若absolute为true，则忽略csspath
 	 */
-	calculatePath:function(csspath,imgpath) {
-		var host = this.host,
-			base = mod_path.dirname(csspath),
-			fullpath = "/" + mod_path.join(base,imgpath),
-			ext = mod_path.extname(fullpath);
+	calculatePath:function(csspath,imgpath,absolute) {
+		var host,
+			base,
+			fullpath,
+			url_parsed,
+			ext;
+
+		if(absolute){
+			url_parsed = mod_url.parse(imgpath);
+			fullpath = url_parsed.pathname;
+			host = url_parsed.host;
+		}else{
+			base = mod_path.dirname(csspath);
+			fullpath = "/" + mod_path.join(base,imgpath);
+		}
+
+		ext = mod_path.extname(fullpath);
+
+		host = "http://" + (host || this.calculateCDNHost(fullpath));
 
 		return {
 			host:host,

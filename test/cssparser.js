@@ -5,18 +5,19 @@ var db = require("../db");
 require('should');
 
 var parse_dir = __dirname.split("test")[0] + "res/";
-var host = "http://i1.static.dp";
+var hosts = ["i1.static.dp","i2.static.dp"];
 
 
 describe("测试分析结果",function(){
 	it("结果应于目标文件s/c/b.css相同",function(done){
 
 		db.get_all_images(function(rows){
-			var parser = new cssparser({base:parse_dir,host:host,image_versions:rows});
-			var content = parser.parse("s/c/a.css").content,
+			var parser = new cssparser({base:parse_dir,hosts:hosts,image_versions:rows});
+			var parsed_a = parser.parse("s/c/a.css"),
+				content = parsed_a.content,
 				expect = fs.readFileSync(parse_dir+"s/c/b.css","utf-8");
 
-			parser.parse("s/c/a.css").changed.should.eql(1);
+			parsed_a.changed.should.eql(1);
 			parser.parse("s/c/b.css").changed.should.eql(0);
 			content.should.eql(expect);
 			done();
@@ -25,12 +26,12 @@ describe("测试分析结果",function(){
 });
 
 
-var parser = new cssparser({base:parse_dir,host:host});
+var parser = new cssparser({base:parse_dir,hosts:hosts});
 
 describe("测试方法calculatePath",function(){
 	/**
 	 * 1.当前css文件路径为 /s/c/a.css
-	 * 2.host为 http://i1.static.dp
+	 * 2.hosts为 http://i1.static.dp
 	 * 则
 	 * 1. i/pic.png -> http://i1.static.dp/s/c/i/pic.png
 	 * 2. ./i/pic.png -> http://i1.static.dp/s/i/pic.png

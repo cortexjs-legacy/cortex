@@ -1,1 +1,8 @@
 .DS_Store
+test/a
+test/a.zip
+test/b/
+test/b.zip
+cortex.sublime-project
+cortex.sublime-workspace
+filelist.txt
