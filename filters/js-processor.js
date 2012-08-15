@@ -53,10 +53,10 @@ Processor.prototype = {
         file_content = file_content.toString();
         
         // ex: '/io/ajax.js'
-        this.path = info.path;
+        this.pkgPath = info.pkgPath;
         
         // ex: '/lib/1.0/io/ajax.js'
-        var full_path = info.fullPath,
+        var full_path = info.path,
             m = file_content.match(REGEX_TEST_IDENTIFIER),
             changed = false;
         
@@ -81,14 +81,14 @@ Processor.prototype = {
         
         return {
             changed: changed,
-            passed: true 
+            passed: true
         }
     },
     
     // '/io/ajax.js' -> 'io/ajax'
     // '/index/main.js' -> 'index::main'
     get identifier(){
-        var identifier = this.path/* .replace(/^\//, '') */.replace(/\.js$/, '')
+        var identifier = this.pkgPath/* .replace(/^\//, '') */.replace(/\.js$/, '')
         
         // app package
         if(!this.isLibPkg()){

@@ -20,8 +20,8 @@ STR_APP_SPLITTER = '::',
 
 REGEX_RELATIVE_APP_PREFIX = /^~\//,
 
-Processor = require('../parsers/js-processor'),
-deps = require('../parsers/js-deps'),
+Processor = require('./js-processor'),
+deps = require('./js-deps'),
 spawn = require('child_process').spawn,
 path = require('path'),
 fs = require('fs'),
@@ -101,12 +101,19 @@ JsTraverser.prototype = {
         });
     },
     
+    
+    // '/s/j/app/promo/index.js' -> 'promo'
     _getAppName: function(file){
-        
+        return file.replace(this.config.jsPath + '/', '').split('/')[0].toLowerCase();
     },
     
     parse: function(){
-        var self = this;
+        var self = this,
+            config = self.config,
+            processor = new Processor({
+                pkg: config.pkg,
+                libPkg: config.libPkg
+            });
     
         self._checkTempFolder();
         
@@ -115,8 +122,12 @@ JsTraverser.prototype = {
         // '/lib/1.0/io/ajax'
         self.filelist.forEach(function(file){
             if(self._checkFile(file)){
-                var content = fs.readFileSync(self.tempRoot + file),
-                    info = {
+            
+                
+                var content = fs.readFileSync(self.tempRoot + file);
+                
+                // dependencies
+                var info = {
                         deps: deps(content),
                         path: file
                     }
@@ -126,19 +137,18 @@ JsTraverser.prototype = {
                 }
             
                 self._jsFiles.push(info);
-            }
-        });
-        
-        fsMore.traverseDir(self.parseRoot, function(info){
-            if(info.isFile){
-                var content = fs.readFileSync(info.fullPath);
                 
-                self._jsFiles.push({
-                    // fullPath: info.fullPath,
-                    // relPath: info.relPath,
-                    // path: info.path,
-                    deps: deps(content)
-                });
+                // preprocess
+                var result = processor.parse(content, {
+                        pkgPath: self._getPkgPath(file),
+                        path: file
+                    });
+                  
+                if(result.passed && result.changed){
+                    var fd = fs.openSync(file, 'w+');
+                    
+                    fs.writeSync(fd, result.changed);
+                }  
                 
             }
         });
@@ -269,6 +279,10 @@ JsTraverser.prototype = {
     
     _isRelativeURL: function(url){
         return url.indexOf('../') || url.indexOf('./');
+    },
+    
+    _getPkgPath: function(url){
+        return url.replace(this.jsPath).replace(/~\//);
     }
     
 };
