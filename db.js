@@ -21,7 +21,7 @@ function query(q,cb){
 }
 
 function get_all_images(cb){
-	query("select * from DP_StaticFileVersion where URL REGEXP 'png$|jpg$|gif$'",cb);
+	query("select * from " + config.DB_VERSION + " where URL REGEXP 'png$|jpg$|gif$'", cb);
 }
 
 exports.query = query;
