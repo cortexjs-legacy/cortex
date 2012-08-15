@@ -4,20 +4,19 @@ var mod_path = require('path');
 var mod_crypto = require('crypto');
 
 /**
- * 
- * @param  {[type]} parsed [description]
- * @return {[type]}        [description]
+ * 连接器，处理相对图片路径的各部分，将之拼装为目标格式
+ * @param  {[type]} parsed {host,ext,name,version}
+ * @param {Array.<NR.DOM>} parsed [description]
+ * @return {String}        [description]
  */
 function connector(parsed){
 	var host = parsed.host,
 		ext = parsed.ext,
 		name = parsed.name,
+		version = parsed.version,
 		image_versions = this.image_versions || [],
 		filename,
-		version,
 		ret;
-
-	var reg_with_version = /([\w\/\.]+)(\.v\d+)/;
 
 	function getVersion(path){
 		var r = image_versions.filter(function(row){
@@ -25,10 +24,6 @@ function connector(parsed){
 		});
 
 		return r[0] ? r[0]["Version"] : "";
-	}
-
-	if(reg_with_version.test(name)){
-		name = name.match(reg_with_version)[1];
 	}
 
 	version = getVersion(name+ext);
@@ -90,6 +85,12 @@ CssParser.prototype = {
 		var matches = content.match(reg);
 
 		/**
+		 * 涉及的所有图片路径
+		 * @type {Array}
+		 */
+		var image_paths = [];
+
+		/**
 		 * 判断路径是否为相对路径
 		 * 例：  http://i2.static.dp/s/c/i/a.png 返回 true
 		 *		c/i/a.png 返回false
@@ -121,6 +122,8 @@ CssParser.prototype = {
 				parsed = self.calculatePath(csspath,imgpath);
 			}
 
+			image_paths.push(parsed.name+parsed.ext);
+
 			parsed_url = "url(" + self.connector(parsed) + ")";
 
 			if(parsed_url !== match){
@@ -131,13 +134,30 @@ CssParser.prototype = {
 		}
 
 		/**
+		 * 数组去重
+		 * @return {[type]} [description]
+		 */
+		function duplicate(arr){
+			var ret = [];
+			arr.forEach(function(item){
+				if(!ret.some(function(el){
+					return item == el;
+				})){
+					ret.push(item);
+				};
+			});
+			return ret;
+		}
+
+		/**
 		 * 循环处理所有匹配
 		 */
 		matches && matches.forEach(replaceMatch);
 
 		return {
 			changed: changed,
-			content: content
+			content: content,
+			image_paths:duplicate(image_paths)
 		};
 	},
 
@@ -172,6 +192,10 @@ CssParser.prototype = {
 			base,
 			fullpath,
 			url_parsed,
+			name,
+			version_match,
+			version = null,
+			reg_with_version = /([\w\/\.]+)(\.v\d+)/,
 			ext;
 
 		if(absolute){
@@ -187,10 +211,19 @@ CssParser.prototype = {
 
 		host = "http://" + (host || this.calculateCDNHost(fullpath));
 
+		name = fullpath.split(ext)[0];
+		version_match = name.match(reg_with_version);
+
+		if(version_match){
+			version = version_match[2];
+			name = version_match[1];
+		}
+
 		return {
 			host:host,
 			ext:ext,
-			name:fullpath.split(ext)[0]
+			version:version,
+			name:name
 		};
 	}
 }
