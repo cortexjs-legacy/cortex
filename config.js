@@ -7,7 +7,8 @@ var config = {
 	
 	DB_VERSION     : 'CM_StaticResourceVersion',
 	DB_PACKAGE     : 'CM_StaticResourcePackage',
-	DB_DEPENDENCY  : 'CM_jsDependency'
+	DB_DEPENDENCY  : 'CM_jsDependency',
+	TEMP_DIR_NAME  : '__cortex_tmp'
 };
 
 
