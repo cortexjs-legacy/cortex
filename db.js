@@ -12,8 +12,10 @@ var connection = mysql.createClient({
 
 function query(q,cb){
 	connection.query(q,function(err,rows,fields){
-		if(err) throw err;
-		cb(rows,fields);
+		if(err){
+			cb(err);
+		}
+		cb(null,rows,fields);
 	});
 	connection.end();
 }
