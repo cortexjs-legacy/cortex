@@ -2,6 +2,7 @@ var fs = require('fs');
 var mod_url = require('url');
 var mod_path = require('path');
 var mod_crypto = require('crypto');
+var mod_util = require('util');
 
 /**
  * 连接器，处理相对图片路径的各部分，将之拼装为目标格式
@@ -45,10 +46,20 @@ function CssParser(opt) {
 	this.base = opt.base;
 	this.hosts = opt.hosts.constructor === Array ? opt.hosts : [opt.hosts];
 	this.image_versions = opt.image_versions; // image image_versions
-	this.connector = opt.connector || connector
+	this.connector = opt.connector || connector;
+	this._logs = [];
 }
 
 CssParser.prototype = {
+	log:function(){
+		this._logs.forEach(function(lg){
+			console.log(lg);
+		});
+		this._logs = [];
+	},
+	clearlog:function(){
+		this._logs = [];
+	},
 	/**
 	 * 分析path下的所有图片路径
 	 * 并将相对路径转为绝对路径
@@ -122,12 +133,12 @@ CssParser.prototype = {
 				parsed = self.calculatePath(csspath,imgpath);
 			}
 
-			image_paths.push(parsed.name+parsed.ext);
+			image_paths.push((parsed.name+parsed.ext).substr(1));
 
 			parsed_url = "url(" + self.connector(parsed) + ")";
 
 			if(parsed_url !== match){
-				console.log("%s : %s -> %s",csspath,match,parsed_url);
+				self._logs.push(mod_util.format("%s : %s -> %s",self.base+csspath,match,parsed_url));
 				content = content.replace(match, parsed_url);;
 				changed = 1;
 			}
