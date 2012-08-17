@@ -1,4 +1,5 @@
 var CssParser = require("./cssparser"),
+	tracer = require("tracer").colorConsole(),
 	fsMore = require("../util/fs-more"),
 	path_mod = require("path");
 
@@ -8,11 +9,13 @@ function CssTraverser(config){
 	this.baseparser = new CssParser({
 		base:config.base,
 		hosts:config.hosts,
+		filelist:config.filelist,
 		image_versions:config.image_versions
 	});
 	this.tempparser = new CssParser({
 		base:config.temp_dir,
 		hosts:config.hosts,
+		filelist:config.filelist,
 		image_versions:config.image_versions
 	});
 	this.filelist = config.filelist;
@@ -49,6 +52,9 @@ CssTraverser.prototype = {
 			baseparser = self.baseparser,
 			tempparser = self.tempparser;
 
+
+
+		tracer.info("开始遍历上传包");
 		// I.遍历上传包
 		// 1. 修改css中图片相对路径
 		// 2. 记录图片文件
@@ -67,13 +73,15 @@ CssTraverser.prototype = {
 
 				if(parsed.changed === 1){
 					tempparser.log();
-					fsMore.writeFileSync(temp_dir + relpath,parsed.content);
+					tracer.info("改写文件 "+temp_dir+relpath);
+					// fsMore.writeFileSync(temp_dir + relpath,parsed.content);
 				}
 				
 			}
 		});
 
 		// 遍历线上目录
+		tracer.info("开始遍历线上目录");
 		fsMore.traverseDir(base_dir,function(info){
 			var relpath = info.relPath,
 				parsed,
@@ -86,10 +94,11 @@ CssTraverser.prototype = {
 				css_has_img_refreshed = self._hasImgRefreshed(parsed); // {Boolean} css中存在刷新了版本的上传文件列表中的图片文件
 
 				// 若css中存在需要刷版本的图片 且 css不存在于上线列表
-				if(css_has_img_refreshed && css_not_in_file_list){
+				if(css_has_img_refreshed && css_not_in_file_list && parsed.changed){
 					// 将列表中的文件写入暂存目录
 					baseparser.log();
-					fsMore.writeFileSync(temp_dir + relpath,parsed.content);
+					tracer.info("改写文件 "+temp_dir+relpath);
+					// fsMore.writeFileSync(temp_dir + relpath,parsed.content);
 				}else{
 					baseparser.clearlog();
 				}
@@ -99,7 +108,7 @@ CssTraverser.prototype = {
 		done();
 	},
 	tearDown:function(){
-		console.log("css traverser tear down");
+		tracer.info("css遍历处理完毕");
 	}
 }
 

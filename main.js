@@ -1,4 +1,5 @@
 var filelist = require("./util/filelist"),
+	tracer = require("tracer").colorConsole(),
 	allfiles = require("./allfiles"),
 	lion = require("./util/lion"),
 	db = require("./db"),
@@ -22,7 +23,7 @@ function removeStep(name){
 
 function process(step,value){
 	data[step] = value;
-	console.log("%s ready",step);
+	tracer.info("%s就绪",step);
 	if(removeStep(step).length > 0) return;
 	start(data);
 };
@@ -79,7 +80,7 @@ var base_dir = __dirname + "/res/", // 准备分析的目录
 
 (function(){
 	var filelist = [];
-	console.log("prepare filelist");
+	tracer.info("获取上线文件列表至filelist");
 	fsMore.traverseDir(temp_dir,function(info){
 		if(info.isFile){
 			filelist.push(info.relPath);
@@ -88,13 +89,13 @@ var base_dir = __dirname + "/res/", // 准备分析的目录
 	process("filelist",filelist);
 })();
 
-console.log("prepare all images");
+tracer.info("获取数据库图片版本至imglist");
 db.get_all_images(function(err,rows){
 	if(err) throw err;
 	process("imglist",rows);
 });
 
-console.log("prepare lion config");
+tracer.info("获取lion配置至lionhosts");
 lion.get("key",function(err,data){
 	if(err) throw err;
 	process("lionhosts",data);

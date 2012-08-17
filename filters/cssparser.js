@@ -1,4 +1,5 @@
 var fs = require('fs');
+var tracer = require("tracer").colorConsole();
 var mod_url = require('url');
 var mod_path = require('path');
 var mod_crypto = require('crypto');
@@ -7,16 +8,17 @@ var mod_util = require('util');
 /**
  * 连接器，处理相对图片路径的各部分，将之拼装为目标格式
  * @param  {[type]} parsed {host,ext,name,version}
- * @param {Array.<NR.DOM>} parsed [description]
  * @return {String}        [description]
  */
 function connector(parsed){
-	var host = parsed.host,
+	var self = this,
+		filelist = self.filelist,
+		csspath = parsed.csspath,
+		host = parsed.host,
 		ext = parsed.ext,
 		name = parsed.name,
 		version = parsed.version,
 		image_versions = this.image_versions || [],
-		filename,
 		ret;
 
 	function getVersion(path){
@@ -27,9 +29,38 @@ function connector(parsed){
 		return r[0] ? r[0]["Version"] : "";
 	}
 
+	function inFileList(path){
+		return filelist.indexOf(path.substr(1)) !== -1;
+	}
+
+	function insideHost(host){
+		// this.hosts.indexOf(host)!==-1
+		return host.match("static.dp");
+	}
+
 	version = getVersion(name+ext);
-	version = version ? ".v"+version : "";
-	ret = host+name+version+ext;
+
+	// 如果version不存在，且为相对路径
+	
+	if(parsed.absolute && !insideHost(host)){
+		// 若为绝对地址，且该地址为外网地址，将version设置为undefined，代表无需添加版本号
+		version = undefined;
+	}else{
+		if(!version){
+			// 检查文件是否存在于文件列表
+			// 若存在，记录为需要插入，version为1
+			if(inFileList(name+ext)){
+				version = 0;
+			}else{
+			// 否则，抛warning
+				tracer.warn(csspath+" : "+name+ext + " 不存在于版本数据库与上线列表");
+			}
+		}
+	}
+	
+
+	version = version!==undefined ? ".v"+(version+1) : "";
+	ret = "http://" + host+name+version+ext;
 	return ret;
 }
 
@@ -45,6 +76,7 @@ function connector(parsed){
 function CssParser(opt) {
 	this.base = opt.base;
 	this.hosts = opt.hosts.constructor === Array ? opt.hosts : [opt.hosts];
+	this.filelist = opt.filelist;
 	this.image_versions = opt.image_versions; // image image_versions
 	this.connector = opt.connector || connector;
 	this._logs = [];
@@ -53,7 +85,7 @@ function CssParser(opt) {
 CssParser.prototype = {
 	log:function(){
 		this._logs.forEach(function(lg){
-			console.log(lg);
+			tracer.info(lg);
 		});
 		this._logs = [];
 	},
@@ -128,9 +160,9 @@ CssParser.prototype = {
 			 * 若非相对路径则取得其相对路径进行parse
 			 */
 			if(!isRelative(imgpath)){
-				parsed = self.calculatePath(null,imgpath,true);
+				parsed = self.calculateImagePath(csspath,imgpath,true);
 			}else{
-				parsed = self.calculatePath(csspath,imgpath);
+				parsed = self.calculateImagePath(csspath,imgpath);
 			}
 
 			image_paths.push((parsed.name+parsed.ext).substr(1));
@@ -138,7 +170,7 @@ CssParser.prototype = {
 			parsed_url = "url(" + self.connector(parsed) + ")";
 
 			if(parsed_url !== match){
-				self._logs.push(mod_util.format("%s : %s -> %s",self.base+csspath,match,parsed_url));
+				self._logs.push(mod_util.format("%s -> %s",match,parsed_url));
 				content = content.replace(match, parsed_url);;
 				changed = 1;
 			}
@@ -198,7 +230,7 @@ CssParser.prototype = {
 	 *
 	 * 若absolute为true，则忽略csspath
 	 */
-	calculatePath:function(csspath,imgpath,absolute) {
+	calculateImagePath:function(csspath,imgpath,absolute) {
 		var host,
 			base,
 			fullpath,
@@ -220,7 +252,8 @@ CssParser.prototype = {
 
 		ext = mod_path.extname(fullpath);
 
-		host = "http://" + (host || this.calculateCDNHost(fullpath));
+		
+		host = (host || this.calculateCDNHost(fullpath));
 
 		name = fullpath.split(ext)[0];
 		version_match = name.match(reg_with_version);
@@ -231,6 +264,8 @@ CssParser.prototype = {
 		}
 
 		return {
+			csspath:csspath,
+			absolute:absolute,
 			host:host,
 			ext:ext,
 			version:version,
