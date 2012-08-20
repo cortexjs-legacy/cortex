@@ -7,8 +7,8 @@
   },
   "dependencies": {
     "should": "~1.1.0",
-		"adm-zip":"0.1.5"
-  },
+  	"tracer": "0.5.1"
+	},
   "devDependencies": {},
   "scripts": {
     "test": "mocha test/.*"

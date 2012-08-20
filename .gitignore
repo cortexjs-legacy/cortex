@@ -1,4 +1,6 @@
 .DS_Store
+node_modules/
+__cortex_tmp/
 test/a
 test/a.zip
 test/b/

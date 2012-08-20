@@ -21,7 +21,8 @@ function query(q,cb){
 }
 
 function get_all_images(cb){
-	query("select * from " + config.DB_VERSION + " where URL REGEXP 'png$|jpg$|gif$'", cb);
+	var sql = "select * from " + config.DB_VERSION + " where URL REGEXP 'png$|jpg$|gif$'";
+	query(sql, cb);
 }
 
 exports.query = query;
