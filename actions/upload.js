@@ -1,10 +1,6 @@
+var ActionFactory = require("./action_factory");
 
-var Upload = function(arg1,arg2){
-
-
-	console.log("ctx upload");
-
-}
+var Upload = ActionFactory.create("Upload")
 
 Upload.AVAILIABLE_OPTIONS = {
 

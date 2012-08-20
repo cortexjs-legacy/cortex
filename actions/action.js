@@ -9,8 +9,9 @@ function Action(args){
 
 	var AVAILIABLE_OPTIONS = this.constructor.AVAILIABLE_OPTIONS;
 
-
-	this.options = this._parseArgs(args,AVAILIABLE_OPTIONS);
+	var parsed = this._parseArgs(args,AVAILIABLE_OPTIONS);
+	this.options = parsed.options;
+	this.modules = parsed.modules;
 	
 }
 
@@ -27,11 +28,13 @@ Action.prototype._parseArgs = function(args,availiables){
 		l = args.length;
 
 	var options = {};
+	var modules = [];
 
 	for(; i < l ; i++ ){
 		var arg = args[i];
 
 		if(arg.charAt(0) !== "-"){
+			modules.push(arg);
 			continue;
 		}
 
@@ -64,7 +67,10 @@ Action.prototype._parseArgs = function(args,availiables){
 		}
 	}
 
-	return options;
+	return {
+		options:options,
+		modules:modules
+	};
 }
 
 

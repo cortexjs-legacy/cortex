@@ -1,13 +1,19 @@
 var ActionFactory = require("./action_factory");
 
 
-var Package = ActionFactory.create();
+var Package = ActionFactory.create("Package");
 
 
 Package.prototype.run = function() {
 	var opts = this.options;
 
-	console.log(this.options);
+	if(opts.zip){
+
+	}else if(opts.list){
+
+	}else{
+		console.log(this.options);
+	}
 };
 
 
