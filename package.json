@@ -9,6 +9,9 @@
     "should": "~1.1.0",
   	"tracer": "0.5.1"
 	},
+	"bin":{
+		"ctx":"bin/cortex.js"
+	},
   "devDependencies": {},
   "scripts": {
     "test": "mocha test/.*"
