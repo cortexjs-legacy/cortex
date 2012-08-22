@@ -43,16 +43,34 @@ FilterEngine.prototype = {
 		var self = this;
 		this.filters.forEach(function(mod){
 			var filter = mod.filter;
-			filter.parse && filter.parse(self.done(mod.name));
+			
+			/**
+			 * @type {Object} status {
+			         passed: {boolean}
+			         msg: {string}
+			     }
+			 */
+			filter.parse && filter.parse(function(err){
+    			if(err){
+    			     throw error;
+    			 }else{
+        			 self.done(mod.name);
+    			}
+    			
+			});
 		});
 	},
-	done:function(name){
-		var self = this;
-		return function(){
-			self.filters.filter(function(mod){
-				return mod.name === name;
-			})[0].filter.tearDown();
-		}
+	
+	done: function(name){
+		
+	},
+	
+	_check: function(){
+	    
+	},
+	
+	_teardown: function(){
+	    
 	}
 }	
 
@@ -95,6 +113,7 @@ db.get_all_images(function(err,rows){
 	process("imglist",rows);
 });
 
+
 tracer.info("获取lion配置至lionhosts");
 lion.get("key",function(err,data){
 	if(err) throw err;
@@ -110,6 +129,10 @@ function start(data){
 		hosts:data.lionhosts[0], // css cdn主机列表
 		filelist:data.filelist, // 上线文件列表
 		image_versions:data.imglist // 数据库图片列表
+	});
+	
+	filterEngine.assign("js", {
+    	filelist: data.filelist
 	});
 
 	filterEngine.run();
