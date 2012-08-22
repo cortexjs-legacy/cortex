@@ -92,37 +92,41 @@ filelist("txt",__dirname+"/filelist.txt",function(err,list){
 });
 */
 
-
 var base_dir = __dirname + "/res/", // 准备分析的目录
 	temp_dir = __dirname + "/" + config.TEMP_DIR_NAME + "/"; // 暂存文件夹
+	
+function main(){
 
-(function(){
-	var filelist = [];
-	tracer.info("获取上线文件列表至filelist");
-	fsMore.traverseDir(temp_dir,function(info){
-		if(info.isFile){
-			filelist.push(info.relPath);
-		}
+	(function(){
+		var filelist = [];
+		tracer.info("获取上线文件列表至filelist");
+		fsMore.traverseDir(temp_dir,function(info){
+			if(info.isFile){
+				filelist.push(info.relPath);
+			}
+		});
+		process("filelist",filelist);
+	})();
+
+	tracer.info("获取数据库图片版本至imglist");
+	db.get_all_images(function(err,rows){
+		if(err) throw err;
+		process("imglist",rows);
 	});
-	process("filelist",filelist);
-})();
 
-tracer.info("获取数据库图片版本至imglist");
-db.get_all_images(function(err,rows){
-	if(err) throw err;
-	process("imglist",rows);
-});
+	tracer.info("获取lion配置至lionhosts");
+	lion.get("key",function(err,data){
+		if(err) throw new Error(err);
+		process("lionhosts",data);
+	});
+}
 
 
-tracer.info("获取lion配置至lionhosts");
-lion.get("key",function(err,data){
-	if(err) throw err;
-	process("lionhosts",data);
-});
+module.exports = main;
 
 
 function start(data){
-	
+	tracer.info(data.filelist);
 	filterEngine.assign("css",{
 		temp_dir:temp_dir,
 		base:base_dir,
@@ -136,5 +140,4 @@ function start(data){
 	});
 
 	filterEngine.run();
-
 }
