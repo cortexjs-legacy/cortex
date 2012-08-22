@@ -2,13 +2,14 @@ var mysql = require('mysql');
 var config = require('./config');
 
 
-var connection = mysql.createClient({
+var connection = mysql.createConnection({
 	host: config.dbhost,
 	user: config.dbuser,
 	password: config.dbpassword,
 	database: config.dbdatabase
 });
 
+connection.connect();
 
 function query(q,cb){
 	var itv = setInterval(function(){
