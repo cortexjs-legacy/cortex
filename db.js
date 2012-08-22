@@ -30,4 +30,5 @@ function get_all_images(cb){
 }
 
 exports.query = query;
+exports.connection = connection;
 exports.get_all_images = get_all_images;
