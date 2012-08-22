@@ -2,25 +2,34 @@ var mysql = require('mysql');
 var config = require('./config');
 
 
-var connection = mysql.createClient({
+var connection = mysql.createConnection({
 	host: config.dbhost,
 	user: config.dbuser,
 	password: config.dbpassword,
 	database: config.dbdatabase
 });
 
+connection.connect();
 
-function query(q,cb){
-	var itv = setInterval(function(){
-		cb("数据库连接超时");
-	},3000);
-	connection.query(q,function(err,rows,fields){
-		clearTimeout(itv);
+function query(){
+	var args = arguments;
+	var cb;
+
+	if(args.length >= 3){
+		cb = args[2];
+		connection.query(args[0],arg[1],mysqlcb);
+	}else{
+		cb = args[1];
+		connection.query(args[0],mysqlcb);
+	}
+
+	function mysqlcb(err,rows,fields){
 		if(err){
 			cb(err);
 		}
 		cb(null,rows,fields);
-	});
+	}
+
 	connection.end();
 }
 

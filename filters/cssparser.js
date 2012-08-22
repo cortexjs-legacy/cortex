@@ -5,6 +5,13 @@ var mod_path = require('path');
 var mod_crypto = require('crypto');
 var mod_util = require('util');
 
+
+
+
+
+	// hosts:data.lionhosts[0], // css cdn主机列表
+	// image_versions:data.imglist // 数据库图片列表
+
 /**
  * 连接器，处理相对图片路径的各部分，将之拼装为目标格式
  * @param  {[type]} parsed {host,ext,name,version}
@@ -75,9 +82,7 @@ function connector(parsed){
  */
 function CssParser(opt) {
 	this.base = opt.base;
-	this.hosts = opt.hosts.constructor === Array ? opt.hosts : [opt.hosts];
 	this.filelist = opt.filelist;
-	this.image_versions = opt.image_versions; // image image_versions
 	this.connector = opt.connector || connector;
 	this._logs = [];
 }
@@ -99,13 +104,17 @@ CssParser.prototype = {
 	 * @return {Object} {changed:Boolean,content:String}
 	 */
 	parse: function(csspath) {
+
+
+
+
 		var self = this;
 
 		/**
 		 * 获取文件内容
 		 * @type {String}
 		 */
-		var content = fs.readFileSync(this.base + csspath, "utf-8");
+		var content = fs.readFileSync(mod_path.join(this.base,csspath), "utf-8");
 
 		/**
 		 * 匹配
