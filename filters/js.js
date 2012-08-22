@@ -27,7 +27,9 @@ path = require('path'),
 fs = require('fs'),
 fsMore = require('../util/fs-more'),
 db = require('../db'),
-config = require('../config');
+cfg = require('../config'),
+
+EventProxy = require('../util/event-proxy');
 
 
 /**
@@ -57,15 +59,7 @@ function substitute(template, params){
 function JsTraverser(config){
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    // ad-hoc parameters, which should read from db
-    config = {
-        pkg: 0,
-        libPkg: 100,
-        jsPath: '/s/j/app/',
-        libJsPath: '/lib/1.0',
-        list: []
-    };
-    
+    // ad-hoc parameters, which should read from db   
     var STATIC_ROOT = path.join(__dirname, '../res');
     //////////////////////////////////////////////////////////////////////////////////////////
 
@@ -77,9 +71,7 @@ function JsTraverser(config){
     
     // this.parseRoot = path.join(STATIC_ROOT, config.jsPath);
     this.parseRoot = STATIC_ROOT;
-    this.tempRoot = this.parseRoot + '/' + config.TEMP_DIR_NAME;
-    
-    this.filelist = this._filterList(config.list);
+    this.tempRoot = this.parseRoot + '/' + cfg.TEMP_DIR_NAME;
     
     this._jsFiles = [];
 };
@@ -107,7 +99,69 @@ JsTraverser.prototype = {
         return file.replace(this.config.jsPath + '/', '').split('/')[0].toLowerCase();
     },
     
-    parse: function(){
+    parse: function(callback){
+        var self = this;
+        
+        self._prepareData(function(err){
+            if(err){
+                callback(err);
+            }else{
+                self._parse();
+                callback(); 
+            }
+        });
+    },
+    
+    _prepareData: function(callback){
+        var 
+        
+        self = this,
+        config = this.config;
+    
+        db.query(substitute('SELECT * FROM {DB_NAME} WHERE Package = {pkg}', {
+            DB_NAME: cfg.DB_PACKAGE,
+            pkg: config.pkg
+            
+        }), function(err, data){
+            if(err){
+                callback('DB Error: ' + err);
+                
+            }else{
+                data = data[0];
+                
+                if(data){
+                    config.libPkg = data.LibPackage;
+                    config.jsPath = data.JsPath;
+                    
+                    self.filelist = self._filterList(config.filelist);
+                    
+                    if(config.libPkg == config.pkg){
+                        config.libJsPath = config.jsPath;
+                        callback();
+                    }else{
+                    
+                        db.query(substitute('SELECT * FROM {DB_NAME} WHERE Package = {pkg}', {
+                            DB_NAME: config.DB_PACKAGE,
+                            pkg: config.libPkg
+                            
+                        }), function(err, data){
+                            config.libJsPath = data[0].JsPath;
+                            
+                            
+                        });
+                    }
+                
+                }else{
+                    console.log('WARNING: Package ' + config.pkg + ' not found!');
+                    
+                    callback();    
+                }
+            }
+            
+        });
+    },
+    
+    _parse: function(){
         var self = this,
             config = self.config,
             processor = new Processor({
@@ -124,13 +178,14 @@ JsTraverser.prototype = {
             if(self._checkFile(file)){
             
                 
-                var content = fs.readFileSync(self.tempRoot + file);
+                var path_detail = self.tempRoot + file,
+                    content = fs.readFileSync(path_detail);
                 
-                // dependencies
+                // parse dependencies
                 var info = {
-                        deps: deps(content),
+                        deps: deps(content).deps,
                         path: file
-                    }
+                    };
                     
                 if(!self.isLibPkg()){
                     info.appName = self._getAppName(file);
@@ -145,15 +200,18 @@ JsTraverser.prototype = {
                     });
                   
                 if(result.passed && result.changed){
-                    var fd = fs.openSync(file, 'w+');
+                    var fd = fs.openSync(path_detail, 'w+');
                     
                     fs.writeSync(fd, result.changed);
-                }  
-                
+                }
             }
         });
     },
     
+    
+    /**
+     * @returns {boolean}
+     */
     isLibPkg: function(){
         var config = this.config;
         
@@ -164,8 +222,7 @@ JsTraverser.prototype = {
      * path -> '/lib/2.0/io/ajax.js'
      * @returns {boolean} true if the file is ok, or successfully moved the related file into the temp directory
      */
-    _checkFile: function(relPath){
-        
+    _checkFile: function(relPath){     
         return fsMore.isFile(this.tempRoot + relPath) || this._moveToTempDir(relPath);
     },
     
@@ -189,45 +246,55 @@ JsTraverser.prototype = {
      * copy files
      * empty temp folders
      */
-    tearDown: function(){
-        this._updateDeps();
+    tearDown: function(callback){
+        this._updateDeps(callback);
     },
     
     /**
      * update database CM_jsDependency
      */
-    _updateDeps: function(){
-        var DB_NAME = config.DB_DEPENDENCY,
+    _updateDeps: function(callback){
+        var DB_NAME = cfg.DB_DEPENDENCY,
             self = this,
-            config = self.config;
+            config = self.config,
+            
+            proxy = new EventProxy(callback).hangUp();
         
         self._jsFiles.forEach(function(js){
+            proxy.assign(js.deps.length);
             
-            db.query(substitute('DELETE * FROM {DB_NAME} WHERE URL = {url} AND Package = {pkg}', {
+            db.query(substitute("DELETE FROM {DB_NAME} WHERE URL = '{url}' AND Package = {pkg}", {
                 DB_NAME: DB_NAME,
                 url: js.path,
                 pkg: config.pkg
-            }));
-            
-            // Each dependency creates a record
-            js.deps.forEach(function(dep){
-                dep = self._santitizeDep(dep, js);
                 
-                if(!dep){
-                    return;
-                }
+            }), function(err, data){
             
-                db.query(substitute(
-                    'INSERT INTO {DB_NAME} (URL, Package, ParentURL, ParentPackage) VALUES ({url}, {pkg}, {parent_url}, {parent_pkg})', {
-                    DB_NAME: DB_NAME,
-                    url: js.path,
-                    pkg: config.pkg,
-                    parent_url: dep.path,
-                    parent_pkg: dep.pkg
-                }));
-            });
-            
+                // Each dependency creates a record
+                js.deps.forEach(function(dep){
+                    dep = self._santitizeDep(dep, js);
+                    
+                    if(!dep){
+                        return;
+                    }
+                    
+                    var sql = substitute(
+                        "INSERT INTO {DB_NAME} (URL, Package, ParentURL, ParentPackage, AddDate) VALUES ('{url}', {pkg}, '{parent_url}', {parent_pkg}, NOW())", {
+                        DB_NAME: DB_NAME,
+                        url: js.path,
+                        pkg: config.pkg,
+                        parent_url: dep.path,
+                        parent_pkg: dep.pkg
+                    });
+                
+                    db.query(sql, function(err, data, field){
+                        proxy.trigger();
+                    });
+                });
+            });            
         });
+        
+        proxy.resume();
     },
     
     
@@ -237,6 +304,7 @@ JsTraverser.prototype = {
      */
     _santitizeDep: function(dep, context_info){
         var self = this,
+            config = self.config,
             is_app_pattern = dep.indexOf(STR_APP_SPLITTER) !== -1,
             dep_path,
             dep_pkg;
@@ -250,13 +318,12 @@ JsTraverser.prototype = {
             var split = dep.split(STR_APP_SPLITTER);
         
             // 'promo::index' -> '/s/j/app' + '/' + 'promo/index'
-            dep_path = self.jsPath + '/' + split.join('/');
+            dep_path = config.jsPath + '/' + split.join('/');
         
         }else if(REGEX_RELATIVE_APP_PREFIX.test(dep)){
 
             // '~/index/locmap' -> '/s/j/app' + '/' + 'index/locmap'
-            dep_path = self.jsPath + '/' + context_info.appName + '/' + dep.replace(REGEX_RELATIVE_APP_PREFIX, '');
-            dep_pkg
+            dep_path = config.jsPath + '/' + context_info.appName + '/' + dep.replace(REGEX_RELATIVE_APP_PREFIX, '');
             
         }else if(self._isRelativeURL(dep)){
         
@@ -266,12 +333,12 @@ JsTraverser.prototype = {
         }else{
         
             // 'io/jsonp'
-            dep_path = self.libJsPath + '/' + dep;
-            dep_pkg = self.libPkg;
+            dep_path = config.libJsPath + '/' + dep;
+            dep_pkg = config.libPkg;
         }
         
         return {
-            pkg: dep_pkg || self.pkg,
+            pkg: dep_pkg || config.pkg,
             path: dep_path + '.js'
         }
         
@@ -282,7 +349,7 @@ JsTraverser.prototype = {
     },
     
     _getPkgPath: function(url){
-        return url.replace(this.jsPath).replace(/~\//);
+        return url.replace(this.config.jsPath, '').replace(/^\//, '');
     }
     
 };
