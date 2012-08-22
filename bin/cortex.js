@@ -9,10 +9,10 @@ var ctx = {};
 
 var AVAILIABLE_ACTIONS = require("../actions.json");
 
-// process.on('uncaughtException', function (err) {
-// 	tracer.error('Caught exception: ' + err);
-// 	process.exit(1);
-// });
+process.on('uncaughtException', function (err) {
+	tracer.error('Caught exception: ' + err);
+	process.exit(1);
+});
 
 /**
  * prepare actions

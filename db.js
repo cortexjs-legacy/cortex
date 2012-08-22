@@ -11,7 +11,11 @@ var connection = mysql.createClient({
 
 
 function query(q,cb){
+	var itv = setInterval(function(){
+		cb("数据库连接超时");
+	},3000);
 	connection.query(q,function(err,rows,fields){
+		clearTimeout(itv);
 		if(err){
 			cb(err);
 		}

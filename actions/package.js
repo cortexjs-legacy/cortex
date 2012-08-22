@@ -1,18 +1,28 @@
 var ActionFactory = require("./action_factory");
-
+var config = require("../config")
+var zipper = require("../util/zipper"); 
+var main = require("../main");
 
 var Package = ActionFactory.create("Package");
 
 
 Package.prototype.run = function() {
-	var opts = this.options;
+	var opts = this.options,
+		filename;
 
 	if(opts.zip){
+		filename = opts.zip;
 
+		zipper.unzip(filename,config.TEMP_DIR_NAME,function(err,data){
+			if(err){
+				throw new Error(err);
+			}
+
+			main();
+
+		});
 	}else if(opts.list){
 
-	}else{
-		console.log(this.options);
 	}
 };
 

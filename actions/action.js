@@ -53,8 +53,11 @@ Action.prototype._parseArgs = function(args,availiables){
 
 		var optlen = availiables[optname].length || 0;
 
-		if(optlen == 0){
+		if(optlen === 0){
 			options[optname] = true
+		}else if(optlen === 1){
+			i++;
+			options[optname] = args[i]
 		}else{
 			options[optname] = [];
 			while(optlen--){
