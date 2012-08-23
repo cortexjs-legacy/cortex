@@ -1,26 +1,24 @@
 var mysql = require('mysql');
 var config = require('./config');
 
-
 var connection = mysql.createConnection({
 	host: config.dbhost,
 	user: config.dbuser,
 	password: config.dbpassword,
 	database: config.dbdatabase
 });
-
 connection.connect();
 
 function query(){
 	var args = arguments;
 	var cb;
 
+
 	if(args.length >= 3){
 		cb = args[2];
 		connection.query(args[0],arg[1],mysqlcb);
 	}else{
 		cb = args[1];
-		connection.query(args[0],mysqlcb);
 	}
 
 	function mysqlcb(err,rows,fields){
@@ -30,7 +28,8 @@ function query(){
 		cb(null,rows,fields);
 	}
 
-	connection.end();
+	connection.query(args[0],mysqlcb);
+
 }
 
 function get_all_images(cb){
