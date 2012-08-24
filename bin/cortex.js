@@ -9,8 +9,9 @@ var ctx = {};
 
 var AVAILIABLE_ACTIONS = require("../actions.json");
 
+
 process.on('uncaughtException', function (err) {
-	tracer.error('Caught exception: ' + err);
+	tracer.error('捕获异常: ' + err);
 	process.exit(1);
 });
 

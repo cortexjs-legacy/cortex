@@ -17,8 +17,7 @@ filterEngine = new FilterEngine();
  */
 function parsePackage(packages,filelist){
 
-console.log(filelist);
-	
+	tracer.info("拆分package");
 	var pkgs = [];
 
 
@@ -49,6 +48,7 @@ function main(){
 	var filelist = [];
 	var packages; // 数据库中的package列表
 
+
 	var temp_dir = pathmod.join(config.TEMP_DIR_NAME);
 
 	var eventProxy = new EventProxy(_start);
@@ -57,8 +57,9 @@ function main(){
 	eventProxy.assign("db"); 
 	
 	db.query("select * from CM_StaticResourcePackage",function(err,rows){
-		if(err) throw err;
+		if(err) throw new Error(err);
 		packages = rows;
+		tracer.info("已获取所有静态资源包");
 		eventProxy.trigger("db");
 	});
 
@@ -75,28 +76,33 @@ function main(){
 
 	function _start(){
 
-
+		tracer.info("开始处理");
 		packages = parsePackage(packages,filelist);
 
-		packages.forEach(function(item){
+		if(!packages.length){
+			tracer.info("没有需要处理的包");
+			process.exit();
+		}else{
+			packages.forEach(function(item){
 
-			var pkg = item.Package;
-			var jsfilelist = filelist.filter(function(filepath){
-				return filepath.indexOf(item.JsPath) == 0;
-			});
+				var pkg = item.Package;
+				var jsfilelist = filelist.filter(function(filepath){
+					return filepath.indexOf(item.JsPath) == 0;
+				});
 
-			filterEngine.assign("css",{
-				filelist:filelist, // 上线文件列表
+				filterEngine.assign("css",{
+					filelist:filelist, // 上线文件列表
+				});
+				
+				/*
+				filterEngine.assign("js", {
+					filelist: jsfilelist,
+			    	pkg:pkg
+				});
+	 */
+				filterEngine.run();
 			});
-			
-			/*
-			filterEngine.assign("js", {
-				filelist: jsfilelist,
-		    	pkg:pkg
-			});
- */
-			filterEngine.run();
-		});
+		}
 	}
 
 }

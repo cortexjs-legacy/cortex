@@ -9,10 +9,17 @@ var connection = mysql.createConnection({
 });
 connection.connect();
 
+connection.on("error",function(err){
+	throw new Error(err);
+});
+
 function query(){
 	var args = arguments;
 	var cb;
 
+	var itv = setTimeout(function(){
+		cb("数据库连接超时");
+	},10*1000);
 
 	if(args.length >= 3){
 		cb = args[2];
@@ -22,9 +29,11 @@ function query(){
 	}
 
 	function mysqlcb(err,rows,fields){
+		clearTimeout(itv);
 		if(err){
-			cb(err);
+			cb("数据库查询出错"+err);
 		}
+
 		cb(null,rows,fields);
 	}
 

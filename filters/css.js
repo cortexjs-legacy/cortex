@@ -150,8 +150,9 @@ CssTraverser.prototype = {
         this._done();
 
     },
-	tearDown:function(){
+	tearDown:function(done){
 		tracer.info("css遍历处理完毕");
+        done();
 	}
 }
 
