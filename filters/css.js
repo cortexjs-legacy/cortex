@@ -77,9 +77,11 @@ CssTraverser.prototype = {
 
 
         tracer.info("获取lion配置至lionhosts");
-        lion.get("key",function(err,data){
+        lion.get("dp-common-web.imgResourceServer",function(err,data){
             err && done(err);
-
+            try{
+                data = JSON.parse(data);
+            }catch(e){}
             tracer.info("lion hosts配置已获取");
             self.data["hosts"] = data; 
             self.eventproxy.trigger("hosts");

@@ -44,7 +44,7 @@ function parsePackage(packages,filelist){
 
 
 
-function main(){
+function _main(dbconfig){
 	var filelist = [];
 	var packages; // 数据库中的package列表
 
@@ -99,7 +99,7 @@ function main(){
 					filelist: jsfilelist,
 			    	pkg:pkg
 				});
-	 */
+				*/
 				filterEngine.run();
 			});
 		}
@@ -108,6 +108,8 @@ function main(){
 }
 
 
-main();
+function main(){
+	db.connect(_main);
+}
 
 module.exports = main;
