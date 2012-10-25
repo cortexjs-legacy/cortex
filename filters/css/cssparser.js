@@ -2,7 +2,7 @@ var fs = require('fs');
 var tracer = require("tracer").colorConsole();
 var mod_url = require('url');
 var mod_path = require('path');
-var mod_crypto = require('crypto');
+var mod_md5 = require('MD5');
 var mod_util = require('util');
 
 
@@ -22,52 +22,14 @@ function connector(parsed){
 		filelist = self.filelist,
 		csspath = parsed.csspath,
 		host = parsed.host,
+		md5 = parsed.md5,
 		ext = parsed.ext,
 		name = parsed.name,
 		version = parsed.version,
-		image_versions = this.image_versions || [],
 		ret;
 
-	function getVersion(path){
-		var r = image_versions.filter(function(row){
-			return row.URL === path;
-		});
+	ret = "http://" + host+name+ext+"/"+md5+ext;
 
-		return r[0] ? r[0]["Version"] : "";
-	}
-
-	function inFileList(path){
-		return filelist.indexOf(path.substr(1)) !== -1;
-	}
-
-	function insideHost(host){
-		// this.hosts.indexOf(host)!==-1
-		return host.match("static.dp");
-	}
-
-	version = getVersion(name+ext);
-
-	// 如果version不存在，且为相对路径
-	
-	if(parsed.absolute && !insideHost(host)){
-		// 若为绝对地址，且该地址为外网地址，将version设置为undefined，代表无需添加版本号
-		version = undefined;
-	}else{
-		if(!version){
-			// 检查文件是否存在于文件列表
-			// 若存在，记录为需要插入，version为1
-			if(inFileList(name+ext)){
-				version = 0;
-			}else{
-			// 否则，抛warning
-				tracer.warn(csspath+" : "+name+ext + " 不存在于版本数据库与上线列表");
-			}
-		}
-	}
-	
-
-	version = version!==undefined ? ".v"+(version+1) : "";
-	ret = "http://" + host+name+version+ext;
 	return ret;
 }
 
@@ -76,12 +38,13 @@ function connector(parsed){
 
 /**
  * @param {Object} opt
- * @param {String} opt.base css文件的根目录
+ * @param {String} opt.root css文件的根目录
  * @param {String} opt.host 绝对路径的host地址
  * @param {String} image_version 所有图片文件的结果集，参考DianPing. DP_StaticFileVersion
  */
 function CssParser(opt) {
-	this.base = opt.base;
+	this.root = opt.root;
+	this.hosts = opt.hosts;
 	this.filelist = opt.filelist;
 	this.connector = opt.connector || connector;
 	this._logs = [];
@@ -90,7 +53,7 @@ function CssParser(opt) {
 CssParser.prototype = {
 	log:function(){
 		this._logs.forEach(function(lg){
-			tracer.info(lg);
+			console.log(lg);
 		});
 		this._logs = [];
 	},
@@ -114,7 +77,7 @@ CssParser.prototype = {
 		 * 获取文件内容
 		 * @type {String}
 		 */
-		var content = fs.readFileSync(mod_path.join(this.base,csspath), "utf-8");
+		var content = fs.readFileSync(mod_path.join(this.root,csspath), "utf-8");
 
 		/**
 		 * 匹配
@@ -171,7 +134,7 @@ CssParser.prototype = {
 			if(!isRelative(imgpath)){
 				parsed = self.calculateImagePath(csspath,imgpath,true);
 			}else{
-				parsed = self.calculateImagePath(csspath,imgpath);
+				parsed = self.calculateImagePath(csspath,imgpath,false);
 			}
 
 			image_paths.push((parsed.name+parsed.ext).substr(1));
@@ -219,12 +182,11 @@ CssParser.prototype = {
 	 * @return {[type]}      [description]
 	 */
 	calculateCDNHost:function(path){
-		var md5 = mod_crypto.createHash("md5"),
-			hosts = this.hosts,
+		var hosts = this.hosts,
 			count = hosts.length;
 
-		md5.update(path);
-		return hosts[parseInt(md5.digest("hex"),16) % count];
+
+		return hosts[parseInt(mod_md5(path),16) % count][0];
 	},
 
 	/**
@@ -241,25 +203,30 @@ CssParser.prototype = {
 	 */
 	calculateImagePath:function(csspath,imgpath,absolute) {
 		var host,
-			base,
+			root,
+			cssroot,
 			fullpath,
 			url_parsed,
 			name,
+			hash,
 			version_match,
-			version = null,
+			real_full_path,
 			reg_with_version = /([\w\/\.]+)(\.v\d+)/,
 			ext;
+
+		root = this.root;
 
 		if(absolute){
 			url_parsed = mod_url.parse(imgpath);
 			fullpath = url_parsed.pathname;
 			host = url_parsed.host;
 		}else{
-			base = mod_path.dirname(csspath);
-			fullpath = "/" + mod_path.join(base,imgpath);
+			cssroot = mod_path.dirname(csspath);
+			fullpath = "/" + mod_path.join(cssroot,imgpath);
 		}
 
 		ext = mod_path.extname(fullpath);
+
 
 		
 		host = (host || this.calculateCDNHost(fullpath));
@@ -272,12 +239,23 @@ CssParser.prototype = {
 			name = version_match[1];
 		}
 
+
+
+
+		real_full_path = mod_path.join(root,fullpath);
+
+		if(!fs.existsSync(real_full_path)){
+			throw new Error("图片不存在"+fullpath);
+		}
+
+		hash = mod_md5(fs.readFileSync(real_full_path));
+
 		return {
 			csspath:csspath,
 			absolute:absolute,
 			host:host,
 			ext:ext,
-			version:version,
+			md5:hash,
 			name:name
 		};
 	}

@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var lion = require('./util/lion');
 var url = require("url");
+var config = require("./config");
 var EventProxy = require("./util/event-proxy");
 
 var connection;
