@@ -8,7 +8,8 @@
   "dependencies": {
 		"mysql":"2.0.0-alpha3",
     "should": "~1.1.0",
-  	"tracer": "0.5.1"
+  	"tracer": "0.5.1",
+    "md5": "1.0.0"
 	},
 	"bin":{
 		"ctx":"bin/cortex.js"
