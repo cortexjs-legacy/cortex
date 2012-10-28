@@ -7,8 +7,7 @@ var tracer = require("tracer").colorConsole(),
 	config = require("./config");
 
 
-
-filterEngine = new FilterEngine();
+filterEngine = FilterEngine;
 
 
 /**
@@ -36,25 +35,22 @@ function parsePackage(packages,filelist){
 
 // 主流程
 
-/**
- * mod:
- * zip:从zip包获取文件列表
- * txt:从txt文件获取文件列表
- */
 
-
-
-function _main(dbconfig){
+function _main(root){
 	var filelist = [];
 	var packages; // 数据库中的package列表
 
 
 	var temp_dir = pathmod.join(config.TEMP_DIR_NAME);
 
-	var eventProxy = new EventProxy(_start);
+	// var eventProxy = new EventProxy(_start);
 
 	// 获取package列表以供分析
-	eventProxy.assign("db"); 
+	
+	//现在不获取db啦
+	// eventProxy.assign("db"); 
+	
+	/*
 	
 	db.query("select * from CM_StaticResourcePackage",function(err,rows){
 		if(err) throw new Error(err);
@@ -63,53 +59,53 @@ function _main(dbconfig){
 		eventProxy.trigger("db");
 	});
 
+	 */
+	
 
 	(function(){
-		tracer.info("获取上线文件列表至filelist");
-		fsMore.traverseDir(temp_dir,function(info){
+		tracer.info("获取上线文件列表");
+		fsMore.traverseDir(root,function(info){
 			if(info.isFile){
 				filelist.push("/" + info.relPath);
 			}
 		});
+		console.log("已获取\n" + filelist.join("\n"));
+		_start();
 	})();
 
 
 	function _start(){
 
 		tracer.info("开始处理");
-		packages = parsePackage(packages,filelist);
+		// packages = parsePackage(packages,filelist);
 
-		if(!packages.length){
+		if(!filelist.length){
 			tracer.info("没有需要处理的包");
 			process.exit();
 		}else{
-			packages.forEach(function(item){
-
-				var pkg = item.Package;
+			/*
 				var jsfilelist = filelist.filter(function(filepath){
 					return filepath.indexOf(item.JsPath) == 0;
 				});
+			*/
 
-				filterEngine.assign("css",{
-					filelist:filelist, // 上线文件列表
-				});
-				
-				/*
-				filterEngine.assign("js", {
-					filelist: jsfilelist,
-			    	pkg:pkg
-				});
-				*/
-				filterEngine.run();
+			filterEngine.assign("css",{
+				base_dir:root,
+				temp_dir:"build/build-"+(+new Date())+"/.cortex",
+				filelist:filelist // 上线文件列表
 			});
+			
+			filterEngine.run();
 		}
 	}
 
 }
 
 
-function main(){
-	db.connect(_main);
+function main(root){
+	db.connect(function(dbconfig){
+		_main(root);
+	});
 }
 
 module.exports = main;

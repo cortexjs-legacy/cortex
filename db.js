@@ -17,13 +17,15 @@ exports.connect = function(cb){
 	var eventproxy = new EventProxy(function(){
 
 		console.log("连接数据库");
-		connection = mysql.createConnection({
+		var conn_opt = {
 			host: dbconfig.host,
 			user: dbconfig.username,
 			password: dbconfig.password,
 			port:dbconfig.port,
 			database: dbconfig.database
-		});
+		};
+		
+		connection = mysql.createConnection(conn_opt);
 		connection.on("error",cb);
 		connection.connect();
 		cb(null,connection);

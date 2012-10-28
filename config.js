@@ -1,11 +1,11 @@
 
 var config = {
 	dbhost         : "192.168.8.44",
-	dbuser         : "dpcom_comm",
-	dbpassword     : "dp!@C5NsYGTPg",
-	dbdatabase     : "DianPingCOMM",
+	dbuser         : "aspnet_user",
+	dbpassword     : "dp!@78()-=",
+	dbdatabase     : "DianPing",
 	
-	DB_VERSION     : 'CM_StaticResourceVersion',
+	DB_VERSION     : 'DP_StaticFileVersion', 
 	DB_PACKAGE     : 'CM_StaticResourcePackage',
 	DB_DEPENDENCY  : 'CM_JsDependency',
 	TEMP_DIR_NAME  : '__cortex_tmp'

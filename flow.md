@@ -71,6 +71,9 @@ root/
 project-config.json
 
 
+filelist.json:{
+    <filename>:<md5>
+}
 
 
 

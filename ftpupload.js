@@ -1,4 +1,5 @@
 var fsmore = require('./util/fs-more'),
+    path = require('path'),
     FTPClient = require('ftp'),
     async = require("async"),
     fs = require('fs'),
@@ -10,6 +11,7 @@ function traverseUpload(dirname,remotedir,cb){
   var remotedir,cb;
   var tasks = [];
 
+  console.log("uploading " +dirname + " -> " + remotedir);
   tasks.push(function(done){
     process.stdout.write("mkdir "+remotedir+" ");
     conn.mkdir(remotedir,function(e){
@@ -24,11 +26,11 @@ function traverseUpload(dirname,remotedir,cb){
 
   fsmore.traverseDir(dirname,function(info){
     var task;
-
+    var dest = path.join(remotedir,info.relPath);
     if(info.isFile){
       task = function(done){
-        process.stdout.write("upload "+info.fullPath+" ");
-        conn.put(fs.createReadStream(info.fullPath),info.fullPath,function(e){
+        process.stdout.write("upload "+dest+" ");
+        conn.put(fs.createReadStream(info.fullPath),dest,function(e){
           if(e){
             process.stdout.write(("fail "+e).red+"\r\n");
           }else{
@@ -41,8 +43,8 @@ function traverseUpload(dirname,remotedir,cb){
 
     if(info.isDirectory){
       task = function(done){
-        process.stdout.write("mkdir "+info.fullPath+" ");
-        conn.mkdir(info.fullPath,function(e){
+        process.stdout.write("mkdir "+dest+" ");
+        conn.mkdir(dest,function(e){
           if(e){
             process.stdout.write(("fail "+e).red+"\r\n");
           }else{
@@ -63,6 +65,7 @@ function upload(opt,cb){
   conn.removeAllListeners('connect');
   conn.on('connect', function() {
     // authenticate as anonymous
+  console.log("connecting ftp");
   conn.auth(opt.username,opt.password,function(e) {
       if (e){throw e;}
       traverseUpload(opt.dirname,opt.remotedir,function(e){
