@@ -21,6 +21,7 @@ pubish: {
 var
 
 fs = require('fs'),
+fs_more = require('../util/'),
 path = require('path'),
 
 CONFIG_FILE = 'publish.json';
@@ -28,15 +29,34 @@ CONFIG_FILE = 'publish.json';
 function PrePublish(options){
     this.cwd = options.cwd;
     
+    this._getConfig();
 };
 
 
 PrePublish.prototype = {
     run: function(){
+        var 
         
+        root = this._getBuildDir();
+        
+        (this.config.dirs || []).forEach(function(dir_setting){
+            var 
+            
+            dir = dir_setting.dir,
+            to = dir_setting.to || dir;
+            
+            copyFileSync(
+                path.join(this.cwd, dir),
+                path.join(root, to)
+            );
+        });
     },
     
-    _getPublishConfig: function(){
+    _getBuildDir: function(){
+        return path.join(this.cwd, this.config.build_directory || 'build', 'build-' + (+ new Date));
+    },
+        
+    _getConfig: function(){
         var
         
         content = fs.readFileSync(path.join(this.cwd, CONFIG_FILE)),
@@ -54,5 +74,7 @@ PrePublish.prototype = {
 };
 
 
-module.exports = PrePublish;
+exports.create = function(options){
+    return new PrePublish(options);
+};
 
