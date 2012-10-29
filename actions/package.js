@@ -7,17 +7,17 @@ var Package = ActionFactory.create("Package");
 
 
 Package.prototype.run = function() {
-	var opts = this.options,
-		mods = this.modules,
-		root = mods[0];
+    var opts = this.options,
+        mods = this.modules,
+        root = mods[0];
 
-	main(root);	
+    main(root || process.cwd());
 };
 
 Package.MESSAGE = {
-	USAGE:"usage: ctx package root",
-	DESCRIBE:"从指定目录打包静态文件"
-}
+    USAGE: "usage: ctx package root",
+    DESCRIBE: "从指定目录打包静态文件"
+};
 
 
 module.exports = Package;
