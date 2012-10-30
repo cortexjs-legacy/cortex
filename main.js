@@ -19,9 +19,11 @@ function _main(root){
     };
     
     [
+       // 'publish-imitate' // ,
+        'css',
+        'yui-compressor',
         'update',
         'publish-imitate' // ,
-        // 'css',
         // 'md5-diff'
     
     ].forEach(function(filter){

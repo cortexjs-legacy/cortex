@@ -212,6 +212,7 @@ CssParser.prototype = {
 			version_match,
 			real_full_path,
 			reg_with_version = /([\w\/\.]+)(\.v\d+)/,
+			error_info,
 			ext;
 
 		root = this.root;
@@ -245,7 +246,8 @@ CssParser.prototype = {
 		real_full_path = mod_path.join(root,fullpath);
 
 		if(!fs.existsSync(real_full_path)){
-			throw new Error("图片不存在"+fullpath);
+			error_info = "图片不存在 " + csspath + " -> " + fullpath;
+			throw Error(error_info);
 		}
 
 		hash = mod_md5(fs.readFileSync(real_full_path));
