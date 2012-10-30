@@ -1,30 +1,35 @@
 {
-  "name": "cortex",
-  "version": "0.0.0",
-  "main": "main.js",
-  "directories": {
-    "test": "test"
-  },
-  "dependencies": {
-		"mysql":"2.0.0-alpha3",
-    "colors":"0.6.0",
-    "async":"0.1.22",
-    "ftp":"0.1.7",
-    "should": "~1.1.0",
-  	"tracer": "0.5.1",
-    "MD5": "1.0.1",
-    "iconv": "1.2.3",
-	},
-	"bin":{
-		"ctx":"bin/cortex.js"
-	},
-  "devDependencies": {},
-  "scripts": {
-    "test": "mocha test/.*"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@f2e.dp:cortex.git"
-  },
-  "license": "BSD"
+    "name": "cortex",
+    "version": "0.0.0",
+    "main": "main.js",
+    "directories": {
+        "test": "test"
+    },
+    
+    "dependencies": {
+        "mysql":"2.0.0-alpha3",
+        "colors":"0.6.0",
+        "async":"0.1.22",
+        "ftp":"0.1.7",
+        "should": "~1.1.0",
+        "tracer": "0.5.1",
+        "MD5": "1.0.1"
+    },
+    
+    "bin":{
+        "ctx":"bin/cortex.js"
+    },
+    
+    "devDependencies": {},
+    
+    "scripts": {
+        "test": "mocha test/.*"
+    },
+    
+    "repository": {
+        "type": "git",
+        "url": "git@f2e.dp:cortex.git"
+    },
+    
+    "license": "BSD"
 }
