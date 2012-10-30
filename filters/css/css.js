@@ -15,7 +15,7 @@ var base_dir = path_mod.join(__dirname,'..','res'), // 准备分析的目录
 
 function CssTraverser(config){
     var self = this;
-    this.root = config.root;
+    this.root = config.cwd;
     this.data = {};
 }
 
@@ -25,6 +25,11 @@ CssTraverser.prototype = {
 	_isCss:function(path){
 		return path_mod.extname(path) === ".css";
 	},
+
+    _isNotMin:function(path){
+        return !/\.min\.css$/.test(path);
+    },
+
 	_isImage:function(path){
 		var exts = [".png",".jpg",".gif",".bmp",".jpeg"],
 			ext = path_mod.extname(path);

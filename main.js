@@ -48,8 +48,9 @@ function _main(root){
     };
     
     [
-        'publish-imitate' // ,
-        // 'css',
+        // 'publish-imitate' // ,
+        'css',
+        'yui-compressor'
         // 'md5-diff'
     
     ].forEach(function(filter){
