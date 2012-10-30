@@ -12,6 +12,7 @@ MD5_FILE = 'md5.json',
 
 fs = require('fs'),
 fs_more = require('../util/fs-more'),
+tracer = require("tracer").colorConsole(),
 path = require('path');
 
 
@@ -48,7 +49,8 @@ Diff.prototype = {
         
         }catch(e){
             console.log(e);
-            throw 'error parsing: ' + pathname;
+            tracer.error( '分析 ' + pathname + '时出错，请检查你的代码' );
+            throw 'error!';
         }
         
         if(this.last_build_root){
@@ -58,7 +60,8 @@ Diff.prototype = {
             
             }catch(e){
                 console.log(e);
-                throw 'error parsing: ' + pathname;
+                tracer.error( '分析 ' + pathname + '时出错，请检查你的代码' );
+                throw 'error!';
             }
         }
         
@@ -98,7 +101,8 @@ Diff.prototype = {
         build_dirs = this._getSortedBuildDirs();
         
         if(!build_dirs.length){
-            throw 'no build directory found, there should be a directory like: build-<timestamp>'
+            tracer.error( '没有发现包文件夹，形如：build-<timestamp>/' );
+            throw 'error!';
         }
         
         
@@ -154,8 +158,8 @@ Diff.prototype = {
         try{
             config = JSON.parse(content);
         }catch(e){
-            console.log('error info:', e);
-            throw 'parsing publish.json failed, please check your code.';
+            tracer.error('分析 publish.json 时出错, 请检查你的代码', e);
+            throw 'error!';
         }
         
         return this.config = config;

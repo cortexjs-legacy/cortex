@@ -3,44 +3,15 @@ var tracer = require("tracer").colorConsole(),
     fsMore = require("./util/fs-more"),
     pathmod = require("path"),
     EventProxy = require("./util/event-proxy"),
-    FilterEngine = require("./util/filter-engine"),
+    filterEngine = require("./util/filter-engine"),
     db = require("./db"),
     config = require("./config");
 
 
-filterEngine = FilterEngine;
-
-
-/**
- * 根据
- * filelist以及resource package下的rows分析出需要更新的package id
- */
-function parsePackage(packages,filelist){
-
-    tracer.info("拆分package");
-    var pkgs = [];
-
-
-    packages.forEach(function(item){
-        if(filelist.some(function(filepath){
-            return filepath.indexOf(item.JsPath) == 0;
-        })){
-            pkgs.push(item);
-        }
-    });
-
-    return pkgs;
-}
-
-
-
 // 主流程
-
-
 function _main(root){
 
-    console.log("开始应用已配置的滤镜：");
-    // packages = parsePackage(packages,filelist);
+    console.log("开始应用已配置的滤镜 >>>>>>>>>>");
 
          
     var options = {
@@ -48,9 +19,11 @@ function _main(root){
     };
     
     [
-        // 'publish-imitate' // ,
+       // 'publish-imitate' // ,
         'css',
-        'yui-compressor'
+        'yui-compressor',
+        'update',
+        'publish-imitate' // ,
         // 'md5-diff'
     
     ].forEach(function(filter){
