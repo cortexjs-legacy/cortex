@@ -21,23 +21,28 @@ pubish: {
 var
 
 fs = require('fs'),
-fs_more = require('../util/'),
+tracer = require("tracer").colorConsole(),
+fs_more = require('../util/fs-more'),
 path = require('path'),
 
 CONFIG_FILE = 'publish.json';
  
 function PrePublish(options){
     this.cwd = options.cwd;
-    
-    this._getConfig();
 };
 
 
 PrePublish.prototype = {
-    run: function(){
+    run: function(callback){
+        console.log('预打包开始...');
+        
+        this._getConfig();
+    
         var 
         
-        root = this._getBuildDir();
+        self = this,
+        
+        build_dir = this._getBuildDir();
         
         (this.config.dirs || []).forEach(function(dir_setting){
             var 
@@ -45,11 +50,15 @@ PrePublish.prototype = {
             dir = dir_setting.dir,
             to = dir_setting.to || dir;
             
-            copyFileSync(
-                path.join(this.cwd, dir),
-                path.join(root, to)
+            console.log('正在将 ' + dir + '/ 目录复制到 build/' + to + '/');
+            
+            fs_more.copyDirSync(
+                path.join(self.cwd, dir),
+                path.join(build_dir, to)
             );
         });
+        
+        callback();
     },
     
     _getBuildDir: function(){
@@ -57,6 +66,8 @@ PrePublish.prototype = {
     },
         
     _getConfig: function(){
+        console.log('读取配置信息 (publish.json) ...');
+    
         var
         
         content = fs.readFileSync(path.join(this.cwd, CONFIG_FILE)),
@@ -65,8 +76,8 @@ PrePublish.prototype = {
         try{
             config = JSON.parse(content);
         }catch(e){
-            console.log('error info:', e);
-            throw 'parsing publish.json failed, please check your code.';
+            tracer.error('分析 publish.json 时出错, 请检查你的代码', e);
+            throw 'error!';
         }
         
         return this.config = config;
