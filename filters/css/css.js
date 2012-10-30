@@ -14,8 +14,6 @@ var base_dir = path_mod.join(__dirname,'..','res'), // 准备分析的目录
 
 
 function CssTraverser(config){
-    var self = this;
-    this.root = config.cwd;
     this.data = {};
 }
 
@@ -44,6 +42,8 @@ CssTraverser.prototype = {
         var eventproxy = this.eventproxy = new EventProxy(function(){
             done();
         });
+
+        this.root = this.env.build_dir;
 
         eventproxy.assign("hosts");
 

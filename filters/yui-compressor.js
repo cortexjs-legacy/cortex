@@ -11,9 +11,6 @@ var base_dir = path_mod.join(__dirname,'..','res'), // 准备分析的目录
 
 
 function YUITraverser(config){
-    var self = this;
-    this.root = config.cwd;
-    this.data = {};
 }
 
 
@@ -32,6 +29,7 @@ YUITraverser.prototype = {
     },
 
     setup:function(done){
+        this.root = this.env.build_dir; //config.cwd;
         this.project_base = path_mod.join(__dirname,"..");
         done();
     },
