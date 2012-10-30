@@ -19,12 +19,10 @@ function _main(root){
     };
     
     [
-       // 'publish-imitate' // ,
-        'css',
-        'yui-compressor',
         'update',
-        'publish-imitate' // ,
-        // 'md5-diff'
+        'publish-imitate',
+        'css',
+        'yui-compressor'
     
     ].forEach(function(filter){
         filterEngine.assign(filter, options);
