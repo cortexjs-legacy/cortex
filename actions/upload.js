@@ -2,6 +2,7 @@ var ActionFactory = require("./action_factory");
 var db = require("../db");
 var config = require("../config");
 var ftpupload = require("../ftpupload");
+var fsmore = require("../util/fs-more")
 var async = require("async");
 var fs = require("fs");
 var path = require("path");
@@ -88,6 +89,8 @@ Upload.prototype.run = function() {
 
 	ftpupload.upload(upload_opt,function(){
 		updateDataBase(opts.dir,function(){
+			var lock_path = path.join(opts.dir,".cortex","success.lock");
+			fsmore.writeFileSync(lock_path,"");
 			process.exit();
 		});
 	});
