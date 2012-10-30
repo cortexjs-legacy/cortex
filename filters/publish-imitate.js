@@ -44,6 +44,8 @@ PrePublish.prototype = {
         
         build_dir = this._getBuildDir();
         
+        this.env.build_dir = build_dir;
+        
         (this.config.dirs || []).forEach(function(dir_setting){
             var 
             
