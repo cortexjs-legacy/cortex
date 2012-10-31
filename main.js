@@ -22,7 +22,9 @@ function _main(root){
         'update',
         'publish-imitate',
         'css',
-        'yui-compressor'
+        'yui-compressor',
+        'md5',
+        'md5-diff'
     
     ].forEach(function(filter){
         filterEngine.assign(filter, options);
