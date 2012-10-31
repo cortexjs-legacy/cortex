@@ -244,6 +244,8 @@ CssParser.prototype = {
 
 
 		real_full_path = mod_path.join(root,fullpath);
+		real_full_path = real_full_path.replace(/^(.*)(\.v\d+)+(\.(png|jpg|gif))$/,"$1$3");
+
 
 		if(!fs.existsSync(real_full_path)){
 			error_info = "图片不存在 " + csspath + " -> " + fullpath;
