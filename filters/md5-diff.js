@@ -9,6 +9,7 @@ var
 TEMP_DIR = '.cortex',
 SUCCESS_LOCK_FILE = 'success.lock',
 MD5_FILE = 'md5.json',
+CONFIG_FILE = 'publish.json',
 
 fs = require('fs'),
 fs_more = require('../util/fs-more'),
@@ -25,7 +26,7 @@ function Diff(options){
     this.cwd = options.cwd;
     
     this._getConfig();
-    this._prepareData(params);
+    this._prepareData();
 };
 
 
@@ -88,12 +89,12 @@ Diff.prototype = {
     _writeList: function(list){
         var
         
-        fd = fs.openSync( path.join(this.cur_build_root, TEMP_DIR );
+        fd = fs.openSync( path.join(this.cur_build_root, TEMP_DIR ));
         fs.writeSync(fd, JSON.stringify(list));
         fs.closeSync(fd);
     },
     
-    _prepareData: function(params){
+    _prepareData: function(){
         this._getBuildRoot();
     
         var
