@@ -30,9 +30,6 @@ function Diff(options){
 
 
 Diff.prototype = {
-    setup: function(){
-        
-    },
     
     /**
      * @param {function()} callback will be executed when completed
@@ -42,7 +39,7 @@ Diff.prototype = {
     
         var
         
-        pathname;
+        pathname,
         cur_md5, last_md5;
         
         try{
@@ -72,6 +69,8 @@ Diff.prototype = {
         diff = this._diff(cur_md5, last_md5 || {});
         
         this._writeList(diff);
+        
+        callback();
     },
     
     _diff: function(list, rel_list){
@@ -88,11 +87,7 @@ Diff.prototype = {
     },
     
     _writeList: function(list){
-        var
-        
-        fd = fs.openSync( path.join(this.cur_build_root, TEMP_DIR ));
-        fs.writeSync(fd, JSON.stringify(list));
-        fs.closeSync(fd);
+        fs.writeFileSync( path.join(this.cur_build_root, TEMP_DIR, 'filelist.json' ), JSON.stringify(list));
     },
     
     _prepareData: function(){
@@ -108,7 +103,7 @@ Diff.prototype = {
         }
         
         
-        this.cur_build_root = path.join(this.cwd, this.build_root, build_dirs.shift());
+        this.cur_build_root = path.join(this.build_root, build_dirs.shift());
         
         var 
         i = 0,
@@ -118,10 +113,11 @@ Diff.prototype = {
         
         for(; i < len; i ++){
             dir = build_dirs[i];
+            
             if(
                 // there must be a 'success.lock' file at the last successfull build directory
                 fs_more.isFile(
-                    path.join(this.cwd, this.build_root, dir, TEMP_DIR, SUCCESS_LOCK_FILE)
+                    path.join(dir, TEMP_DIR, SUCCESS_LOCK_FILE)
                 )
             ){
                 last_build_dir = dir;
@@ -129,7 +125,7 @@ Diff.prototype = {
             }
         }
         
-        this.last_build_root = !!last_build_dir ? path.join(this.cwd, this.build_root, last_build_dir) : false;
+        this.last_build_root = !!last_build_dir ? path.join(this.build_root, last_build_dir) : false;
         
     },
     

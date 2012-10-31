@@ -23,6 +23,7 @@ function _main(root){
         'publish-imitate',
         'css',
         'yui-compressor',
+        'closure',
         'md5',
         'md5-diff'
     
