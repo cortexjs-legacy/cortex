@@ -25,7 +25,7 @@ tracer = require("tracer").colorConsole(),
 fs_more = require('../util/fs-more'),
 path = require('path'),
 
-CONFIG_FILE = 'cortex.json';
+CONFIG_FILE = 'publish.json';
  
 function PrePublish(options){
     this.cwd = options.cwd;
