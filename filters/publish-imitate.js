@@ -52,7 +52,7 @@ PrePublish.prototype = {
             dir = dir_setting.dir,
             to = dir_setting.to || dir;
             
-            console.log('正在将 ' + dir + '/ 目录复制到 build/' + to + '/');
+            console.log('正在将 ' + path.join(self.cwd, dir) + '/ 目录复制到 ' + path.join(build_dir, to) + '/');
             
             fs_more.copyDirSync(
                 path.join(self.cwd, dir),
