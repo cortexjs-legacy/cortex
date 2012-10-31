@@ -26,7 +26,6 @@ function Diff(options){
     this.cwd = options.cwd;
     
     this._getConfig();
-    this._prepareData();
 };
 
 
@@ -39,6 +38,8 @@ Diff.prototype = {
      * @param {function()} callback will be executed when completed
      */
     run: function(callback){
+        this._prepareData();
+    
         var
         
         pathname;
