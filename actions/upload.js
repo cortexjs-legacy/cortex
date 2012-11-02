@@ -53,9 +53,14 @@ function updateDataBaseOld(base,done){
 		filelist,
 		tasks;
 
+	function fileTypeByPath(p){
+		return ['lib/1.0/','s/j/app/','b/js/lib/','b/js/app/','t/jsnew/app/'].some(function(prefix){
+			return p.indexOf(prefix) == 1 && path.extname(p) == ".js";
+		}) ? 1 : 0;
+	}
 
 	if(!fs.existsSync(filelist_path)){
-		throw new Error("未包含 .cortex/filelist.json")
+		throw new Error("未包含 .cortex/filelist.json");
 	}
 
 	filelist = JSON.parse(fs.readFileSync(filelist_path));
@@ -70,24 +75,24 @@ function updateDataBaseOld(base,done){
 	var count = 0;
 
 	for(var key in filelist){
-		(function(_key){
+		(function(key){
 			tasks.push(function(done) {
 
-		        var where = {URL:_key},
+		        var where = {URL:key},
 		        	qs = db.sqlMaker("select",table,{},where);
 
 		        db.query(qs, function(err, rows) {
 		            if(err) throw err;
 		            var row = rows[0],
 		            	new_version = row?(row.Version+1):1,
-		            	pair = {URL:_key,Version:new_version},
+		            	pair = {URL:key,Version:new_version,FileType:fileTypeByPath(key)},
 		            	query = row
 			            	? db.sqlMaker("update",table,pair,where)
 			            	: db.sqlMaker("insert",table,pair);
 
 	            	db.query(query,function(err){
 	            		if(err)throw err;
-	            		console.log((rows[0]?"更新":"插入") + " " + JSON.stringify(pair));
+	            		console.log((row?"更新":"插入") + " " + JSON.stringify(pair));
 		           		updateList.push(pair);
 	            		done();
 	            	});
@@ -130,7 +135,7 @@ function updateDataBaseNew(base,done){
 
             	db.query(query,function(err){
 		            if(err) throw err;
-            		console.log((rows[0]?"更新":"插入") + " " + JSON.stringify(pair));
+            		console.log((row?"更新":"插入") + " " + JSON.stringify(pair));
             		done();
             	});
 	        });

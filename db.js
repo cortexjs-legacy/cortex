@@ -20,13 +20,13 @@ function sqlMaker(type,table,pairs,where){
 		});
 	}
 
-	function setParam(pairs){
+	function setParam(pairs,joinner){
 		var ret = [];
 		for(var key in pairs){
 			ret.push(key+ "=" + stripValue(pairs[key]) );
 		}
 
-		return ret.join(" and ");
+		return ret.join(joinner);
 	}
 
 	function selectParam(pairs){
@@ -49,11 +49,11 @@ function sqlMaker(type,table,pairs,where){
 
 
 	if(type == "select"){
-		ret = "select " + selectParam(pairs) + " from " + table + " where " + setParam(where);
+		ret = "select " + selectParam(pairs) + " from " + table + " where " + setParam(where," and ");
 	}else if(type == "insert"){
 		ret = "insert into " + table + " (" + Object.keys(pairs).join(",") + ") values (" + vals(pairs).join(",") + ")";
 	}else if(type == "update"){
-		ret = "update " + table + " set " + setParam(tickKeysInWhere(pairs,where)) + " where " + setParam(where);
+		ret = "update " + table + " set " + setParam(tickKeysInWhere(pairs,where),",") + " where " + setParam(where," and ");
 	}else{
 		throw new Error("type must be select, insert or update");
 	}
