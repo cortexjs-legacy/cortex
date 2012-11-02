@@ -166,13 +166,13 @@ Upload.prototype.run = function() {
 	};
 
 
-	// ftpupload.upload(upload_opt,function(){
+	ftpupload.upload(upload_opt,function(){
 		updateDataBases(opts.dir,function(){
 			var lock_path = path.join(opts.dir,".cortex","success.lock");
 			fsmore.writeFileSync(lock_path,"");
 			process.exit();
 		});
-	// });
+	});
 };
 
 
