@@ -9,7 +9,7 @@ var tracer = require("tracer").colorConsole(),
 
 
 // 主流程
-function _main(root){
+function main(root){
 
     console.log("开始应用已配置的滤镜 >>>>>>>>>>");
 
@@ -34,12 +34,5 @@ function _main(root){
     filterEngine.run();
 
 };
-
-
-function main(root){
-    db.connect(function(dbconfig){
-        _main(root);
-    });
-}
 
 module.exports = main;
