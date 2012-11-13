@@ -9,8 +9,8 @@ var tracer = require("tracer").colorConsole(),
 
 
 // 主流程
-function _main(root){
-
+function main(root,opts){
+    var filter = opts.filter || [];
     console.log("开始应用已配置的滤镜 >>>>>>>>>>");
 
          
@@ -18,6 +18,7 @@ function _main(root){
         cwd: root
     };
     
+
     [
         'update',
         'publish-imitate',
@@ -26,7 +27,6 @@ function _main(root){
         'closure',
         'md5',
         'md5-diff'
-    
     ].forEach(function(filter){
         filterEngine.assign(filter, options);
     });
@@ -34,12 +34,5 @@ function _main(root){
     filterEngine.run();
 
 };
-
-
-function main(root){
-    db.connect(function(dbconfig){
-        _main(root);
-    });
-}
 
 module.exports = main;

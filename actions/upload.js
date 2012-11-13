@@ -1,3 +1,5 @@
+"use strict";
+
 var ActionFactory = require("./action_factory");
 var db = require("../db");
 var config = require("../config");
@@ -19,43 +21,79 @@ Upload.AVAILIABLE_OPTIONS = {
 	port:{alias:["-P","--port"],length:1,description:"ftp端口号，默认为21"}
 };
 
+var updateList = [];
 
-function updateDataBase(base,done){
+
+
+function updateDataBases(base,done){
+
 	console.log("上传完成，开始更新数据库");
+	var tasks = [];
+
+
+	tasks.push(function(done){
+		updateDataBaseOld(base,done);
+	});
+ 
+	tasks.push(function(done){
+		updateDataBaseNew(base,done);
+	});
+ 
+	async.series(tasks,function(err){
+		done();
+	});
+}
+
+function updateDataBaseOld(base,done){
+
 	// 更新数据库版本，下次改成更新 md5
 	
 	var	filelist_path = path.join(base,".cortex","filelist.json"),
-		filelist;
+		table = config.DB_VERSION,
+		filelist,
+		tasks;
 
-	var tasks = [function(done){
-		db.connect(function(dbconfig){
-			done();
-		});
-	}];
-
+	function fileTypeByPath(p){
+		return ['lib/1.0/','s/j/app/','b/js/lib/','b/js/app/','t/jsnew/app/'].some(function(prefix){
+			return p.indexOf(prefix) == 1 && path.extname(p) == ".js";
+		}) ? 1 : 0;
+	}
 
 	if(!fs.existsSync(filelist_path)){
-		throw new Error("未包含 .cortex/filelist.json")
+		throw new Error("未包含 .cortex/filelist.json");
 	}
 
 	filelist = JSON.parse(fs.readFileSync(filelist_path));
 
+	tasks = [function(done){
+		db.connect("old",function(err,conn,dbconfig){
+			console.log("已连接数据库",dbconfig);
+			done();
+		});
+	}];
+
+	var count = 0;
+
 	for(var key in filelist){
 		(function(key){
 			tasks.push(function(done) {
-		        var qs = "select * from " + config.DB_VERSION + " where URL=\"" + key + "\"";
-		        db.query(qs, function(err, rows) {
-		            if(err) {
-		                throw err;
-		            }
-		            var row = rows[0];
-		            var new_version = row?(row.Version+1):1;
-		            var query = row
-		            	? "update " + config.DB_VERSION + " set Version=" + new_version + " where URL=\"" + key +"\""
-		            	: "insert into " + config.DB_VERSION + " (URL,Version) values (\""+key+"\","+new_version+")";
 
-	            	db.query(query,function(){
-	            		console.log(key + " " + (rows[0]?"updat":"insert") + "ed to " + new_version);
+		        var where = {URL:key},
+		        	qs = db.sqlMaker("select",table,{},where);
+
+		        db.query(qs, function(err, rows) {
+		            if(err) throw err;
+		            var row = rows[0],
+		            	new_version = row?(row.Version+1):1,
+		            	pair = {URL:key,Version:new_version,FileType:fileTypeByPath(key)},
+		            	query = row
+			            	? db.sqlMaker("update",table,pair,where)
+			            	: db.sqlMaker("insert",table,pair);
+
+	            	db.query(query,function(err){
+	            		if(err)throw err;
+	            		console.log((row?"更新":"插入") + " " + JSON.stringify(pair));
+		           		updateList.push(pair);
 	            		done();
 	            	});
 		        });
@@ -65,7 +103,48 @@ function updateDataBase(base,done){
 
 	async.series(tasks,function(err){
 		if(err){throw err;}else{
-			console.log("update finished");
+			console.log("更新完成");
+			done(null);
+		}
+	});
+}
+
+function updateDataBaseNew(base,done){
+	console.log("同步数据库");
+	var table = config.DB_VERSION;
+	var tasks = [function(done){
+		db.connect("new",function(err,conn,dbconfig){
+			console.log("已连接数据库",dbconfig);
+			done();
+		});
+	}];
+
+	updateList.forEach(function(pair){
+		var key = pair.URL;
+		tasks.push(function(done){
+			var qs = db.sqlMaker("select",table,{},{URL:key});
+	        
+	        db.query(qs, function(err, rows) {
+	            if(err) throw err;
+	            var row = rows[0],
+	            	query = row
+		            	? db.sqlMaker("update",table,pair,{
+		            		URL:key
+		            	})
+		            	: db.sqlMaker("insert",table,pair);
+
+            	db.query(query,function(err){
+		            if(err) throw err;
+            		console.log((row?"更新":"插入") + " " + JSON.stringify(pair));
+            		done();
+            	});
+	        });
+		});
+	});
+
+	async.series(tasks,function(err){
+		if(err){throw err;}else{
+			console.log("更新完成");
 			done(null);
 		}
 	});
@@ -88,7 +167,7 @@ Upload.prototype.run = function() {
 
 
 	ftpupload.upload(upload_opt,function(){
-		updateDataBase(opts.dir,function(){
+		updateDataBases(opts.dir,function(){
 			var lock_path = path.join(opts.dir,".cortex","success.lock");
 			fsmore.writeFileSync(lock_path,"");
 			process.exit();

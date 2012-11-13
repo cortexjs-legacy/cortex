@@ -6,17 +6,76 @@ var EventProxy = require("./util/event-proxy");
 
 var connection;
 
+function sqlMaker(type,table,pairs,where){
+	var ret = "";
 
-exports.connect = function(cb){
-
-	if(connection){
-		cb(null,connection);
+	function stripValue(v){
+		return typeof v == "string" ? ("\"" + v + "\"") : v;
 	}
+
+	function vals(pairs){
+		return Object.keys(pairs).map(function(key){
+			var v = pairs[key];
+			return stripValue(v)
+		});
+	}
+
+	function setParam(pairs,joinner){
+		var ret = [];
+		for(var key in pairs){
+			ret.push(key+ "=" + stripValue(pairs[key]) );
+		}
+
+		return ret.join(joinner);
+	}
+
+	function selectParam(pairs){
+		if(!pairs || !Object.keys(pairs).length){
+			return "*";
+		}else{
+			return Object.keys(pairs).join(",");
+		}
+	}
+
+	function tickKeysInWhere(pairs,where){
+		var ret = {};
+		for(var key in pairs){
+			if(!(key in where)){
+				ret[key] = pairs[key]
+			}
+		}
+		return ret;
+	}
+
+
+	if(type == "select"){
+		ret = "select " + selectParam(pairs) + " from " + table + " where " + setParam(where," and ");
+	}else if(type == "insert"){
+		ret = "insert into " + table + " (" + Object.keys(pairs).join(",") + ") values (" + vals(pairs).join(",") + ")";
+	}else if(type == "update"){
+		ret = "update " + table + " set " + setParam(tickKeysInWhere(pairs,where),",") + " where " + setParam(where," and ");
+	}else{
+		throw new Error("type must be select, insert or update");
+	}
+
+	return ret;
+
+};
+
+exports.connect = function(type,cb){
+	var prefix_map = {
+		"old":"avatar-biz.main.master.jdbc.",
+		"new":"dp-common-service.common.master.jdbc."
+	};
+	var prefix = prefix_map[type];
+
+	//if(connection){
+	//	cb(null,connection);
+	//}
+	connection = null;
 
 	var dbconfig = {};
 	var eventproxy = new EventProxy(function(){
-
-		console.log("连接数据库");
 		var conn_opt = {
 			host: dbconfig.host,
 			user: dbconfig.username,
@@ -28,7 +87,7 @@ exports.connect = function(cb){
 		connection = mysql.createConnection(conn_opt);
 		connection.on("error",cb);
 		connection.connect();
-		cb(null,connection);
+		cb(null,connection,conn_opt);
 	});
 
 	var tasks = ["username","password","url"];
@@ -38,7 +97,10 @@ exports.connect = function(cb){
 	});
 
 	tasks.forEach(function(action){
-		lion.get("dp-common-service.common.master.jdbc."+action,function(err,data){
+		lion.get({
+			env:config.env,
+			key:prefix+action
+		},function(err,data){
 			if(err){cb(err);return;}
 			var parsed;
 			if(action === "url"){
@@ -85,12 +147,6 @@ function query(){
 
 }
 
-function get_all_images(cb){
-	var sql = "select * from " + config.DB_VERSION + " where URL REGEXP 'png$|jpg$|gif$'";
-	query(sql, cb);
-}
-
-
+exports.sqlMaker = sqlMaker;
 exports.query = query;
 exports.connection = connection;
-exports.get_all_images = get_all_images;
