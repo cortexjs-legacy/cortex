@@ -21,5 +21,5 @@ Update.prototype = {
 
 
 exports.create = function(options){
-    return new Update(options);  
+    return new Update(options);
 };

@@ -6,9 +6,9 @@
 
 var
 
-TEMP_DIR = '.cortex',
 SUCCESS_LOCK_FILE = 'success.lock',
 MD5_FILE = 'md5.json',
+CONFIG_DIR = '.cortex',
 CONFIG_FILE = 'publish.json',
 
 fs = require('fs'),
@@ -24,8 +24,6 @@ path = require('path');
  */
 function Diff(options){
     this.cwd = options.cwd;
-    
-    this._getConfig();
 };
 
 
@@ -43,7 +41,7 @@ Diff.prototype = {
         cur_md5, last_md5;
         
         try{
-            pathname = path.join(this.cur_build_root, TEMP_DIR, MD5_FILE);
+            pathname = path.join(this.cur_build_root, CONFIG_DIR, MD5_FILE);
             cur_md5 = JSON.parse( fs.readFileSync(pathname) );
         
         }catch(e){
@@ -54,7 +52,7 @@ Diff.prototype = {
         
         if(this.last_build_root){
             try{
-                pathname = path.join(this.last_build_root, TEMP_DIR, MD5_FILE);
+                pathname = path.join(this.last_build_root, CONFIG_DIR, MD5_FILE);
                 last_md5 = JSON.parse( fs.readFileSync(pathname) );
             
             }catch(e){
@@ -87,7 +85,7 @@ Diff.prototype = {
     },
     
     _writeList: function(list){
-        fs.writeFileSync( path.join(this.cur_build_root, TEMP_DIR, 'filelist.json' ), JSON.stringify(list));
+        fs.writeFileSync( path.join(this.cur_build_root, CONFIG_DIR, 'filelist.json' ), JSON.stringify(list));
     },
     
     _prepareData: function(){
@@ -117,7 +115,7 @@ Diff.prototype = {
             if(
                 // there must be a 'success.lock' file at the last successfull build directory
                 fs_more.isFile(
-                    path.join(dir, TEMP_DIR, SUCCESS_LOCK_FILE)
+                    path.join(dir, CONFIG_DIR, SUCCESS_LOCK_FILE)
                 )
             ){
                 last_build_dir = dir;
@@ -130,7 +128,7 @@ Diff.prototype = {
     },
     
     _getBuildRoot: function(){
-        return this.build_root = path.join(this.cwd, this.config.build_directory || 'build');
+        return this.build_root = path.join(this.cwd, CONFIG_DIR, 'build');
     },
     
     _getSortedBuildDirs: function(){
@@ -145,22 +143,6 @@ Diff.prototype = {
         }).sort(function(a, b){
             return a < b;
         });
-    },
-        
-    _getConfig: function(){
-        var
-        
-        content = fs.readFileSync(path.join(this.cwd, CONFIG_FILE)),
-        config;
-        
-        try{
-            config = JSON.parse(content);
-        }catch(e){
-            tracer.error('分析 publish.json 时出错, 请检查你的代码', e);
-            throw 'error!';
-        }
-        
-        return this.config = config;
     }
 };
 
