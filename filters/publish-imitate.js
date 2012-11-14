@@ -24,7 +24,7 @@ fs = require('fs'),
 tracer = require("tracer").colorConsole(),
 fs_more = require('../util/fs-more'),
 path = require('path'),
-CORTEX_DIR = require('.cortex'),
+CORTEX_DIR = '.cortex',
 CONFIG_FILE = 'publish.json';
  
 function PrePublish(options){
@@ -66,7 +66,7 @@ PrePublish.prototype = {
         
         callback();
     },
-    
+
     _getBuildDir: function(){
         var rel_dir = 'build-' + (+ new Date);
     
@@ -75,7 +75,7 @@ PrePublish.prototype = {
             rel: rel_dir
         };
     },
-        
+
     _getConfig: function(){
         console.log('读取配置信息 (publish.json) ...');
     
