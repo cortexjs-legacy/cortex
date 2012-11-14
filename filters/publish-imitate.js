@@ -50,6 +50,8 @@ PrePublish.prototype = {
         
         this.env.build_dir = build_dir;
         
+        console.log('CORTEX BUILD_DIR ' + build_dir);
+        
         (this.config.dirs || []).forEach(function(dir_setting){
             var 
             
