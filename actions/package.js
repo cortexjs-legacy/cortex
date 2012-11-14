@@ -19,8 +19,17 @@ Package.prototype.run = function() {
         mods = this.modules,
         root = mods[0];
 
+    if(root){
+        // if is relative directory
+        if(root.indexOf('../') === 0 || root.indexOf('./') === 0){
+            root = path.join(process.cwd(), root);
+        }
+        
+    }else{
+        root = process.cwd();
+    }
 
-    main(root || process.cwd(),opts);
+    main(root, opts);
 };
 
 
