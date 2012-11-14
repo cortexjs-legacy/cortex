@@ -21,7 +21,7 @@ Package.prototype.run = function() {
 
     if(root){
         // if is relative directory
-        if(root.indexOf('../') === 0 || root.indexOf('./') === 0){
+        if(root.indexOf('..') === 0 || root.indexOf('.') === 0){
             root = path.join(process.cwd(), root);
         }
         
