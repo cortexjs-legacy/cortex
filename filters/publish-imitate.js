@@ -13,7 +13,7 @@ pubish: {
         }
     ],
     
-    build_directory: 'build/'
+    // build_directory: 'build/'
 }
 
  */
@@ -24,7 +24,7 @@ fs = require('fs'),
 tracer = require("tracer").colorConsole(),
 fs_more = require('../util/fs-more'),
 path = require('path'),
-
+CORTEX_DIR = '.cortex',
 CONFIG_FILE = 'publish.json';
  
 function PrePublish(options){
@@ -42,9 +42,15 @@ PrePublish.prototype = {
         
         self = this,
         
-        build_dir = this._getBuildDir();
+        build_dirs = this._getBuildDir()
+        build_dir = build_dirs.full,
+        build_rel_dir = build_dirs.rel;
+        
+        fs.writeFileSync(path.join(this.cwd, CORTEX_DIR, 'latest-pack'), path.join('build', build_rel_dir));
         
         this.env.build_dir = build_dir;
+        
+        console.log('CORTEX BUILD_DIR ' + build_dir);
         
         (this.config.dirs || []).forEach(function(dir_setting){
             var 
@@ -62,17 +68,22 @@ PrePublish.prototype = {
         
         callback();
     },
-    
+
     _getBuildDir: function(){
-        return path.join(this.cwd, this.config.build_directory || 'build', 'build-' + (+ new Date));
+        var rel_dir = 'build-' + (+ new Date);
+    
+        return {
+            full: path.join(this.cwd, CORTEX_DIR, 'build', rel_dir),
+            rel: rel_dir
+        };
     },
-        
+
     _getConfig: function(){
         console.log('读取配置信息 (publish.json) ...');
     
         var
         
-        content = fs.readFileSync(path.join(this.cwd, CONFIG_FILE)),
+        content = fs.readFileSync(path.join(this.cwd, CORTEX_DIR, CONFIG_FILE)),
         config;
         
         try{
