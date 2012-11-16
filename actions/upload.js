@@ -2,7 +2,7 @@
 
 var ActionFactory = require("./action-factory");
 var db = require("../util/db");
-var ftpupload = require("../util/ftpupload");
+var ftpupload = require("../util/ftp-handler");
 var fsmore = require("../util/fs-more")
 var async = require("async");
 var fs = require("fs");
@@ -195,8 +195,8 @@ Upload.prototype.run = function() {
 
 
     var upload_opt = {
-        dirname:opts.dir||null,
-        remotedir:opts.remote||opts.dir||null,
+        localDir:opts.dir||null,
+        remoteDir:opts.remote||opts.dir||null,
         username:opts.user||"",
         password:opts.password||"",
         host:opts.host,
