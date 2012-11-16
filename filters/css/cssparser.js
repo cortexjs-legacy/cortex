@@ -45,7 +45,6 @@ function connector(parsed){
 function CssParser(opt) {
 	this.root = opt.root;
 	this.hosts = opt.hosts;
-	this.filelist = opt.filelist;
 	this.connector = opt.connector || connector;
 	this._logs = [];
 }
