@@ -3,9 +3,7 @@ var tracer = require("tracer").colorConsole(),
     fsMore = require("./util/fs-more"),
     pathmod = require("path"),
     EventProxy = require("./util/event-proxy"),
-    filterEngine = require("./util/filter-engine"),
-    db = require("./db"),
-    config = require("./config");
+    filterEngine = require("./util/filter-engine");
 
 
 // 主流程

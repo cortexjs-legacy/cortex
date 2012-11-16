@@ -47,7 +47,7 @@ function getHelp(action,verbose){
 
         msg += "\n";
         for(var key in opts){
-            alias = opts[key].alias.join(",");
+            alias = opts[key].alias.join(", ");
             msg += "       " + opts[key].alias + remainSpaces(16,alias) + opts[key].description + "\n";
         }
     }
