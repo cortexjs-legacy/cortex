@@ -1,4 +1,4 @@
-var ActionFactory = require("./action_factory");
+var ActionFactory = require("./action-factory");
 var config = require("../config");
 var main = require("../main");
 var path = require("path");
@@ -6,11 +6,11 @@ var path = require("path");
 var Package = ActionFactory.create("Package");
 
 Package.AVAILIABLE_OPTIONS = {
-	filters:{
-		alias:["-f","--filter"],
-		length:1,
-		description:"可选过滤器：update,publish-imitate,css,js,yui-compressor,closure,md5,md5-diff"
-	}
+    filters:{
+        alias:["-f","--filter"],
+        length:1,
+        description:"可选过滤器：update,publish-imitate,css,js,yui-compressor,closure,md5,md5-diff"
+    }
 };
 
 
@@ -18,13 +18,17 @@ Package.prototype.run = function() {
     var opts = this.options,
         mods = this.modules,
         root = mods[0];
-
+        
+    console.log('options', opts);
+        
+    // always generate an absolute dir
     if(root){
         // if is relative directory
         if(root.indexOf('..') === 0 || root.indexOf('.') === 0){
             root = path.join(process.cwd(), root);
         }
-        
+    
+    // if no root specified, use current working directory
     }else{
         root = process.cwd();
     }
