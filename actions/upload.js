@@ -13,12 +13,36 @@ var path = require("path");
 var Upload = ActionFactory.create("Upload")
 
 Upload.AVAILIABLE_OPTIONS = {
-	dir:{alias:["-d","--dir"],length:1,description:"本地目录"},
-	remote:{alias:["-r","--remote"],length:1,description:"远程目录"},
-	host:{alias:["-h","--host"],length:1,description:"ftp主机"},
-	user:{alias:["-u","--user"],length:1,description:"ftp用户名"},
-	password:{alias:["-p","--pass"],length:1,description:"ftp密码"},
-	port:{alias:["-P","--port"],length:1,description:"ftp端口号，默认为21"}
+    dir: {
+        alias: ["-d", "--dir"],
+        length: 1,
+        description: "本地目录"
+    },
+    remote: {
+        alias: ["-r", "--remote"],
+        length: 1,
+        description: "远程目录"
+    },
+    host: {
+        alias: ["-h", "--host"],
+        length: 1,
+        description: "ftp主机"
+    },
+    user: {
+        alias: ["-u", "--user"],
+        length: 1,
+        description: "ftp用户名"
+    },
+    password: {
+        alias: ["-p", "--pass"],
+        length: 1,
+        description: "ftp密码"
+    },
+    port: {
+        alias: ["-P", "--port"],
+        length: 1,
+        description: "ftp端口号，默认为21"
+    }
 };
 
 var updateList = [];

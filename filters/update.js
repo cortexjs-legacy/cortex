@@ -6,6 +6,7 @@ SCM = require('../util/scm-adapter');
 
 function Update(options){
     this.cwd = options.cwd;
+    this.branch = options.branch;
     
     this.scm = new SCM(options);
 };
