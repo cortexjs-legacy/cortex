@@ -1,6 +1,6 @@
 #! /usr/bin/env node
 var tracer = require("tracer").colorConsole();
-var ActionFactory = require("../actions/action_factory");
+var ActionFactory = require("../actions/action-factory");
 
 var ctx = {};
 /**

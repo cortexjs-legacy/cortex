@@ -1,5 +1,5 @@
 var Actions = require("../actions.json");
-var ActionFactory = require("./action_factory");
+var ActionFactory = require("./action-factory");
 var util = require("util");
 
 Help = ActionFactory.create("Help");
@@ -21,7 +21,7 @@ Help.prototype.run = function(){
 			console.log("unknown action: "+mods[0]);
 		}else{
 			msg = getHelp(mod,true);
-			msg && console.log(msg);	
+			msg && console.log(msg);
 		}
 	}
 }
@@ -29,6 +29,7 @@ Help.prototype.run = function(){
 function getHelp(action,verbose){
 	var name = action._name,
 		msg;
+		
 	if(name == "Help")return;
 
 	msg = util.format("ctx %s\n%s\n       %s\n",

@@ -1,9 +1,8 @@
 var util = require("util");
+
 /**
  * Action基类
  */
-
-
 function Action(args){
 	var self = this;
 

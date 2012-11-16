@@ -1,6 +1,6 @@
 "use strict";
 
-var ActionFactory = require("./action_factory");
+var ActionFactory = require("./action-factory");
 var db = require("../db");
 var config = require("../config");
 var ftpupload = require("../ftpupload");
