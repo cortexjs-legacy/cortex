@@ -1,5 +1,4 @@
 var ActionFactory = require("./action-factory");
-var config = require("../config");
 var main = require("../main");
 var path = require("path");
 
@@ -15,7 +14,7 @@ Package.AVAILIABLE_OPTIONS = {
     branch: {
         alias: ["-b", "--branch"],
         length: 1,
-        description: "指定项目分支。该参数仅在 Git 项目生效。"
+        description: "指定项目分支。该参数仅对 Git 项目生效。"
     },
     
     cwd: {
@@ -28,6 +27,12 @@ Package.AVAILIABLE_OPTIONS = {
         alias: ["-r", "--remote"],
         length: 1,
         description: "指定项目的远程地址。该参数仅对 Git 项目生效。"
+    },
+    
+    env: {
+        alias: ["-e", "--env"],
+        length: 1,
+        description: "指定发布的环境（可选）。对一个名为 <config>.json 的配置文件，cortex 会尝试读取 <config>.<env>.json 的文件。该文件的优先级较低，若出现同名参数，可能会被显式指定的参数覆盖。对于点评来说，可选的参数有 'alpha', 'qa'(beta), 'pro'(product)"
     }
 };
 
