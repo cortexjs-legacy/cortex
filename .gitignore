@@ -1,11 +1,5 @@
 # Cortex project
-__cortex_tmp/
-test/a
-test/a.zip
-test/b/
-test/b.zip
-filtersfilelist.txt
-filters/test.js
+test/
 
 # php files
 index.php
