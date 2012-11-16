@@ -9,17 +9,9 @@ var tracer = require("tracer").colorConsole(),
 
 
 // 主流程
-function main(root,opts){
-    var filter = opts.filter || [];
-    console.log("开始应用已配置的滤镜 >>>>>>>>>>");
-
-         
-    var options = {
-        cwd: root
-    };
-    
-
-    [
+// @param {string} root absolute path of working directory of target project
+function main(root, options){
+    options.filters = options.filters && options.filters.split(',') || [
         'update',
         'publish-imitate',
         'css',
@@ -27,12 +19,18 @@ function main(root,opts){
         'closure',
         'md5',
         'md5-diff'
-    ].forEach(function(filter){
+    ];
+    
+    options.cwd = options.cwd || root;
+    
+    console.log("开始应用已配置的滤镜 >>>>>>>>>>");
+    
+    options.filters.forEach(function(filter){
         filterEngine.assign(filter, options);
     });
     
     filterEngine.run();
-
 };
+
 
 module.exports = main;
