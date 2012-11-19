@@ -2,46 +2,57 @@
 
 var ActionFactory = require("./action-factory");
 var db = require("../util/db");
-var ftpupload = require("../util/ftp-handler");
+var ftp_handler = require("../util/ftp-handler");
+var ConfigHandler = require("../util/config-handler");
 var fsmore = require("../util/fs-more")
 var async = require("async");
 var fs = require("fs");
 var path = require("path");
+var lang = require("../util/lang");
 
 /**
  regular expression for ftp uri
 
 /
+    ^
     ftp:\/\/
     (?:
-        # user
+        # 1: user 
         ([^:]+)
         :
-        # password
-        ([^@]+)
+        # 2: password
+        ([^@]+)?
         @
     )?
-    # ip
+    # 3: ip
     (
         (?:(?:2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}
         2[0-4]\d|25[0-5]|[01]?\d\d?
     )
     (?:
         : 
-        # port
+        # 4: port
         ([0-9]{2,5})
-    )?    
+    )?
+    
+    # 5: dir
+    (\/.*)?
+    
+    $
 /i
 
 */
 
-var REGEX_MATCHER_FTP_URI = /ftp:\/\/(?:([^:]+):([^@]+)@)?((?:(?:2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}2[0-4]\d|25[0-5]|[01]?\d\d?)(?::([0-9]{2,5}))?/i;
+var REGEX_MATCHER_FTP_URI = /^ftp:\/\/(?:([^:]+):([^@]+)@)?((?:(?:2[0-4]\d|25[0-5]|[01]?\d\d?)\.){3}2[0-4]\d|25[0-5]|[01]?\d\d?)(?::([0-9]{2,5}))?(\/.*)?$/i;
 
 
-var Upload = ActionFactory.create("Upload")
+var 
+
+Upload = ActionFactory.create("Upload");
+
 
 Upload.AVAILIABLE_OPTIONS = {
-    dir: {
+    from: {
         alias: ["-d", "--dir"],
         length: 1,
         description: "需要上传的文件目录。若为远程目录，则格式为 ftp://[<user>:<password>@]<ip>[:<port>][/<dir>]; 若为本地目录，则可使用本地目录的路径"
@@ -57,12 +68,18 @@ Upload.AVAILIABLE_OPTIONS = {
         alias: ["-e", "--env"],
         length: 1,
         description: "指定发布的环境（可选）。对一个名为 <config>.json 的配置文件，cortex 会尝试读取 <config>.<env>.json 的文件。对于点评来说，可选的参数有 'alpha', 'qa'(beta), 'pro'(product)。"
+    },
+    
+    biz: {
+        alias: ["-b", "-biz"],
+        length: 1,
+        description: "指定"
     }
 };
 
 var updateList = [];
 
-function updateDataBases(base,done){
+function updateDataBases(base, done){
 
     console.log("上传完成，开始更新数据库");
     var tasks = [];
@@ -85,7 +102,7 @@ function updateDataBaseOld(base, done){
 
     // 更新数据库版本，下次改成更新 md5
     
-    var    filelist_path = path.join(base,".cortex","filelist.json"),
+    var filelist_path = path.join(base,".cortex","filelist.json"),
         table = config.DB_VERSION,
         filelist,
         tasks;
@@ -144,7 +161,8 @@ function updateDataBaseOld(base, done){
             done(null);
         }
     });
-}
+};
+
 
 function updateDataBaseNew(base,done){
     console.log("同步数据库");
@@ -185,40 +203,142 @@ function updateDataBaseNew(base,done){
             done(null);
         }
     });
-}
-
-
-Upload.prototype.run = function() {
-    var opts = this.options,
-        mods = this.modules;
-        
-
-
-    var upload_opt = {
-        localDir:opts.dir||null,
-        remoteDir:opts.remote||opts.dir||null,
-        username:opts.user||"",
-        password:opts.password||"",
-        host:opts.host,
-        port:21
-    };
-
-
-    ftpupload.upload(upload_opt,function(){
-        updateDataBases(opts.dir,function(){
-            var lock_path = path.join(opts.dir,".cortex","success.lock");
-            fsmore.writeFileSync(lock_path,"");
-            process.exit();
-        });
-    });
 };
 
+
+lang.mix(Upload.prototype, {
+    _parseArgs: function(){
+        var
+        o = this.options;
+        
+        this.conf = new ConfigHandler({
+            /**
+             {
+                "ftpConf": {
+                    "<ip>": {
+                        "port": "<port>",
+                        "user": "<username>",
+                        "password": "<password>"
+                    },
+                    
+                    "<ip2>": {
+                    }
+                },
+                
+                "extra": {
+                    "libFolders": ["lib/1.0/", "s/j/app/", "b/js/lib/", "b/js/app/", "t/jsnew/app/"]
+                }
+             }
+             */
+            configFile: '.cortex/upload.json',
+            env: o.env
+            
+        }).getConfig({ftpConf: {}});
+        
+        o.fromFTP = this._parseFTPUri(o.from);
+        o.toFTP = this._parseFTPUri(o.to);
+    },
+    
+    // merge global ftp authorization
+    _mergeFTPConf: function(ftp){
+        var ftp_conf = this.conf.ftpConf[ftp.host];
+    
+        return ftp_conf ? lang.mix(ftp, ftp_conf) : ftp;
+    },
+    
+    // ftp://[<user>:<password>@]<ip>[:<port>][/<dir>]
+    // ->
+    // 
+    _parseFTPUri: function(uri){
+        var m = uri.match(REGEX_MATCHER_FTP_URI);
+        
+        return !!m ? this._mergeFTPConf({
+            user: m[1],
+            password: m[2],
+            host: m[3],
+            port: m[4],
+            dir: m[5]
+            
+        }) : false
+    },
+    
+    run: function(callback) {
+        this._transfer(callback);
+    },
+    
+    _transfer: function(callback){
+        this._parseArgs();
+
+        var 
+        
+        o = this.options,
+        tasks = [],
+        temp_download_dir = path.join('~', '.cortex/temp-download'),
+        local_dir = o.from;
+        
+        if(o.fromFTP){
+            local_dir = temp_download_dir;
+        
+            fsmore.mkdirSync(temp_download_dir)
+            fsmore.emptyDirSync(temp_download_dir);
+            
+            tasks.push(function(done){
+                ftp_handler.download({
+                    localDir    : temp_download_dir,
+                    remoteDir   : o.fromFTP.dir,
+                    user        : o.fromFTP.user,
+                    password    : o.fromFTP.password,
+                    host        : o.fromFTP.host,
+                    port        : o.fromFTP.port
+                    
+                }, function(){
+                    done(); 
+                });
+            });
+        }
+        
+        if(o.toFTP){
+            tasks.push(function(done){
+                ftp_handler.upload({
+                    localDir    : local_dir,
+                    remoteDir   : o.toFTP.dir,
+                    user        : o.toFTP.user,
+                    password    : o.toFTP.password,
+                    host        : o.toFTP.host,
+                    port        : o.toFTP.port
+                    
+                }, function(){
+                    done();
+                });
+            });
+            
+        }else{
+            tasks.push(function(done){
+                fsmore.copyDirSync(local_dir, o.to);
+            });
+        }
+    
+        tasks.push(function(done){
+            updateDataBases(local_dir, function(){
+                var lock_path = path.join(opts.dir,".cortex","success.lock");
+                fsmore.writeFileSync(lock_path,"");
+                process.exit();
+                
+                done();
+            });
+        });
+        
+        async.series(tasks, callback);
+    }
+    
+    
+});
 
 
 Upload.MESSAGE = {
     USAGE:"usage: ctx upload",
     DESCRIBE:"将本地项目目录上传并更新数据库"
-}
+};
 
 // demo: ctx upload -h spud.in -u spudin -p ppp -d /Users/spud/Git/cortex/build/build-1351144024172 -r blah
 
