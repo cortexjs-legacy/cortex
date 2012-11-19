@@ -79,6 +79,19 @@ Action.prototype._parseArgs = function(args,availiables){
 
 Action.prototype.run = function(){
 	throw new Error("please implements your own run function in sub class.");
-}
+};
+
+
+
+Action.create = function(name){
+	function SubAction() {
+		Action.apply(this, arguments);
+	}
+
+	SubAction._name = name;
+	util.inherits(SubAction, Action);
+	return SubAction;
+};
+
 
 module.exports = Action;
