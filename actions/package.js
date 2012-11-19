@@ -20,7 +20,7 @@ Package.AVAILIABLE_OPTIONS = {
     cwd: {
         alias: ["-c", "--cwd"],
         length: 1,
-        description: "指定需要打包的项目的目录。" 
+        description: "指定需要打包的项目的目录。"
     },
     
     remote: {
