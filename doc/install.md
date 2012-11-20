@@ -17,11 +17,8 @@
 
 [下载地址](http://nodejs.org/download/)。请安装对应操作系统的安装包。
 
-### 2. 下载 Cortex 程序包。
-        
-        git clone ssh://git@10.1.4.81:58422/cortex.git
-        
-或者手动下载程序包解压，并进行初始化安装：
-        
-        cd path/you/put/cortex/to/
-        npm link
+### 2. 下载并安装 Cortex 程序
+	sudo npm install cortex -g
+	
+### 3. 升级 cortex
+	sudo npm update cortex 
