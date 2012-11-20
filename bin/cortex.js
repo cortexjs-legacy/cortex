@@ -1,22 +1,11 @@
 #! /usr/bin/env node
 var tracer = require("tracer").colorConsole();
-var ActionFactory = require("../actions/action-factory");
+var ActionFactory = require("../lib/action-factory");
 
 var ctx = {};
 /**
  * cortex command line
  */
-
-var AVAILIABLE_ACTIONS = require("../actions.json");
-
-
-
-/**
- * prepare actions
- */
-AVAILIABLE_ACTIONS.forEach(function(actionName){
-	ctx[actionName] = require("../actions/"+actionName);
-});
 
 module.exports = ctx;
 
@@ -33,13 +22,19 @@ if(require.main){
 
 	if(command === "-v" || command === "--version"){
 		console.info("v"+version);
+		return;
 	}
 
 
-	var Action = ctx["help"];
-	if(ctx[command]){
-		Action = ctx[command];
+	var Action;
+
+	if(!command){
+		command = "help";
 	}
+
+
+	Action = require("../action/"+command);
 	
+
 	new Action(args.slice(3)).run();
 }
