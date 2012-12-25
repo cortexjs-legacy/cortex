@@ -5,4 +5,5 @@ cd gifsicle-1.68
 ./configure
 make
 make install
+cd ..
 rm -rf gifsicle-1.68.tar.gz gifsicle-1.68
