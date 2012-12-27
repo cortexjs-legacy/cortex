@@ -1,6 +1,6 @@
 {
     "name": "cortex",
-    "version": "1.0.1",
+    "version": "1.0.4",
     "description": "Front-end package management, publish tools for CI & automation",
     "main": "main.js",
     "directories": {
