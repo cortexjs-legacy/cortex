@@ -1,6 +1,6 @@
 {
     "name": "cortex",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "Front-end package management, publish tools for CI & automation",
     "main": "main.js",
     "directories": {
@@ -17,7 +17,7 @@
         "mysql":"2.0.0-alpha3",
         "colors":"0.6.0-1",
         "async":"0.1.22",
-        "ftp":"0.1.7",
+        "ftp":"0.2.11",
         "should": "~1.1.0",
         "tracer": "0.5.1",
         "request": "2.11.4",
