@@ -8,4 +8,7 @@ if(require.main) {
         .parse(process.argv);
 
     console.log("-p argument:", program.program);
+
+
+    var npm = require('./lib/npm.js');
 }

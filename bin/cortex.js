@@ -1,5 +1,5 @@
 #! /usr/bin/env node
-
+    
 var logger = require("tracer").colorConsole()
 , program = require("commander")
 , spawn = require("child_process").spawn
