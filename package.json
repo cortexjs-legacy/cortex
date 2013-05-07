@@ -14,6 +14,7 @@
     "author": "kael, spud",
     
     "dependencies": {
+        "commander":"1.1.1",
         "mysql":"2.0.0-alpha3",
         "colors":"0.6.0-1",
         "async":"0.1.22",
@@ -28,7 +29,11 @@
     },
     
     "bin":{
-        "ctx":"bin/cortex.js"
+        "ctx":"bin/cortex.js",
+        "ctx2":"bin/ctx.js",
+        "ctx2-init":"bin/ctx2-init.js",
+        "ctx2-build":"bin/ctx2-build.js",
+        "ctx2-setup":"bin/ctx2-setup.js"
     },
     
     "devDependencies": {},
