@@ -1,52 +1,49 @@
 {
-    "name": "cortex",
-    "version": "2.0.0",
-    "description": "Front-end package management, publish tools for CI & automation",
-    "main": "main.js",
-    "directories": {
-        "test": "test"
-    },
-
-    "keywords": [
-        "cortex"],
-
-    "author": "kael, spud",
-
-    "dependencies": {
-        "npm": "1.2.19",
-        "commander": "1.1.1",
-        "mysql": "2.0.0-alpha3",
-        "colors": "0.6.0-1",
-        "async": "0.1.22",
-        "ftp": "0.2.11",
-        "should": "~1.1.0",
-        "tracer": "0.5.1",
-        "request": "2.11.4",
-        "express": "3.0.6",
-        "MD5": "1.0.1",
-        "minimatch": "~0.2.9",
-        "osenv": "0.0.3"
-    },
-
-    "bin": {
-        "ctx": "bin/cortex.js",
-        "ctx-sample": "bin/ctx-sample.js"
-    },
-
-    "subCommands": {
-        "sample [arguments]": "sample子命令，参考ctx-sample.js"
-    },
-
-    "devDependencies": {},
-
-    "scripts": {
-        "test": "mocha test/.*"
-    },
-
-    "repository": {
-        "type": "git",
-        "url": "git@f2e.dp:cortex.git"
-    },
-
-    "license": "BSD"
+  "name": "cortex",
+  "version": "2.0.0",
+  "description": "Front-end package management, publish tools for CI & automation",
+  "main": "main.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [
+    "cortex"
+  ],
+  "author": "kael, spud",
+  "dependencies": {
+    "npm": "1.2.19",
+    "commander": "1.1.1",
+    "mysql": "2.0.0-alpha3",
+    "colors": "~0.6.0-1",
+    "async": "0.1.22",
+    "ftp": "0.2.11",
+    "should": "~1.1.0",
+    "tracer": "0.5.1",
+    "request": "2.11.4",
+    "express": "3.0.6",
+    "MD5": "1.0.1",
+    "minimatch": "~0.2.9",
+    "osenv": "0.0.3",
+    "fs-extra": "~0.6.0"
+  },
+  "bin": {
+    "ctx": "bin/cortex.js",
+    "ctx-sample": "bin/ctx-sample.js",
+    "ctx-install": "bin/ctx-install.js"
+  },
+  "subCommands": {
+    "sample [arguments]": "sample子命令，参考ctx-sample.js"
+  },
+  "devDependencies": {
+    "fs-more": "~0.1.5",
+    "npm": "~1.2.19"
+  },
+  "scripts": {
+    "test": "mocha test/.*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@f2e.dp:cortex.git"
+  },
+  "license": "BSD"
 }
