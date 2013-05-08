@@ -11,8 +11,15 @@ if (require.main) {
     if (program.program !== undefined) console.log("-p argument:", program.program);
     var npm = require('../lib/npmw.js');
 
-    npm.load(function(er) {
-        console.log(npm.commands);
+    npm.load({
+        "loglevel": "silent"
+    }, function(er) {
+        npm.commands.install(["json"], function(er, data) {
+            console.log('install!!!');
+            console.log(data);
+        });
+
+
         console.log(npm.config.get("registry"));
     });
 
