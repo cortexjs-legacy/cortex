@@ -3,12 +3,16 @@
 // sub command, just like a standalone program
 var program = require("commander");
 
-if(require.main) {
+if (require.main) {
     program.option("-p, --program <program>", "")
         .parse(process.argv);
 
-    console.log("-p argument:", program.program);
+    if (program.program !== undefined) console.log("-p argument:", program.program);
 
+    var npm = require('../lib/npmw.js');
 
-    var npm = require('./lib/npm.js');
+    npm.load(function(er, npm) {
+        console.log(npm.config.get("registry"));
+    });
+
 }

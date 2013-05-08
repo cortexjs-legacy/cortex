@@ -1,24 +1,24 @@
 {
     "name": "cortex",
-    "version": "1.2.8",
+    "version": "2.0.0",
     "description": "Front-end package management, publish tools for CI & automation",
     "main": "main.js",
     "directories": {
         "test": "test"
     },
-    
+
     "keywords": [
-        "cortex"
-    ],
-    
+        "cortex"],
+
     "author": "kael, spud",
-    
+
     "dependencies": {
-        "commander":"1.1.1",
-        "mysql":"2.0.0-alpha3",
-        "colors":"0.6.0-1",
-        "async":"0.1.22",
-        "ftp":"0.2.11",
+        "npm": "1.2.19",
+        "commander": "1.1.1",
+        "mysql": "2.0.0-alpha3",
+        "colors": "0.6.0-1",
+        "async": "0.1.22",
+        "ftp": "0.2.11",
         "should": "~1.1.0",
         "tracer": "0.5.1",
         "request": "2.11.4",
@@ -27,22 +27,26 @@
         "minimatch": "~0.2.9",
         "osenv": "0.0.3"
     },
-    
-    "bin":{
-        "ctx":"bin/cortex.js",
-        "ctx-sample":"bin/ctx-sample.js"
+
+    "bin": {
+        "ctx": "bin/cortex.js",
+        "ctx-sample": "bin/ctx-sample.js"
     },
-    
+
+    "subCommands": {
+        "sample [arguments]": "sample子命令，参考ctx-sample.js"
+    },
+
     "devDependencies": {},
-    
+
     "scripts": {
         "test": "mocha test/.*"
     },
-    
+
     "repository": {
         "type": "git",
         "url": "git@f2e.dp:cortex.git"
     },
-    
+
     "license": "BSD"
 }
