@@ -11,7 +11,8 @@
   ],
   "author": "kael, spud",
   "dependencies": {
-    "npmw": "0.0.2"
+    "npmw": "0.0.2",
+    "commander": "~1.1.1"
   },
   "bin": {
     "ctx": "bin/cortex.js",
