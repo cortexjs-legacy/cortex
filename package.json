@@ -11,20 +11,7 @@
   ],
   "author": "kael, spud",
   "dependencies": {
-    "npm": "1.2.19",
-    "commander": "1.1.1",
-    "mysql": "2.0.0-alpha3",
-    "colors": "~0.6.0-1",
-    "async": "0.1.22",
-    "ftp": "0.2.11",
-    "should": "~1.1.0",
-    "tracer": "0.5.1",
-    "request": "2.11.4",
-    "express": "3.0.6",
-    "MD5": "1.0.1",
-    "minimatch": "~0.2.9",
-    "osenv": "0.0.3",
-    "fs-extra": "~0.6.0"
+    "npmw": "0.0.2"
   },
   "bin": {
     "ctx": "bin/cortex.js",
@@ -34,10 +21,7 @@
   "subCommands": {
     "sample [arguments]": "sample子命令，参考ctx-sample.js"
   },
-  "devDependencies": {
-    "fs-more": "~0.1.5",
-    "npm": "~1.2.19"
-  },
+  "devDependencies": {},
   "scripts": {
     "test": "mocha test/.*"
   },
