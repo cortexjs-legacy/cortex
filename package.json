@@ -1,38 +1,33 @@
 {
   "name": "cortex",
-  "version": "1.2.10",
-  "description": "Front-end package management, publish tools for CI & automation",
-  "main": "main.js",
+  "version": "2.0.1",
+  "description": "Front-end environment for local development",
   "directories": {
       "test": "test"
   },
-  
   "keywords": [
       "cortex"
   ],
-  
   "author": "kael, spud",
-  
   "dependencies": {
-      "mysql":"2.0.0-alpha3",
-      "colors":"0.6.0-1",
-      "async":"0.1.22",
-      "ftp":"0.2.11",
-      "should": "~1.1.0",
-      "tracer": "0.5.1",
-      "request": "2.11.4",
-      "express": "3.0.6",
-      "MD5": "1.0.1",
-      "minimatch": "~0.2.9",
-      "osenv": "0.0.3"
+    "npmw": "0.0.2",
+    "commander": "~1.1.1",
+    "hooker": "~0.2.3",
+    "colors": "~0.6.0-1",
+    "prompt": "~0.1.12",
+    "grunt": "~0.4.1"
   },
-  
-  "bin":{
-      "ctx":"bin/cortex.js"
+  "bin": {
+    "ctx": "bin/cortex.js",
+    "ctx-sample": "bin/ctx-sample.js",
+    "ctx-install": "bin/ctx-install.js",
+    "ctx-build": "bin/ctx-build.js",
+    "ctx-init": "bin/ctx-init.js"
   },
-  
+  "subCommands": {
+    "sample [arguments]": "sample子命令，参考ctx-sample.js"
+  },
   "devDependencies": {},
-  
   "scripts": {
       "test": "mocha test/.*"
   },
