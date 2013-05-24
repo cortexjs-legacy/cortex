@@ -13,19 +13,18 @@ var hooker = require('hooker');
 require('colors');
 
 // Get the path to an asset, relative to this module's root directory.
-var asset = node_path.resolve.bind(null, __dirname, '..', 'lib', 'grunt-init');
+var asset = node_path.resolve.bind(null, __dirname, '..', 'lib', 'grunt-init' );
 
 // Project metadata.
 // var pkg = require(asset('package.json'));
 
 // Grunt.
 var grunt = require('grunt');
-var helpers = require(asset('lib/helpers')).init(grunt);
+var helpers = require(asset('tasks/lib/helpers')).init(grunt);
 
 // Hook into grunt.task.init to load the built-in init task.
 hooker.hook(grunt.task, 'init', function() {
-  console.log(node_path.resolve(__dirname, '..', 'lib', 'grunt-init'))
-  grunt.task.loadTasks( node_path.resolve(__dirname, '..', 'lib', 'grunt-init') );
+  grunt.task.loadTasks( asset('tasks') );
 });
 
 var name;
