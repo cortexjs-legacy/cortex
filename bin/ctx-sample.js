@@ -1,4 +1,4 @@
-#! /usr/bin/env node
+#!/usr/bin/env node
 
 // sub command, just like a standalone program
 var program = require("commander");
