@@ -3,39 +3,39 @@
   "version": "2.0.1",
   "description": "Front-end environment for local development",
   "directories": {
-      "test": "test"
+    "test": "test"
   },
   "keywords": [
-      "cortex"
+    "cortex"
   ],
   "author": "kael, spud",
   "dependencies": {
     "npmw": "0.0.2",
-    "commander": "~1.1.1",
     "hooker": "~0.2.3",
     "colors": "~0.6.0-1",
     "prompt": "~0.1.12",
-    "grunt": "~0.4.1"
+    "grunt": "~0.4.1",
+    "nopt": "~2.1.1",
+    "connect": "~2.7.10"
   },
   "bin": {
     "ctx": "bin/cortex.js",
     "ctx-sample": "bin/ctx-sample.js",
     "ctx-install": "bin/ctx-install.js",
     "ctx-build": "bin/ctx-build.js",
-    "ctx-init": "bin/ctx-init.js"
+    "ctx-init": "bin/ctx-init.js",
+    "ctx-server": "bin/ctx-server.js"
   },
   "subCommands": {
     "sample [arguments]": "sample子命令，参考ctx-sample.js"
   },
   "devDependencies": {},
   "scripts": {
-      "test": "mocha test/.*"
+    "test": "mocha test/.*"
   },
-  
   "repository": {
-      "type": "git",
-      "url": "git@f2e.dp:cortex.git"
+    "type": "git",
+    "url": "git@f2e.dp:cortex.git"
   },
-  
   "license": "BSD"
 }
