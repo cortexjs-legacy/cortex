@@ -19,8 +19,6 @@
     "connect": "~2.7.10"
   },
   "bin": {
-    "ctx": "bin/cortex.js",
-    "ctx-sample": "bin/ctx-sample.js",
     "ctx-install": "bin/ctx-install.js",
     "ctx-build": "bin/ctx-build.js",
     "ctx-init": "bin/ctx-init.js",
