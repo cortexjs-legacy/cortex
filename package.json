@@ -16,7 +16,8 @@
     "prompt": "~0.1.12",
     "grunt": "~0.4.1",
     "nopt": "~2.1.1",
-    "connect": "~2.7.10"
+    "connect": "~2.7.10",
+    "async": "~0.2.8"
   },
   "bin": {
     "ctx-install": "bin/ctx-install.js",

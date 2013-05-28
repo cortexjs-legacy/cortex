@@ -1,20 +1,17 @@
 #!/usr/bin/env node
 
-var nopt = require('nopt');
 var node_path = require('path');
 var runner = require('../lib/run-grunt.js');
+var option = require('../lib/option.js');
 
-var known_opts = {
-	cwd: node_path
+var option_list = {
+	cwd: {
+		short: 'c',
+		type: node_path,
+		value: process.cwd()
+	}
 };
 
-var short_hands = {
-	c: ['--cwd']
-};
-
-var parsed = nopt(known_opts, short_hands, process.argv, 2);
-
-// var argv = parsed.argv;
-delete parsed.argv;
+var parsed = option(option_list, process.argv, 2);
 
 runner(['cortex.build'], parsed);
