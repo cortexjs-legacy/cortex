@@ -20,15 +20,7 @@
     "async": "~0.2.8",
     "fs-sync": "0.0.2"
   },
-  "bin": {
-    "ctx-install": "bin/ctx-install.js",
-    "ctx-build": "bin/ctx-build.js",
-    "ctx-init": "bin/ctx-init.js",
-    "ctx-server": "bin/ctx-server.js"
-  },
-  "subCommands": {
-    "sample [arguments]": "sample子命令，参考ctx-sample.js"
-  },
+  "main": "lib/cortex",
   "devDependencies": {},
   "scripts": {
     "test": "mocha test/.*"
