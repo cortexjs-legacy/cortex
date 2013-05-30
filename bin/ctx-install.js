@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 
-var node_path = require('path');
-var async = require('async');
-var fs = require('fs-sync');
-var install = require('cortex-install').install;
+'use strict';
 
-var grunt_runner = require('../lib/run-grunt');
+var node_path = require('path');
+var fs = require('fs-sync');
 var option = require('../lib/option');
+var install = require('../lib/command/install');
 
 var option_list = {
 	cwd: {
@@ -16,120 +15,82 @@ var option_list = {
 	},
 
 	save: {
-		type: Boolean
+		type: Boolean,
+		value: false
 	}
 };
 
 
 var parsed = option(option_list, process.argv, 2);
 
-var modules = parsed.argv.remain;
-var has_package = fs.exists('package.json');
+////////////////////////////////////////////////////////////////////////////////
+// santitize options
 
-if(modules.length === 0){
-	if(has_package){
-		var pkg = fs.readJSON('package.json');
-		var deps = modules = (pkg.cortexDependencies || {});
+var package_path = node_path.join( parsed.cwd, 'package.json' );
+var has_package = fs.exists(package_path);
 
-		Object.keys(deps).forEach(function(key) {
-		    modules.push(key + '@' + deps[key]);
-		});
+if(parsed.save && !has_package){
+
+	// TODO:
+	// migrate to cortex.log.write
+	process.stdout.write('package.json not found, could not save dependencies');
+	process.exit(1);
+}
+
+var modules = {};
+
+// ['a@0.0.2'] -> {a: '0.0.2'}
+// ['a'] -> {a: 'latest'}
+parsed.argv.remain.forEach(function(module) {
+	module = module.split('@');
+
+	var name = module[0];
+	var version = module[1] || 'latest';
+
+	modules[name] = version; 
+});
+
+
+function is_empty_object(obj){
+	for(var key in obj){
+		return false;
 	}
 
-	if(modules.length === 0){
-		process.stdout.write('No dependencies found in package.json, please specify the modules to be installed.\n');
+	return true;
+};
+
+
+if( is_empty_object(modules) ){
+	if(has_package){
+
+		// read modules from package.json
+		var pkg = fs.readJSON(package_path);
+		modules = pkg.cortexDependencies || {};
+
+		if( !is_empty_object(modules) ){
+			process.stdout.write('Read cortexDependencies from package.json.\n');
+		}
+	}
+
+	if( is_empty_object(modules) ){
+		process.stdout.write('Please specify the modules to be installed.\n');
 		process.exit(1);
 	}
 }
 
+parsed.modules = modules;
 
-var USER_HOME = process.env[(process.platform == 'win32') ? 'USERPROFILE' : 'HOME'];
-var CORTEX_ROOT = node_path.join(USER_HOME, '.cortex');
+// end santitize options
+////////////////////////////////////////////////////////////////////////////////
 
-var temp_dir = node_path.join(CORTEX_ROOT, 'tmp', + new Date);
-var module_root = node_path.join(USER_HOME, '.cortex', 'modules');
+// run command
+install.run(parsed);
 
-var series = [];
-
-// {
-//		a: ['1.2.3', '1.3.3'],
-// 		b: ['0.0.1']
-// }
-var installed_module_map = {};
-
-
-function log(msg){
-	process.stdout.write(msg + '\n');
-};
-
-
-modules.forEach(function(module){
-	series.push(function(done) {
-
-		log();
-
-	    install(temp_dir, module, function(error, data) {
-	        if(error){
-	        	throw error;
-	        }
-
-	        var dependencies = data.dependencies;
-	        var key;
-
-	        for(module_name in dependencies){
-	        	if( !(module_name in installed_module_map) ){
-
-	        		// there might be more than one version for a certain module
-	        		installed_module_map[module_name] = [];
-	        	}
-
-
-	        	installed_module_map[module_name].push(dependencies[dependencies]);
-	        }
-
-	        done();
-	    });
-	});
-});
-
-
-async.parallel(series, function() {
-	var installed_modules = [];
-	var series = [];
-
-	Object.keys(installed_module_map).forEach(function(module) {
-		var versions = installed_module_map[module];
-
-		installed_modules = installed_modules.concat( versions.map(function(version) {
-		    return node_path.join(module, version);
-		}) );
-	});
-
-	installed_modules.forEach(function(module_slash_version) {
-	    series.push(function(done) {
-
-	    	log('run grunt-task: cortex.build on ', node_path.join(temp_dir, module_slash_version));
-	        grunt_runner('cortex.build', {
-	        	cwd: node_path.join(temp_dir, module_slash_version)
-
-	        }, done);
-	    })
-	});
-
-	async.parallel(series, function() {
-
-		installed_modules.forEach(function(module_slash_version) {
-		    fs.copy(
-		    	node_path.join(temp_dir, module_slash_version),
-		    	node_path.join(module_root, module_slash_version), {
-		    		force: true
-		    	}
-		    );
-		});
-	    
-	});
-});
-
+// (function() {
+//     for(var option in parsed){
+//     	process.stdout.write('option: ' + option + ' = ' + parsed[option] + '\n');
+//     }
+// })();
 
 
 

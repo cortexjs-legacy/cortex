@@ -17,7 +17,8 @@
     "grunt": "~0.4.1",
     "nopt": "~2.1.1",
     "connect": "~2.7.10",
-    "async": "~0.2.8"
+    "async": "~0.2.8",
+    "fs-sync": "0.0.2"
   },
   "bin": {
     "ctx-install": "bin/ctx-install.js",
