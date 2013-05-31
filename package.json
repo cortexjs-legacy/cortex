@@ -18,7 +18,8 @@
     "nopt": "~2.1.1",
     "connect": "~2.7.10",
     "async": "~0.2.8",
-    "fs-sync": "0.0.2"
+    "fs-sync": "0.0.2",
+    "uglify-js": "~2.3.6"
   },
   "main": "lib/cortex",
   "devDependencies": {},
