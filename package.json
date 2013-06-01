@@ -21,8 +21,11 @@
     "fs-sync": "0.0.2",
     "uglify-js": "~2.3.6"
   },
-  "main": "lib/cortex",
-  "bin": "lib/cortex-cli",
+  "main": "lib/cortex.js",
+  "bin": {
+    "ctx": "bin/cortex-cli.js",
+    "cortex": "bin/cortex-cli.js"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "mocha test/.*"
