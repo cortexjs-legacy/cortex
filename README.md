@@ -1,3 +1,3 @@
 # Cortex
 
-> A commonjs environment for development
+> A commonjs environment and package manager for web development

@@ -1,12 +1,20 @@
 {
   "name": "cortex",
   "version": "2.0.2",
-  "description": "Front-end environment for local development",
+  "description": "A commonjs environment and package manager for web development",
   "directories": {
     "test": "test"
   },
   "keywords": [
-    "cortex"
+    "cortex",
+    "commonjs",
+    "dev",
+    "development",
+    "package",
+    "manager",
+    "web",
+    "server",
+    "scaffold"
   ],
   "author": "kael, spud",
   "dependencies": {

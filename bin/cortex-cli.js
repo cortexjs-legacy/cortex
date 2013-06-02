@@ -5,6 +5,7 @@
 var cortex = require('../');
 var fs = require('fs-sync');
 var node_path = require('path');
+var commander = require('../lib/util/commander');
 
 var argv = process.argv;
 
@@ -21,7 +22,7 @@ var option_list = {
 };
 
 
-var parsed = option(option_list, argv, 2);
+var parsed = commander.parse(option_list, argv, 2);
 
 var command;
 var config = {};
@@ -44,7 +45,9 @@ if(parsed.help || argv.length === 2){
 	command = argv[2];
 }
 
-var lib_root = node_path.join( __dirname, '..', 'lib', 'cli');
+var lib_root = node_path.join( __dirname, '..', 'lib');
+var command_root = node_path.join( lib_root, 'command' );
+var opt_root = node_path.join( lib_root, 'opt' );
 
 if ( !fs.exists( cli_root, command + '.js' ) ) {
     process.stdout.write('Command <ctx ' + command + '> not found. See "ctx --help".\n');
