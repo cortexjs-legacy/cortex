@@ -18,7 +18,7 @@
   ],
   "author": "kael, spud",
   "dependencies": {
-    "npmw": "0.0.2",
+    "npmw": "~0.0.2",
     "hooker": "~0.2.3",
     "colors": "~0.6.0-1",
     "prompt": "~0.1.12",
@@ -26,7 +26,7 @@
     "nopt": "~2.1.1",
     "connect": "~2.7.10",
     "async": "~0.2.8",
-    "fs-sync": "0.0.2",
+    "fs-sync": "~0.1.5",
     "uglify-js": "~2.3.6"
   },
   "main": "lib/cortex.js",
