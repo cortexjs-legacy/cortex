@@ -20,7 +20,7 @@ echo "remove old grunt-init-neuron"
 rm -rf ~/.grunt-init/neuron
 git clone git@github.com:supersheep/grunt-init-neuron.git ~/.grunt-init/neuron
 
-echo "Cortex successfully installed"
+echo "Cortex successfully installed!"
 
 
 
