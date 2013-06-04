@@ -81,7 +81,8 @@ Cortex **不是**一个任务构建工具，**不是**一个版本管理工具�
 
 	ctx build
 
-由于 cortex 开发环境中的项目
+将类似使用 Node.js 方式编写的代码，进行包裹，使每个模块在浏览器环境下，也能够在独立的 sandbox 中运行。
+默认的，`ctx build` 命令会在编译成功后将当前项目发布到 cortex server 的目录。
 
 
 ### Vision:终极目标
