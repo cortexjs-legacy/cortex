@@ -57,7 +57,7 @@ Cortex **不是**一个任务构建工具， **不是**一个版本管理工具�
 
 #### 3. 安装模块依赖
 
-首先，需要安装该模块，以 `'lang'` 模块为例
+要使用一个外部模块，首先，需要安装该模块，以 `'lang'` 模块为例：
 
 	ctx install lang --save
 	
@@ -71,6 +71,8 @@ Cortex **不是**一个任务构建工具， **不是**一个版本管理工具�
 
 
 #### 5. 验证 package.json
+	
+	ctx validate
 
 包括验证
 
@@ -81,12 +83,15 @@ Cortex **不是**一个任务构建工具， **不是**一个版本管理工具�
 
 	ctx build
 
-将类似使用 Node.js 方式编写的代码，进行包裹，使每个模块在浏览器环境下，也能够在独立的 sandbox 中运行。
+将类似使用 Node.js 方式编写的代码，进行包裹，让每个模块在浏览器环境下也能够在独立的 sandbox 中运行。
+
 默认的，`ctx build` 命令会在编译成功后将当前项目发布到 cortex server 的目录。
 
 
 ### Vision:终极目标
-- cortex 安装完成后，会启动 cortex server，并且能够报错重启，开机自动启动
+希望测试版本中的工作，之后不需要手动进行。
+
+- Cortex 安装完成后，会启动 cortex server，并且能够报错重启，开机自动启动
 - 使用 `ctx init` 初始化的项目 或者 运行过 `ctx watch` 的项目，会加入 cortex 的监视列表，当这些项目被修改后，会自动编译并发布到本地的 cortex server
 - 每当项目的 package.json 文件被修改后，会调用 `ctx validate` 方法向 npm server 验证。
 
