@@ -27,7 +27,8 @@
     "connect": "~2.7.10",
     "async": "~0.2.8",
     "fs-sync": "~0.1.5",
-    "uglify-js": "~2.3.6"
+    "uglify-js": "~2.3.6",
+    "semver": "~1.1.4"
   },
   "main": "lib/cortex.js",
   "bin": {
