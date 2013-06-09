@@ -4,4 +4,7 @@
 
 Cortex is not another JavaScript task runner nor a unsophisticated package manager.
 
-Cortex is not designed for a 15-minutes project.
+Cortex is **NOT** designed for a 15-minutes project.
+
+## Purpose
+
