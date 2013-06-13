@@ -29,7 +29,9 @@
     "fs-sync": "~0.1.5",
     "uglify-js": "~2.3.6",
     "semver": "~1.1.4",
-    "cortex-install": "~0.0.1"
+    "cortex-install": "~0.0.1",
+    "request": "~2.21.0",
+    "tar.gz": "~0.1.1"
   },
   "main": "lib/cortex.js",
   "bin": {
