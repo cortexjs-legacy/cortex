@@ -1,7 +1,9 @@
 #!/bin/bash
 
-# For must cases, you should use `sudo bash install.sh`
-# Mac OSX ONLY
+# You should NEVER run this as `sudo bash install.sh`, or you will use a wrong rsa_id
+
+# Mac OSX ONLY so far
+# If 'Password:' is asking, enter your superadmin password
 
 path="/usr/local/bin/"
 
@@ -27,7 +29,7 @@ mkdir -p ~/.cortex/built_modules
 mkdir -p ~/.cortex/modules
 touch ~/.cortex/stable_modules
 rm ~/.cortex/stable_modules
-echo "{}" >> ~/.cortex/stable_modules
+echo "{}" > ~/.cortex/stable_modules
 echo "Cortex successfully installed!"
 
 
