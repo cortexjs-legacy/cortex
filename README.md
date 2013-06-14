@@ -24,7 +24,7 @@ Cortex never do the fighting alone, but works with a bunch of other tools, which
 
 Cortex only cares about javascript modules for the web.
 
-#### Let Us Be Stupid
+#### Let’s Be Stupid
 
 Cortex is trying its best to supply easy-to-use APIs, do as much more tasks as possible on its own and free your both hands.
 
