@@ -29,3 +29,8 @@ Cortex only cares about javascript modules for the web.
 Cortex is trying its best to supply easy-to-use APIs, do as much more tasks as possible on its own and free your both hands.
 
 What you have to do, is just saying hello to your world and creating things useful. 
+
+## Related Projects
+
+- [neocortex](https://github.com/kaelzhang/neocortex)
+- [neuron-js](https://github.com/kaelzhang/neuron)
