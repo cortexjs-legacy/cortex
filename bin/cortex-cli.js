@@ -3,11 +3,11 @@
 'use strict';
 
 var node_path = require('path');
-var parser = require('../lib/util/parse-argv');
+var commander = require('sub-commander');
 
-// if a command is not found, parser will notice that.
-var parsed = parser(process.argv);
-
-// run command
-require( node_path.join( __dirname, '..', 'lib', 'command', parsed.command ) )( parsed.options );
+commander({
+	commands: node_path.join( __dirname, '..', 'lib', 'command'),
+	options : node_path.join( __dirname, '..', 'lib', 'option'),
+	name: 'ctx'
+}).cli();
 
