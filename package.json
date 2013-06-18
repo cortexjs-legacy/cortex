@@ -31,6 +31,7 @@
     "semver": "~1.1.4",
     "cortex-install": "~0.0.1",
     "cortex-profile": "~0.0.1",
+    "sub-commander": "~0.1.1",
     "request": "~2.21.0",
     "tar.gz": "~0.1.1"
   },
