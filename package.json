@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "A commonjs environment and package manager for web development",
   "directories": {
     "test": "test"
@@ -37,7 +37,6 @@
   },
   "main": "lib/cortex.js",
   "bin": {
-    "ctx": "bin/cortex-cli.js",
     "cortex": "bin/cortex-cli.js"
   },
   "devDependencies": {},
