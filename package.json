@@ -35,7 +35,7 @@
     "request": "~2.21.0",
     "tar.gz": "~0.1.1"
   },
-  "main": "lib/cortex.js",
+  "main": "index.js",
   "bin": {
     "cortex": "bin/cortex-cli.js"
   },
