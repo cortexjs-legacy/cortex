@@ -7,7 +7,7 @@
 
 path="/usr/local/bin/"
 
-links=(cortex ctx-build ctx-help ctx-init ctx-install ctx-server ctx-validate) 
+links=(cortex ctx ctx-build ctx-help ctx-init ctx-install ctx-server ctx-validate) 
 
 for link in ${links[@]}
 do
