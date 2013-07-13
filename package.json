@@ -37,7 +37,8 @@
   },
   "main": "index.js",
   "bin": {
-    "cortex": "bin/cortex-cli.js"
+    "cortex": "bin/cortex-cli.js",
+    "ctx": "bin/cortex-cli.js"
   },
   "devDependencies": {},
   "scripts": {
