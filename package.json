@@ -23,7 +23,6 @@
     "prompt": "~0.1.12",
     "grunt": "~0.4.1",
     "nopt": "~2.1.1",
-    "connect": "~2.7.11",
     "async": "~0.2.9",
     "fs-sync": "~0.1.5",
     "uglify-js": "~2.3.6",
@@ -34,7 +33,8 @@
     "request": "~2.21.0",
     "tar.gz": "~0.1.1",
     "read-package-json": "~1.1.1",
-    "loggie": "~0.1.8"
+    "loggie": "~0.1.8",
+    "express": "~3.3.4"
   },
   "main": "index.js",
   "bin": {
