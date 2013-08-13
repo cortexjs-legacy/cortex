@@ -27,14 +27,14 @@
     "fs-sync": "~0.2.1",
     "uglify-js": "~2.3.6",
     "semver": "~1.1.4",
-    "cortex-install": "~0.0.1",
     "multi-profile": "~0.1.1",
     "comfort": "~0.2.14",
     "request": "~2.21.0",
     "tar.gz": "~0.1.1",
     "read-package-json": "~1.1.1",
     "loggie": "~0.1.8",
-    "express": "~3.3.4"
+    "express": "~3.3.4",
+    "neuropil": "~0.1.10"
   },
   "main": "index.js",
   "bin": {
