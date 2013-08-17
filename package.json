@@ -34,7 +34,8 @@
     "read-package-json": "~1.1.1",
     "loggie": "~0.1.8",
     "express": "~3.3.4",
-    "neuropil": "~0.1.10"
+    "neuropil": "~0.1.10",
+    "gaze": "~0.4.1"
   },
   "main": "index.js",
   "bin": {
