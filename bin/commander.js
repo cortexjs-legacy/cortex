@@ -5,8 +5,9 @@ var comfort = require('comfort');
 
 
 var context = {
-    profile: require('./profile'),
-    neuropil: require('./neuropil')
+    profile     : require('./profile'),
+    neuropil    : require('./neuropil'),
+    locale      : require('./i18n')
 };
 
 // Commander for CLI
