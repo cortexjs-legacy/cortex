@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('../lib/commander').cli();
+require('./commander').cli();

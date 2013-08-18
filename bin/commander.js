@@ -5,15 +5,16 @@ var comfort = require('comfort');
 
 
 var context = {
-    profile: require('./profile')
+    profile: require('./profile'),
+    neuropil: require('./neuropil')
 };
 
 // Commander for CLI
 // cli entrance
 // cache commander instance
 var commander = module.exports = comfort({
-    command_root: node_path.join( __dirname, 'command'),
-    option_root : node_path.join( __dirname, 'option'),
+    command_root: node_path.join( __dirname, '..', 'lib', 'command'),
+    option_root : node_path.join( __dirname, '..', 'lib', 'option'),
     name: 'cortex',
 
     logger: require('./logger'),
