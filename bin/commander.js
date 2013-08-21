@@ -26,7 +26,6 @@ var commander = module.exports = comfort({
         this.logger.error(e.err);
         this.logger.debug(e.data);
 
-        return;
     }else{
         this.logger.end();
     }
