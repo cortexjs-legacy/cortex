@@ -15,21 +15,17 @@ module.exports = neuropil({
     host: profile.option('registry')
 
 }).on('request', function(e) {
-    this.logger.info.ln(
-        '  ', 
-        this.logger.template('{{magenta method}} {{url}}', {
-            url     : e.safe_url,
-            method  : e.method
-        }) 
-    );
-
     e.json && this.logger.debug('\njson', e.json);
 
 }).on('response', function(e){
     var code = e.res.statusCode;
 
     this.logger.info(
-        '',
+        '  ',
+        this.logger.template('{{magenta method}} {{url}}', {
+            url     : e.req.safe_url,
+            method  : e.req.method
+        }),
         e.err ? 
             '{{red ' + (code || 'ERR') + '}}' : 
             '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (e.res.statusCode || 'OK!') + '}}'
