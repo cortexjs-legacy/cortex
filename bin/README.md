@@ -1,5 +1,7 @@
 # Cortex bin
 
+> The developers' draft
+
 Contains configurations for command-line.
 
 ### commander.js
