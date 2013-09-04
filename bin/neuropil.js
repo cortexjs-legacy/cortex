@@ -7,8 +7,8 @@ var node_url = require('url');
 module.exports = neuropil({
     logger: require('./logger'),
 
-    username: 'kael2',
-    password: 'blah-blah-bie',
+    username: profile.option('username'),
+    password: profile.option('password'),
     email: 'i@kael.me',
 
     port: profile.option('registry_port'),
