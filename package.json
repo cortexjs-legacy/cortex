@@ -1,9 +1,11 @@
 {
   "name": "cortex",
   "version": "2.1.0",
-  "description": "A commonjs environment and package manager for web development",
+  "description": "Cortex is a commonjs environment and package manager for web development.",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "lib": "lib",
+    "doc": "doc"
   },
   "keywords": [
     "cortex",
@@ -16,13 +18,12 @@
     "server",
     "scaffold"
   ],
-  "author": "kael, spud",
+  "author": "kael",
   "dependencies": {
     "hooker": "~0.2.3",
     "colors": "~0.6.0-1",
     "prompt": "~0.1.12",
     "grunt": "~0.4.1",
-    "nopt": "~2.1.1",
     "async": "~0.2.9",
     "fs-sync": "~0.2.1",
     "uglify-js": "~2.3.6",

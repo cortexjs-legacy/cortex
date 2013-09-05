@@ -1,5 +1,5 @@
 'use strict';
 
-var profile = require('../lib/profile');
+var profile = require('../../lib/profile');
 
 module.exports = profile();

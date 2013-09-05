@@ -14,8 +14,8 @@ var context = {
 // cli entrance
 // cache commander instance
 var commander = module.exports = comfort({
-    command_root: node_path.join( __dirname, '..', 'lib', 'command'),
-    option_root : node_path.join( __dirname, '..', 'lib', 'option'),
+    command_root: node_path.join( __dirname, '..', '..', 'lib', 'command'),
+    option_root : node_path.join( __dirname, '..', '..', 'lib', 'option'),
     name: 'cortex',
 
     logger: require('./logger'),

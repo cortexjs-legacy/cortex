@@ -6,7 +6,7 @@ var node_path = require('path');
 // ./resources/locales/zh_CN/
 var root = node_path.join(
     __dirname, 
-    '..', 'lib', 
+    '..', '..', 'lib', 
     'resource', 'locales', 
     profile.option('language')
     
