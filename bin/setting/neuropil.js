@@ -15,7 +15,7 @@ module.exports = neuropil({
     host: profile.option('registry')
 
 }).on('request', function(e) {
-    e.json && this.logger.debug('\njson', e.json);
+    e.json && this.logger.debug('json', e.json);
 
 }).on('response', function(e){
     var code = e.res.statusCode;
@@ -32,7 +32,7 @@ module.exports = neuropil({
     );
 
     this.logger.debug(
-        '\n{{magenta ' + e.req.method + '}}',
+        '{{magenta ' + e.req.method + '}}',
         node_url.parse(e.req.safe_url).pathname,
         e.err,
         e.body
