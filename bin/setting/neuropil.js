@@ -28,7 +28,7 @@ module.exports = neuropil({
         }),
         e.err ? 
             '{{red ' + (code || 'ERR') + '}}' : 
-            '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (e.res.statusCode || 'OK!') + '}}'
+            '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (code || 'OK!') + '}}'
     );
 
     this.logger.debug(
