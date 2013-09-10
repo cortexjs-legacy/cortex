@@ -42,7 +42,6 @@
     "asks": "~0.1.3",
     "editor": "0.0.4"
   },
-  "main": "index.js",
   "bin": {
     "cortex": "bin/cortex-cli.js"
   },
