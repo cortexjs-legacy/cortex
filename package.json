@@ -28,8 +28,8 @@
     "fs-sync": "~0.2.1",
     "uglify-js": "~2.3.6",
     "semver": "~1.1.4",
-    "multi-profile": "~0.1.1",
-    "comfort": "~0.2.14",
+    "multi-profile": "~0.1.10",
+    "comfort": "~0.2.20",
     "request": "~2.21.0",
     "read-package-json": "~1.1.1",
     "loggie": "~0.1.8",
@@ -40,7 +40,8 @@
     "fstream": "~0.1.24",
     "tar": "~0.1.18",
     "asks": "~0.1.3",
-    "editor": "0.0.4"
+    "editor": "~0.0.4",
+    "code-this": "~0.1.3"
   },
   "bin": {
     "cortex": "bin/cortex-cli.js"
