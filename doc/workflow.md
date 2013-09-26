@@ -12,17 +12,7 @@ Set up with `NODE_PATH` for node.js
 
 ### Install cortex
 
-	git clone git@github.com:kaelzhang/cortex.git
-	cd cortex
-	# Maybe you should use `sudo`
-	npm link
-	
-	# Linux and Mac OSX only for now
-	bash install.sh
-
-or install with one command:
-
-	curl https://npmjs.org/install.sh | bash
+	npm install -g cortex
 
 
 ## Workflow
@@ -35,14 +25,14 @@ It's recommended that you create your repo on [github](http://github.com) or you
 
 #### 3. initialize
 
-	ctx init --force
+	cortex init --force
 	# and configure your initial settings
 
-`ctx init` will automatically add the current repository into the watching list.
+`cortex init` will automatically add the current repository into the watching list.
 
 #### 4. develop
 
-make changes, submit your code to git server, and test your code at http://localhost:8765
+make changes, submit your code to git server, and test your code at http://localhost:9074
 
 **For most cases, all things will be done without your concern.**
 
@@ -50,15 +40,15 @@ make changes, submit your code to git server, and test your code at http://local
 
 #### 5. use foreign modules
 
-	ctx install --save <module> <module> ...
+	cortex install [--save] <module> <module> ...
 
 #### 6. validate package.json
 
-	ctx validate
+	cortex validate
 	
 #### 7. build your project
 	
-	ctx build
+	cortex build
 	
 
 
