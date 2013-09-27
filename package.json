@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "2.3.2",
+  "version": "2.4.1",
   "description": "Cortex is a commonjs environment and package manager for web development.",
   "directories": {
     "test": "test",
