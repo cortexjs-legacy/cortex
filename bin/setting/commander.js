@@ -23,7 +23,7 @@ var commander = module.exports = comfort({
 
 }).on('complete', function(e) {
     if(e.error){
-        this.logger.error(e.err);
+        this.logger.error(e.error);
         this.logger.debug(e.data);
 
     }else{
