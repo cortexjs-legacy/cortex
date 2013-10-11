@@ -22,7 +22,7 @@ var commander = module.exports = comfort({
     context: context
 
 }).on('complete', function(e) {
-    if(e.err){
+    if(e.error){
         this.logger.error(e.err);
         this.logger.debug(e.data);
 
