@@ -22,21 +22,24 @@ var commander = module.exports = comfort({
     context: context
 
 }).on('complete', function(e) {
-    if(e.error){
-        this.logger.error(e.error);
-        this.logger.debug(e.data);
+    var err = e.error;
 
-    }else{
-        this.logger.end();
+    if(err){
+        if ( err instanceof Error ) {
+            // loggie will deal with `Error` instances
+            this.logger.error(err);
+
+        // error code
+        } else if (typeof err === 'number') {
+            this.logger.error('Not ok, exit code: ' + err);
+        
+        } else {
+            this.logger.error( err.message || err );
+        }
+
+    }else if(e.command !== 'help'){
+        this.logger.info('{{green OK!}}');
     }
-
-}).on('commandNotFound', function(e) {
-    this.logger.error(
-        this.logger.template( '{{name}}: "{{command}}" is not a {{name}} command. See "{{name}} --help".', {
-            name: e.name,
-            command: e.command
-        })
-    );
 });
 
 context.commander = commander;
