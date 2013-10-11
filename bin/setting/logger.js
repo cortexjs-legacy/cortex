@@ -14,6 +14,7 @@ var logger = module.exports = loggie({
 
     // if the current process exit before `logger.end()` called, there will throw an error message
     use_exit: true,
+    catch_exception: false,
 
     colors: profile.option('colors')
 });
