@@ -18,25 +18,28 @@ module.exports = neuropil({
     e.json && this.logger.debug('json', e.json);
 
 }).on('response', function(e){
-    var code = e.res.statusCode;
+    var res = e.res;
+    var code;
 
-    this.logger.info(
-        '  ',
-        this.logger.template('{{magenta method}} {{url}}', {
-            url     : e.req.safe_url,
-            method  : e.req.method
-        }),
-        e.err ? 
-            '{{red ' + (code || 'ERR') + '}}' : 
-            '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (code || 'OK!') + '}}'
-    );
+    if ( res ) {
+        code = res.statusCode;
 
-    this.logger.debug(
-        '{{magenta ' + e.req.method + '}}',
-        node_url.parse(e.req.safe_url).pathname,
-        e.err,
-        e.body
-    );
+        this.logger.info(
+            '  ',
+            this.logger.template('{{magenta method}} {{url}}', {
+                url     : e.req.safe_url,
+                method  : e.req.method
+            }),
+            e.err ? 
+                '{{red ' + (code || 'ERR') + '}}' : 
+                '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (code || 'OK!') + '}}'
+        );
+         
+    // There must be an server error
+    } else {
+        this.logger.error(e.err);
+    }
+
 });
 
 
