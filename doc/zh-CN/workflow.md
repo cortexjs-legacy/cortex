@@ -1,40 +1,3 @@
-# Cortex 开发者使用指南
-
-
-## 简介
-
-Cortex **不是**一个任务构建工具， **不是**一个版本管理工具；
-
-而是一个针对浏览器端开发的前端环境和模块管理器，特别为基于 [CommonJS](http://wiki.commonjs.org) 开发的前端项目而设计。它提供：
-
-- 基于 [CommonJS:Modules/1.0](http://wiki.commonjs.org/wiki/Modules/1.0) 的 wrapping 服务，可以 **让开发者完全使用 Node.js 的方式来开发 web 应用**
-- 提供 Web 开发的模块管理器
-- 提供针对 Web 页面的发布方案
-
-
-## 环境准备
-
-### 安装 Node.js
-
-访问 [http://nodejs.org](http://nodejs.org) 下载合适的版本安装。
-
-并针对不同的系统，设置好环境变量 `NODE_PATH`
-
-### 安装 cortex
-
-目前测试版本中，暂时没有发布到 npm。可以使用如下代码手动安装：
-
-	git clone git@github.com:kaelzhang/cortex.git
-	cd cortex
-	
-	# Linux 或 Mac 可能需要使用 `sudo`
-	npm link
-	
-	# 目前仅支持 Linux 和 Mac OSX
-	bash install.sh
-	
-上面的命令执行成功后，terminal 中会增加一个 `ctx` 命令。
-
 ## 工作流程
 
 
@@ -96,5 +59,3 @@ Cortex **不是**一个任务构建工具， **不是**一个版本管理工具�
 - Cortex 安装完成后，会启动 cortex server，并且能够报错重启，开机自动启动
 - 使用 `ctx init` 初始化的项目 或者 运行过 `ctx watch` 的项目，会加入 cortex 的监视列表，当这些项目被修改后，会自动编译并发布到本地的 cortex server
 - 每当项目的 package.json 文件被修改后，会调用 `ctx validate` 方法向 npm server 验证。
-
-
