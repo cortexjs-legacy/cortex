@@ -40,11 +40,14 @@ Cortex 是开源项目，欢迎大家对 cortex 进行改进或在 cortex 基础
 
 ### 如何写更好的 git comments
 
-1. 开头应当包含本次提交所属的子系统的名字，如 "command/install: "
+1. 应当包含本次提交所属的子系统的名字，如 "command/install: "
 2. 尽量使用英文
 3. 包含与本次提交相关的 issue 号，格式为 "#<issue>"，可以参见 [Github Flavored Markdown](https://help.github.com/articles/github-flavored-markdown#references)
 4. 尽量描述本次提交所做的事情。
 
+例如，一个比较好的 comment 可能是这样的：
+
+    commmand/publish: adds more hints if remote registry server is down. fixes #122
 
 ### 原则和注意项
 
