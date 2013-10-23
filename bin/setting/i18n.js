@@ -8,7 +8,7 @@ var root = node_path.join(
     __dirname, 
     '..', '..', 'lib', 
     'resource', 'locales', 
-    profile.option('language')
+    profile.get('language')
     
 ) + node_path.sep;
 
