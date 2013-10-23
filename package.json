@@ -41,6 +41,9 @@
     "put-in": "~0.0.1",
     "hum": "~2.1.1"
   },
+  "engines": {
+    "node": ">=0.8.17"
+  },
   "bin": {
     "cortex": "bin/cortex-cli.js"
   },
