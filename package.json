@@ -54,8 +54,5 @@
     "type": "git",
     "url": "git@github.com:kaelzhang/cortex.git"
   },
-  "license": "MIT",
-  "engines": {
-    "node": ">=0.8.0"
-  }
+  "license": "MIT"
 }
