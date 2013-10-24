@@ -16,7 +16,7 @@ var logger = module.exports = loggie({
     use_exit: false,
     catch_exception: false,
 
-    colors: profile.option('colors')
+    colors: profile.get('colors')
 });
 
 
