@@ -1,8 +1,9 @@
 'use strict';
 
-var neuropil = require('neuropil');
-var profile = require('./profile');
-var node_url = require('url');
+var neuropil    = require('neuropil');
+var profile     = require('./profile');
+var node_url    = require('url');
+var logger      = require('./logger');
 
 module.exports = neuropil({
     logger: require('./logger'),
@@ -15,7 +16,7 @@ module.exports = neuropil({
     host: profile.get('registry')
 
 }).on('request', function(e) {
-    e.json && this.logger.debug('json', e.json);
+    e.json && logger.debug('json', e.json);
 
 }).on('response', function(e){
     var res = e.res;
@@ -24,9 +25,9 @@ module.exports = neuropil({
     if ( res ) {
         code = res.statusCode;
 
-        this.logger.info(
+        logger.info(
             '  ',
-            this.logger.template('{{magenta method}} {{url}}', {
+            logger.template('{{magenta method}} {{url}}', {
                 url     : e.req.safe_url,
                 method  : e.req.method
             }),
@@ -37,12 +38,38 @@ module.exports = neuropil({
          
     // There must be an server error
     } else {
-        this.logger.error(e.err);
+        logger.error(e.err);
     }
 
+}).on('warn', function (msg) {
+    if ( msg ) {
+        logger.info('');
+        logger.warn(msg.message || msg);
+    }
+    
+}).on('verbose', function (msg) {
+    if ( msg ) {
+        logger.info('');
+        logger.verbose(msg.message || msg);
+    }
+    
+}).on('info', function (msg) {
+    if ( msg ) {
+        var data = msg.data;
+        var log = '\n';
+
+        if ( data && data.label ) {
+            log += '{{cyan ' + data.label + '}} '
+        }
+
+        log += msg.message || msg;
+
+        logger.info(log);
+    }
 });
 
 
 function is_code_success(code){
     return !!code && code >= 200 && code < 300;
 }
+
