@@ -41,11 +41,11 @@ default to `"lib"`
 
 No use by now.
 
-#### directories.style
+#### directories.css
 
 default to `"css"`
 
-If you specify a "style" directory, then all the files in that folder will be saved as `cortex.styles` when publishing.
+If you specify a "css" directory, then all the files in that folder will be saved as `cortex.styles` when publishing.
 
 #### directories.template
 
