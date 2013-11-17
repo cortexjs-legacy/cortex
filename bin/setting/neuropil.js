@@ -5,6 +5,9 @@ var profile     = require('./profile');
 var node_url    = require('url');
 var logger      = require('./logger');
 
+var node_url    = require('url');
+var node_path   = require('path');
+
 module.exports = neuropil({
     logger: require('./logger'),
 
@@ -13,7 +16,24 @@ module.exports = neuropil({
     email: 'i@kael.me',
 
     port: profile.get('registry_port'),
-    host: profile.get('registry')
+    host: profile.get('registry'),
+
+    cacheMapper: function (options, callback) { 
+        var pathname = node_url.parse(options.url).pathname;
+
+        // only cache document json for database 'registry'
+        // 'http://xxxxxx.com/align' -> cache
+        // 'http://xxxx.com/-/user/xxxx' -> not to cache
+        if ( /^\/[^\/]/.test(pathname) ) {
+            var name = pathname.replace(/^\//, '');
+            var cache = node_path.join( profile.get('cache_root'), name, 'document.cache' );
+
+            callback(null, cache);
+
+        } else {
+            callback(null);
+        }
+    }
 
 }).on('request', function(e) {
     e.json && logger.debug('json', e.json);
