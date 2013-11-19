@@ -17,6 +17,7 @@ var context = {
 var commander = module.exports = comfort({
     command_root: node_path.join( __dirname, '..', '..', 'lib', 'command'),
     option_root : node_path.join( __dirname, '..', '..', 'lib', 'option'),
+    prevent_extensions: true,
     name: 'cortex',
 
     logger: require('./logger'),
