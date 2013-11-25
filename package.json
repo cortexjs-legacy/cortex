@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.4.3",
+  "version": "3.4.4",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -23,7 +23,7 @@
     "async": "~0.2.9",
     "fs-sync": "~0.2.1",
     "uglify-js": "~2.4.0",
-    "semver": "~2.1.0",
+    "semver": "~2.2.1",
     "multi-profile": "~3.1.1",
     "comfort": "~2.2.1",
     "read-package-json": "~1.1.1",
