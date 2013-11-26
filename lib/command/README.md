@@ -30,4 +30,12 @@ new          | already in registry | reason
 ------------ | ------------------- | -------
 1.2.3        | 1.2.1, 1.2.2        | the neweast version
 1.2.3        | 1.2.1, 1.3.4        | the neweast version of the current feature
-1.2.4-alpha  | 1.2.4, 1.2.5        | any prerelease versions
+1.2.4-alpha  | 1.2.2               | any prerelease versions
+
+### Forbidden
+
+new          | already in registry | reason
+------------ | ------------------- | -------
+1.2.3-alpha  | 1.2.3               | 1.2.3 is newer
+1.2.3        | 1.2.4               | 1.2.4 is newer
+1.2.3-alpha  | 1.2.4               | 1.2.4 is newer
