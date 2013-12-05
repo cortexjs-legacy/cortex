@@ -39,7 +39,8 @@
     "inquirer": "~0.3.4",
     "hum": "~2.1.1",
     "nodepath": "0.0.1",
-    "put-in": "0.0.3"
+    "put-in": "0.0.3",
+    "modified": "~1.0.3"
   },
   "engines": {
     "node": ">=0.8.17"
