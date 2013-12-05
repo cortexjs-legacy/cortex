@@ -55,10 +55,37 @@
 
 目前这个属性并没有使用，在未来某个项目里程碑中，可能会用到它。
 
-### cortex.dependencies
+### dependencies
 
 类型为 `Object`
 
 与 node.js 开发的 `dependencies` 类似, `cortex.dependencies` 用来定义当前模块的依赖项及版本。
 
 但是绝大多数情况下你不会直接用到这个属性，你可以使用 `cortex install` 的 '--save' 参数，使用该参数后，不仅会将指定的模块安装到本地电脑，同时也会将模块名字和版本信息存储到当前模块的 `cortex.dependencies` 中。
+
+### scripts
+
+用于用户自定义命令行脚本。
+
+#### scripts.build
+
+类型为 `String` 或者 `Array.<string>`
+
+该脚本会在 cortex build 命令的准备阶段执行。比如模块自己使用的 grunt 命令等。
+
+```
+"scripts": {
+    "build": "grunt"
+}
+```
+
+也可以包含多条命令：
+
+```
+"scripts": {
+    "build": [
+        "grunt dev",
+        "grunt"
+    ]
+}
+```
