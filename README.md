@@ -1,4 +1,4 @@
-# Cortex
+# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex)
 
 > A commonjs development environment focused on browser-side projects.
 
