@@ -30,6 +30,10 @@ Cortex is trying its best to supply easy-to-use APIs, do as much more tasks as p
 
 What you have to do, is just saying hello to your world and creating things useful. 
 
+## Documentation
+
+- [中文文档](https://github.com/kaelzhang/cortex/blob/master/doc/zh-CN/README.md)
+
 ## Related Projects
 
 - [neocortex](https://github.com/kaelzhang/neocortex)
