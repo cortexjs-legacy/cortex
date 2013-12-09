@@ -20,7 +20,7 @@
 		'.git',
         '.svn',
         '.DS_Store'
-	]	
+	]
 
 它会告诉 cortex，在发布到 ctx.io（或者你自己搭建的服务器）的时候，需要忽略哪些文件。
 
@@ -34,6 +34,12 @@
 遵照 [CommonJS Packages](http://wiki.commonjs.org/wiki/Packages/1.0) 规范，我们可以使用 `'directories'` 来说明某一个项目的目录结构。
 
 在 Web 开发中，每个目录代表的意义会与 node.js 的开发不同，因此我们创建了一个 `cortex.directories` 的属性来做有些类似的事情。
+
+#### directories.dist
+
+无默认值
+
+若 `directories.dist` 已经定义，那么 cortex build 认为 `directories.dist` 中的文件已经预编译完成，而不会进行额外的处理。
 
 #### directories.lib
 
