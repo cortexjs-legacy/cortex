@@ -2,6 +2,8 @@
 
 这里将说明 package.json 文件中各个属性的用法及含义。
 
+请注意，package.json 文件中的所有定义，需要完全严格遵守 [JSON](http://www.json.org/) 语法，否则 cortex 会有相关报错信息。
+
 ## 规则说明
 
 1. 为了避免跟原有的 package.json 的属性冲突，我们加入了一个新的命名空间 `'cortex'`。若未特别说明，下面的属性都是在 `'cortex'` 这个 field 之下。
@@ -13,6 +15,44 @@
 类型：`path`
 
 它定义了当前模块的主入口 JavaScript 文件，该文件的 `exports` 变量会作为 `require()` 方法的返回值。 
+
+## entries
+
+类型：`String | Array.<String>`
+
+`entries` 用来定义项目中的子入口。在开发的过程中，我们希望能够将子模块的粒度尽量拆分，但是项目发布后，我们又不希望粒度过细而引起文件过多。
+
+这个 field 起到一个模块内部预先打包的作用。
+
+#### 特别说明及约定
+
+当没有定义 entries 的时候，cortex 打包的过程，会将从 `main` 入口，将所依赖到的当前包中的 JavaScript 文件打包到一起。
+
+而设计 entries 的目的，是能够让 `main` 文件能够去动态加载（`require.async`）这些模块，并且在使用的时候再去加载这些模块。
+
+但是需要特别指出的是，**禁止外部模块调用** entry 文件。
+
+#### 用法
+
+`entries` 可以为
+
+- `String` 可以是相对路径（相对项目根目录），如 `'entries/a.js'`
+- `globstar` 也可以是 linux 中的 **globstar** 描述。比如 `'entries/**/*.js'` 指代 entries 目录下所有的 JavaScript 文件，并且同时包含 entries 的子目录；
+- `Array` 也可以为包含上面某一种或两种类型字符串的数组。
+
+比如 
+
+```json
+{
+	"entries": [
+		"entries/*.js", 
+		"pages/a.js"
+	]
+} 
+```
+		
+指代 entries 目录下所有的 JavaScript 文件（但不包含子目录），以及 "pages/a.js" 这个 JavaScript 文件。
+
 
 ## ignores
 
