@@ -1,6 +1,6 @@
 'use strict';
 
-var profile = require('../../lib/profile');
+var profile = require('cortex-profile');
 
 var p = module.exports = profile().on('error', function (err) {
     process.stdout.write('\u001b[41m\u001b[37mWARNING\u001b[0m ' + err.message + ':\n');
