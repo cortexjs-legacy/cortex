@@ -48,9 +48,9 @@
 
 ### 5. 编译当前项目的代码
 
-	cortex build
+大部分的时候，你可以使用 `cortex watch` 命令来监测项目的变化，当项目中有文件变化的时候，cortex 会自动调用 build 命令。
 
-将类似使用 Node.js 方式编写的代码，进行包裹，让每个模块在浏览器环境下也能够在独立的 sandbox 中运行。
+当然，你也可以手动运行 `cortex build` 命令，将类似使用 Node.js 方式编写的代码，进行包裹，让每个模块在浏览器环境下也能够在独立的 sandbox 中运行。
 
 默认的，`cortex build` 命令会在编译成功后将当前项目发布到 cortex server 的目录。
 
