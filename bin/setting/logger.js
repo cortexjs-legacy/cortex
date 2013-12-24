@@ -19,20 +19,3 @@ var logger = module.exports = loggie({
     colors: profile.get('colors')
 });
 
-
-// if `logger.error` called, process will exit with a code of failure
-after(logger, 'error', function() {
-    process.exit(1);
-});
-
-
-function after(host, name, method){
-    var origin = host[name];
-
-    host[name] = function() {
-        var ret = origin.apply(this, arguments);
-        method.apply(this, arguments);
-
-        return ret;
-    };
-};

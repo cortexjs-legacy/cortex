@@ -7,6 +7,7 @@ var logger      = require('./logger');
 
 var node_url    = require('url');
 var node_path   = require('path');
+var server_error = require('../../lib/util/server-error');
 
 module.exports = neuropil({
     logger: require('./logger'),
@@ -58,7 +59,9 @@ module.exports = neuropil({
          
     // There must be an server error
     } else {
-        logger.error(e.err);
+        server_error(e.err, function (message) {
+            logger.error(message);
+        });
     }
 
 }).on('warn', function (msg) {
