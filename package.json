@@ -49,7 +49,10 @@
   "bin": {
     "cortex": "bin/cortex-cli.js"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "mocha": "~1.16.2",
+    "chai": "~1.8.1"
+  },
   "scripts": {
     "test": "mocha test/.*"
   },
