@@ -36,9 +36,9 @@
 
 `entries` 可以为
 
-- `String` 可以是相对路径（相对项目根目录），如 `'entries/a.js'`
-- `globstar` 也可以是 linux 中的 **globstar** 描述。比如 `'entries/**/*.js'` 指代 entries 目录下所有的 JavaScript 文件，并且同时包含 entries 的子目录；
-- `Array` 也可以为包含上面某一种或两种类型字符串的数组。
+- `String` 相对路径（相对项目根目录），如 `'entries/a.js'`
+- `globstar` linux 中的 **globstar** 描述。比如 `'entries/**/*.js'` 指代 entries 目录下所有的 JavaScript 文件，并且同时包含 entries 的子目录；
+- `Array` 包含上面某一种或两种类型字符串的数组。
 
 比如 
 
@@ -68,7 +68,7 @@
 
 默认情况下，cortex 会尝试去读取项目跟目录下的 .cortexignore，若该文件不存在，则会依次尝试读取 .npmignore, .gitignore, 但需要注意的是，cortex 仅读取顺序第一个存在的配置文件。
 
-这些文件需要使用 [.gitignore 的规范](http://git-scm.com/docs/gitignore) 来编写。
+这些文件需要使用 [.gitignore 的规范](http://git-scm.com/docs/gitignore) 来编写（中国本土的用户可能需要翻墙）。
 
 
 ## directories
@@ -83,7 +83,9 @@
 
 若 `directories.dist` 已经定义，那么 cortex build 认为 `directories.dist` 中的文件已经预编译完成，而不会进行额外的处理。
 
-但需要注意的是，如果 `scripts.build`（下面会讲到）已经定义，那么在执行 cortex build 命令的时候，仍然会执行 `scripts.build` 的脚本 ———— 但会跳过 cortex 预设的预编译脚本。
+但需要注意的是，如果 `scripts.prebuild`（下面会讲到）已经定义，那么在执行 cortex build 命令的时候，仍然会执行 `scripts.prebuild` 的脚本 ———— 但会跳过 cortex 预设的预编译脚本。
+
+如果你想要跳过 cortex 自建的 “编译器” 这是最推荐的方式。当然，大多数的情况下，建议不要这样做。
 
 ### directories.lib
 
@@ -101,13 +103,13 @@
 
 如果你的项目中使用了 less（sass，或 stylus 等），则不能够将这些文件放到 `directories.css` 所指定的目录，这个目录中应该存放编译后的文件。
 
-这种情况下，可以将 less 等脚本编译到 `directories.css` 做指定的目录，并且可以使用 `scripts.build` 来指定编译 less 需要的脚本命令，比如：
+这种情况下，可以将 less 等脚本编译到 `directories.css` 做指定的目录，并且可以使用 `scripts.prebuild` 来指定编译 less 需要的脚本命令，比如：
 
-```
+```json
 {
 	"cortex": {
 		"scripts": {
-			"build": [
+			"prebuild": [
 				"grunt less"
 			]
 		},
@@ -136,9 +138,9 @@
 
 #### 特别说明
 
-绝大多数情况下，你 **不会也不建议** 直接用到这个属性，你可以使用 `cortex install` 的 '--save' 参数，使用该参数后，不仅会将指定的模块安装到本地电脑，同时也会将模块名字和版本信息存储到当前模块的 `cortex.dependencies` 中。
+绝大多数情况下，你 **不会也不建议** 手工修改这个属性，你可以使用 `cortex install` 的 '--save' 参数，使用该参数后，不仅会将指定的模块安装到本地电脑，同时也会将模块名字和版本信息存储到当前模块的 `cortex.dependencies` 中。
 
-```
+```sh
 cortex install jquery --save
 ```
 
@@ -155,7 +157,9 @@ cortex install jquery --save
 
 用于用户自定义命令行脚本。它的作用类似于 hooks，能够在不同的生命周期中被执行。
 
-#### scripts.build
+详见 [cortex-scripts.md](./12_cortex-scripts.md)
+
+#### scripts.prebuild
 
 类型为 `String` 或者 `Array.<string>`
 
@@ -163,19 +167,23 @@ cortex install jquery --save
 
 如果有多条命令，请注意要写成 **数组** 的形式。目前还不支持 bash 的 pipe（`'|'`），如果需要这么做，可以使用 Makefile 来实现。
 
-```
-"scripts": {
-    "build": "grunt"
+```json
+{
+	"scripts": {
+	    "build": "grunt"
+	}
 }
 ```
 
 也可以包含多条命令：
 
-```
-"scripts": {
-    "build": [
-        "grunt dev",
-        "grunt"
-    ]
+```json
+{
+	"scripts": {
+	    "prebuild": [
+	        "grunt dev",
+	        "grunt"
+	    ]
+	}
 }
 ```
