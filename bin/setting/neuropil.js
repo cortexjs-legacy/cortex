@@ -54,7 +54,7 @@ module.exports = neuropil({
             }),
             e.err ? 
                 '{{red ' + (code || 'ERR') + '}}' : 
-                '{{' + ( is_code_success(code) ? 'green' : 'yellow' ) + ' ' + (code || 'OK!') + '}}'
+                '{{' + code_color(code) + ' ' + (code || 'OK!') + '}}'
         );
          
     // There must be an server error
@@ -92,7 +92,18 @@ module.exports = neuropil({
 });
 
 
-function is_code_success(code){
-    return !!code && code >= 200 && code < 300;
+function code_color (code){
+    if ( code < 200 ) {
+        return 'gray';
+
+    } else if ( code < 300 ) {
+        return 'green';
+
+    } else if ( code < 400 ) {
+        return 'yellow';
+
+    } else {
+        return 'red';
+    }
 }
 
