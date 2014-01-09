@@ -53,3 +53,36 @@ describe("pkg.get_package_file(cwd)", function(){
         });
     });
 });
+
+
+describe("pkg.get_original_package(cwd)", function(){
+    it("merges normal fields", function(done){
+        var cwd = node_path.join(root, 'only-package');
+
+        pkg.get_original_package(cwd, function (err, pkg) {
+            expect(pkg.name).to.equal('foo');
+            done();
+        });
+    });
+
+    it("prevents merging special fields", function(done){
+        var cwd = node_path.join(root, 'only-package');
+
+        pkg.get_original_package(cwd, function (err, pkg) {
+            expect(pkg.scripts.prebuild).to.equal(undefined);
+            expect(pkg.dependencies.baar).to.equal(undefined);
+            expect(pkg.dependencies.bar).not.to.equal(undefined);
+            done();
+        });
+    });
+
+    it("use_inherits=true", function(done){
+        var cwd = node_path.join(root, 'only-package');
+
+        pkg.get_original_package(cwd, function (err, pkg) {
+            expect(pkg.hasOwnProperty('name')).to.equal(false);
+            done();
+        }, true);
+    });
+});
+
