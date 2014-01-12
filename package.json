@@ -41,7 +41,8 @@
     "put-in": "0.0.3",
     "modified": "~1.0.3",
     "spawns": "~0.2.0",
-    "npm-dir": "~0.1.0"
+    "npm-dir": "~0.1.0",
+    "axon-rpc": "0.0.2"
   },
   "engines": {
     "node": ">=0.8.17"
