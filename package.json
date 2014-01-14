@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.13.0",
+  "version": "3.13.1",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -42,7 +42,7 @@
     "modified": "~1.0.3",
     "spawns": "~0.2.0",
     "npm-dir": "~0.1.0",
-    "stares": "~0.4.0"
+    "stares": "~1.4.0"
   },
   "engines": {
     "node": ">=0.8.17"
