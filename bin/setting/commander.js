@@ -11,14 +11,17 @@ var context = {
     logger      : require('./logger')
 };
 
+var root = node_path.join( __dirname, '..', '..');
+
 // Commander for CLI
 // cli entrance
 // cache commander instance
 var commander = module.exports = comfort({
-    command_root: node_path.join( __dirname, '..', '..', 'lib', 'command'),
-    option_root : node_path.join( __dirname, '..', '..', 'lib', 'option'),
+    command_root: node_path.join( root, 'lib', 'command'),
+    option_root : node_path.join( root, 'lib', 'option'),
+    root        : root,
     prevent_extensions: true,
-    name: 'cortex',
+    name        : 'cortex',
 
     logger: require('./logger'),
     context: context
@@ -38,10 +41,8 @@ var commander = module.exports = comfort({
         } else {
             this.logger.error( err.message || err );
         }
-
-    }else if(e.command !== 'help'){
-        this.logger.info('{{green OK!}}');
     }
 });
 
 context.commander = commander;
+
