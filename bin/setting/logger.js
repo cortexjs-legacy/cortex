@@ -10,7 +10,7 @@ var logger = module.exports = loggie({
     level: process.env['CORTEX_LOG_LEVEL'] ||
 
         // log level of production 
-        ['info', 'error', 'warn'],
+        ['info', 'error', 'fatal', 'warn'],
 
     // if the current process exit before `logger.end()` called, there will throw an error message
     use_exit: false,
@@ -19,3 +19,24 @@ var logger = module.exports = loggie({
     colors: profile.get('colors')
 });
 
+
+logger.register('fatal', {
+    template: '{{red|bold ERR!}} {{arguments}}'
+});
+
+// if `logger.error` called, process will exit with a code of failure
+after(logger, 'fatal', function() {
+    process.exit(1);
+});
+
+
+function after(host, name, method){
+    var origin = host[name];
+
+    host[name] = function() {
+        var ret = origin.apply(this, arguments);
+        method.apply(this, arguments);
+
+        return ret;
+    };
+};

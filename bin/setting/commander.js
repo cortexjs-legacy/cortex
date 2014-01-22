@@ -32,14 +32,14 @@ var commander = module.exports = comfort({
     if(err){
         if ( err instanceof Error ) {
             // loggie will deal with `Error` instances
-            this.logger.error(err);
+            this.logger.fatal(err);
 
         // error code
         } else if (typeof err === 'number') {
-            this.logger.error('Not ok, exit code: ' + err);
+            this.logger.fatal('Not ok, exit code: ' + err);
         
         } else {
-            this.logger.error( err.message || err );
+            this.logger.fatal( err.message || err );
         }
     }
 });
