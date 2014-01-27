@@ -41,7 +41,8 @@
     "put-in": "0.0.3",
     "spawns": "~0.2.0",
     "npm-dir": "~0.1.0",
-    "stares": "~1.4.0"
+    "stares": "~1.4.0",
+    "fs-extra": "~0.8.1"
   },
   "engines": {
     "node": ">=0.8.17"
