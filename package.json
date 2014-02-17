@@ -42,7 +42,8 @@
     "npm-dir": "~0.1.0",
     "stares": "~1.4.0",
     "fs-extra": "~0.8.1",
-    "fs-expand": "~0.1.0"
+    "fs-expand": "~0.1.0",
+    "fs-sync": "~0.2.4"
   },
   "engines": {
     "node": ">=0.8.17"
