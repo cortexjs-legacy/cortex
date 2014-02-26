@@ -14,7 +14,7 @@ cortex profile <action> [<name>] [options]
 
 ### cortex profile list
 
-列出所有已经存在的 profiles，并且会高亮现实当前所使用的 profile。
+列出所有已经存在的 profiles，并且会高亮显示当前所使用的 profile。
 
 ```sh
 > cortex profile list ↵
