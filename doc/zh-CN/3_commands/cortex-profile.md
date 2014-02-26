@@ -4,13 +4,13 @@
 
 管理 cortex profiles. Profile 是你常用的配置的组合，你可以设置多个 profiles，来达到批量的切换多个配置的目的。类似于 Google chrome 的 user 或者 Firefox 的 profile。
 
-## Synopsis
+## 概述
 
 ```
 cortex profile <action> [<name>] [options]
 ```
 
-## Available actions
+## 可用命令
 
 ### cortex profile list
 
@@ -23,7 +23,7 @@ cortex profile <action> [<name>] [options]
   local
 ```
 
-### cortex profile use \<name>
+### cortex profile use {name}
 
 切换当前 profile 为 `name`.
 
@@ -35,14 +35,14 @@ cortex profile <action> [<name>] [options]
 * local
 ```
 
-### cortex profile add \<name>
+### cortex profile add {name}
 
 添加一个名为 `name` 的新的 profile。如果该名称的 profile 已经存在，则不会重复添加。
 
-请注意，当你初次安装 cortex 的时候，cortex 会为你自动创建一个名为 default 的 profile，并设置它为初始的当前 profile。
+请注意，当你初次安装 cortex 的时候，cortex 会为你自动创建一个名为 `'default'` 的 profile，并设置它为初始的当前 profile。
 
 
-### cortex profile rm \<name> [--remove-data]
+### cortex profile rm {name} [--remove-data]
 
 移除一个 profile，正式删除前，cortex 会再次确认。
 
