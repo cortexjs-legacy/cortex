@@ -36,10 +36,10 @@ var commander = module.exports = comfort({
 
         // error code
         } else if (typeof err === 'number') {
-            this.logger.fatal('Not ok, exit code: ' + err);
+            this.logger.fatal(err, 'Not ok, exit code: ' + err);
         
         } else {
-            this.logger.fatal( err.message || err );
+            this.logger.fatal(err.exitcode, err.message || err );
         }
     }
 });
