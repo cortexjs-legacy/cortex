@@ -2,6 +2,7 @@
 
 var loggie = require('loggie');
 var profile = require('./profile');
+var util = require('util');
 
 // get all flags from `process.env` 
 var logger = module.exports = loggie({
@@ -24,19 +25,22 @@ logger.register('fatal', {
     template: '{{red|bold ERR!}} {{arguments}}'
 });
 
-// if `logger.error` called, process will exit with a code of failure
-after(logger, 'fatal', function() {
-    process.exit(1);
-});
 
+var fatal = logger.fatal;
 
-function after(host, name, method){
-    var origin = host[name];
+logger.fatal = function (exit_code, msg) {
+    // logger.fatal('error');
+    if ( arguments.length === 1 ) {
+        msg = exit_code;
+        exit_code = 1;
+    }
+    // else logger.fatal(171, 'error')
 
-    host[name] = function() {
-        var ret = origin.apply(this, arguments);
-        method.apply(this, arguments);
+    exit_code = util.isNumber(exit_code)
+        ? exit_code
+        : 1;
 
-        return ret;
-    };
+    fatal.apply(this, msg);
+    process.exit(exit_code);
 };
+
