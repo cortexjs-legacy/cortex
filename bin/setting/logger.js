@@ -40,7 +40,7 @@ logger.fatal = function (exit_code, msg) {
         ? exit_code
         : 1;
 
-    fatal.apply(this, msg);
+    fatal.call(this, msg);
     process.exit(exit_code);
 };
 
