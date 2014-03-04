@@ -2,4 +2,4 @@
 
 'use strict';
 
-require('./setting/commander').cli();
+require('./config/commander').cli();
