@@ -36,7 +36,7 @@ logger.fatal = function (exit_code, msg) {
     }
     // else logger.fatal(171, 'error')
 
-    exit_code = util.isNumber(exit_code)
+    exit_code = typeof exit_code === 'number'
         ? exit_code
         : 1;
 
