@@ -52,10 +52,17 @@ module.exports = neuropil({
                 url     : e.req.safe_url,
                 method  : e.req.method
             }),
-            e.err ? 
-                '{{red ' + (code || 'ERR') + '}}' : 
-                '{{' + code_color(code) + ' ' + (code || 'OK!') + '}}'
+            e.err
+                ? '{{red ' + (code || 'ERR') + '}}'
+                : '{{' + code_color(code) + ' ' + (code || 'OK!') + '}}'
         );
+
+        if ( code === 500 ) {
+            logger.error(
+                'Server response a 500 status. '
+                + ' This is most likely {{bold NOT}} a problem with {{cyan cortex}} itself.'
+            );
+        }
          
     // There must be an server error
     } else {
