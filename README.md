@@ -2,19 +2,22 @@
 
 [中文](./README.zh-CN.md)
 
-Cortex is a package manager for web development with a bunch of many surrounding solutions for an end-to-end integrated frontend development evironment, including:
+**Cortex** is a package manager for the web with a bunch of end-to-end integrated frontend solutions to make your websites better, including:
 
-- frontend package management;
+- frontend package management with version control;
 - compatible backend solutions for JAVA and node.js;
 - development environment for you entire workflow;
 - [CI](http://en.wikipedia.org/wiki/Continuous_integration) solutions to support multiple testing environment simultaneously;
 - global registry service;
 - CDN solutions.
 
+With [Cortex](https://github.com/kaelzhang/cortex), we write web modules **exactly** the same as we do with [node.js](http://nodejs.org), with no [Module/Wrappings](http://wiki.commonjs.org/wiki/Modules/Wrappings), no [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition), etc.
+
+Cortex is designed and maintained for large websites and collaborative development and is also convenient for small projects.
 
 ## Installation
 
-First, you need to install [node](http://nodejs.org), then run the following command in your command line:
+First, you need to install [node](http://nodejs.org) (>= 0.8.0), then run the following command in your command line:
 
 ```sh
 npm install -g cortex
