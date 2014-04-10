@@ -6,7 +6,7 @@
 
 - frontend package management with version control;
 - compatible backend solutions for JAVA and node.js;
-- development environment for you entire workflow;
+- development environment for your entire workflow;
 - [CI](http://en.wikipedia.org/wiki/Continuous_integration) solutions to support multiple testing environment simultaneously;
 - global registry service;
 - CDN solutions.
