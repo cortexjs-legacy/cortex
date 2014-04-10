@@ -34,6 +34,10 @@ What you have to do, is just saying hello to your world and creating things usef
 
 - [中文文档](https://github.com/kaelzhang/cortex/blob/master/doc/zh-CN)
 
+## Samples
+
+- [Cortex Samples](https://github.com/cortexjs/samples)
+
 ## Related Projects
 
 - [neocortex](https://github.com/kaelzhang/neocortex)
