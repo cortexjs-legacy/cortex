@@ -1,48 +1,47 @@
 'use strict';
 
 var node_path = require('path');
-var comfort = require('comfort');
+var comfort   = require('comfort');
 
 
 var context = {
-    profile     : require('./profile'),
-    neuropil    : require('./neuropil'),
-    locale      : require('./i18n'),
-    logger      : require('./logger')
+  profile: require('./profile'),
+  neuropil: require('./neuropil'),
+  locale: require('./i18n'),
+  logger: require('./logger')
 };
 
-var root = node_path.join( __dirname, '..', '..');
+var root = node_path.join(__dirname, '..', '..');
 
 // Commander for CLI
 // cli entrance
 // cache commander instance
 var commander = module.exports = comfort({
-    command_root: node_path.join( root, 'lib', 'command'),
-    option_root : node_path.join( root, 'lib', 'option'),
-    root        : root,
-    prevent_extensions: true,
-    name        : 'cortex',
+  command_root: node_path.join(root, 'lib', 'command'),
+  option_root: node_path.join(root, 'lib', 'option'),
+  root: root,
+  prevent_extensions: true,
+  name: 'cortex',
 
-    logger: require('./logger'),
-    context: context
+  logger: require('./logger'),
+  context: context
 
 }).on('complete', function(e) {
-    var err = e.error;
+  var err = e.error;
 
-    if(err){
-        if ( err instanceof Error ) {
-            // loggie will deal with `Error` instances
-            this.logger.fatal(err);
+  if (err) {
+    if (err instanceof Error) {
+      // loggie will deal with `Error` instances
+      this.logger.fatal(err);
 
-        // error code
-        } else if (typeof err === 'number') {
-            this.logger.fatal(err, 'Not ok, exit code: ' + err);
-        
-        } else {
-            this.logger.fatal(err.exitcode, err.message || err );
-        }
+      // error code
+    } else if (typeof err === 'number') {
+      this.logger.fatal(err, 'Not ok, exit code: ' + err);
+
+    } else {
+      this.logger.fatal(err.exitcode, err.message || err);
     }
+  }
 });
 
 context.commander = commander;
-
