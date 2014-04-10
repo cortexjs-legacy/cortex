@@ -23,7 +23,7 @@
     "async": "~0.2.9",
     "uglify-js": "~2.4.0",
     "semver": "~2.2.1",
-    "cortex-profile": "~0.4.0",
+    "cortex-profile": "~0.5.0",
     "comfort": "~2.3.0",
     "read-package-json": "~1.1.1",
     "loggie": "~0.1.8",
