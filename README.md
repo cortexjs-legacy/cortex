@@ -1,6 +1,6 @@
 # Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/kaelzhang/cortex.png?branch=master)](https://travis-ci.org/kaelzhang/cortex)
 
-[中文](./README.zh-CN.md)
+[简体中文](./README.zh-CN.md)
 
 **Cortex** is a package manager for the web with a bunch of end-to-end integrated frontend solutions to make your websites better, including:
 
