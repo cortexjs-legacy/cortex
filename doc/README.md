@@ -1,4 +1,3 @@
 # Documentations
 
-- [English](./en-US)
-- [中文文档](./zh-CN)
+Documentations have been migrated to [cortexjs/wiki](https://github.com/cortexjs/wiki).

@@ -25,4 +25,6 @@ npm install -g cortex
 
 根据实际情况，可能需要使用 sudo。
 
-## 新手指引
+## 文档
+
+可以访问我们的 wiki 项目：[cortexjs/wiki](https://github.com/cortexjs/wiki)。
