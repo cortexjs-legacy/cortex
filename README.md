@@ -1,4 +1,4 @@
-# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/kaelzhang/cortex.png?branch=master)](https://travis-ci.org/kaelzhang/cortex)
+# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
 [简体中文](./README.zh-CN.md)
 
@@ -11,7 +11,7 @@
 - global registry service;
 - CDN solutions.
 
-With [Cortex](https://github.com/kaelzhang/cortex), we write web modules **exactly** the same as we do with [node.js](http://nodejs.org), with no [Module/Wrappings](http://wiki.commonjs.org/wiki/Modules/Wrappings), no [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition), etc.
+With [Cortex](https://github.com/cortexjs/cortex), we write web modules **exactly** the same as we do with [node.js](http://nodejs.org), with no [Module/Wrappings](http://wiki.commonjs.org/wiki/Modules/Wrappings), no [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition), etc.
 
 Cortex is designed and maintained for large websites and collaborative development and is also convenient for small projects.
 
