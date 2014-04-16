@@ -11,4 +11,4 @@ var p = module.exports = profile().on('error', function(err) {
 
 // User could edit the config file manually, 
 // cortex will save and hash the auth info on every start.
-p.saveConfig();
+p.encrypt();
