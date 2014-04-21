@@ -1,4 +1,4 @@
-# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/kaelzhang/cortex.png?branch=master)](https://travis-ci.org/kaelzhang/cortex)
+# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
 [English](./README.md)
 
