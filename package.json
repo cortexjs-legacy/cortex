@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.23.0",
+  "version": "3.23.1",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -42,7 +42,6 @@
     "stares": "~1.5.0",
     "fs-extra": "~0.8.1",
     "fs-expand": "~0.1.0",
-    "fs-sync": "~0.2.4",
     "request": "~2.34.0",
     "open": "0.0.4"
   },
@@ -54,7 +53,8 @@
   },
   "devDependencies": {
     "mocha": "~1.16.2",
-    "chai": "~1.8.1"
+    "chai": "~1.8.1",
+    "fs-sync": "~0.2.4"
   },
   "scripts": {
     "test": "mocha test/.*"
