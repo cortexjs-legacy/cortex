@@ -1,5 +1,7 @@
 # Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
+#### /ˈkɔːrteks/
+
 [English](./README.md)
 
 **Cortex** 是一个专为 Web 开发设计的包管理器（类似于 Java 的 maven 或者 node.js 的 npm）。
@@ -15,7 +17,17 @@
 
 使用 Cortex，你能够完全像 node.js 一样开发前端应用，而不用去关心任何诸如 AMD 之类的规范。
 
-Cortex is designed and maintained for large websites and collaborative development and is also convenient for small projects.
+
+## 为什么取名为 Cortex ？
+
+网页中的模块和对象会互相作用，协同，传递信息，就好比人体中的神经元（即神经细胞，neuron /'njʊərɒn/）一样：
+
+<center>
+<img alt="" src="https://github.com/cortexjs/cortex/blob/master/screenshots/neurons.png" />
+</center>
+
+而 Cortex 的意思是 **大脑皮层**，它属于神经系统中最晚出现最为发达的系统，用于调节人体各方面的技能。因此，我们把 web 的模块管理器，取名为 cortex，与之对应的，[neuron](https://github.com/kaelzhang/neuron) 是一个轻量而强大客户端模块加载器。
+
 
 ## 安装
 
@@ -29,4 +41,13 @@ npm install -g cortex
 
 ## 文档
 
-可以访问我们的 wiki 项目：[cortexjs/wiki](https://github.com/cortexjs/wiki)。
+可以访问我们的 wiki 项目：[cortexjs/wiki](https://github.com/cortexjs/wiki)。今后我们各种与 cortex 及 cortex 周边系统有关的文档，都会放置到这个项目中。
+
+## 发音技巧
+
+Cortex 发长音 /ɔː/ 哦，美式的发音会比较倾向于 /ˈkɔː**r**teks/，大北京的大哥们发音一定会很准，没错，“儿” 化音的赶脚。
+
+如果发音 /'kɑteks/，这样是不对的！这样就变成高洁丝（kotex）了 \_(:3」∠)_
+
+你们一定懂我的意思的！
+
