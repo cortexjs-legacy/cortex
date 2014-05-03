@@ -23,7 +23,7 @@
 网页中的模块和对象会互相作用，协同，传递信息，就好比人体中的神经元（即神经细胞，neuron /'njʊərɒn/）一样：
 
 <center>
-<img alt="" src="https://github.com/cortexjs/cortex/blob/master/screenshots/neurons.png" />
+<img alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/neurons.jpg" />
 </center>
 
 而 Cortex 的意思是 **大脑皮层**，它属于神经系统中最晚出现最为发达的系统，用于调节人体各方面的技能。因此，我们把 web 的模块管理器，取名为 cortex，与之对应的，[neuron](https://github.com/kaelzhang/neuron) 是一个轻量而强大客户端模块加载器。
