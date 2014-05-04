@@ -23,6 +23,8 @@ First, you need to install [node](http://nodejs.org) (>= 0.8.0), then run the fo
 npm install -g cortex
 ```
 
-## Documentations
+## Getting Started
 
-Just visit the wiki project: [cortexjs/wiki](https://github.com/cortexjs/wiki).
+Read this [getting-started guide](https://github.com/cortexjs/wiki/blob/master/en-US/cortex/getting-started.md) to get a general view.
+
+For more details about cortex, just visit our wiki project: [cortexjs/wiki](https://github.com/cortexjs/wiki).
