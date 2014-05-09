@@ -21,6 +21,7 @@
   "author": "kael",
   "dependencies": {
     "argv-parser": "~0.1.4",
+    "asks": "^1.0.0",
     "async": "~0.2.9",
     "comfort": "~2.4.0",
     "cortex-profile": "~1.0.0",
@@ -30,7 +31,6 @@
     "fs-extra": "~0.8.1",
     "fstream": "~0.1.24",
     "ignore": "~2.2.0",
-    "inquirer": "~0.3.4",
     "loggie": "~0.1.8",
     "neuron-builder": "^0.1.5",
     "neuropil": "^3.0.2",
