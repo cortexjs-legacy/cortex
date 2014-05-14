@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.24.0",
+  "version": "3.24.1",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -24,9 +24,9 @@
     "asks": "^1.0.0",
     "async": "~0.2.9",
     "comfort": "~2.4.0",
-    "cortex-init-prompts": "^0.1.0",
+    "cortex-init-prompts": "^0.1.1",
     "cortex-profile": "^1.0.0",
-    "cortex-scaffold-generator": "^0.1.2",
+    "cortex-scaffold-generator": "^1.0.1",
     "editor": "~0.0.4",
     "express": "~3.4.8",
     "fs-expand": "~0.1.0",
