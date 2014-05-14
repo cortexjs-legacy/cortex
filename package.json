@@ -23,7 +23,7 @@
     "argv-parser": "~0.1.4",
     "asks": "^1.0.0",
     "async": "~0.2.9",
-    "comfort": "^3.0.0",
+    "comfort": "^3.1.0",
     "cortex-init-prompts": "^0.2.2",
     "cortex-profile": "^1.0.0",
     "cortex-scaffold-generator": "^1.0.1",
