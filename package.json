@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.24.1",
+  "version": "3.24.2",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -34,7 +34,7 @@
     "fstream": "~0.1.24",
     "ignore": "~2.2.0",
     "loggie": "~0.1.8",
-    "neuron-builder": "^0.1.5",
+    "neuron-builder": "^1.0.0",
     "neuropil": "^3.0.2",
     "open": "0.0.4",
     "read-cortex-json": "^0.1.0",
