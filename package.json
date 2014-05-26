@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "3.25.2",
+  "version": "3.26.0",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -16,34 +16,37 @@
     "manager",
     "web",
     "server",
-    "scaffold"
+    "scaffold",
+    "front-end",
+    "browser"
   ],
   "author": "kael",
   "dependencies": {
-    "argv-parser": "~0.1.4",
+    "argv-parser": "^0.1.4",
     "asks": "^1.0.0",
-    "async": "~0.2.9",
+    "async": "^0.2.9",
     "comfort": "^3.1.0",
     "cortex-init-prompts": "^0.2.2",
     "cortex-profile": "^1.0.0",
     "cortex-scaffold-generator": "^1.0.1",
-    "editor": "~0.0.4",
-    "express": "~3.4.8",
-    "fs-expand": "~0.1.0",
+    "editor": "^0.0.4",
+    "express": "^3.4.8",
+    "fs-expand": "^0.1.0",
     "fs-extra": "^0.8.1",
-    "fstream": "~0.1.24",
-    "ignore": "~2.2.0",
-    "loggie": "~0.1.8",
+    "fstream": "^0.1.24",
+    "ignore": "^2.2.0",
+    "loggie": "^0.1.8",
     "neuron-builder": "^1.0.0",
     "neuropil": "^3.0.2",
     "open": "0.0.4",
     "read-cortex-json": "^0.1.0",
-    "request": "~2.34.0",
-    "semver": "~2.2.1",
+    "request": "^2.34.0",
+    "semver": "^2.2.1",
     "semver-stable": "^0.1.3",
-    "spawns": "~0.2.0",
-    "stares": "~1.5.0",
-    "tar": "~0.1.18"
+    "spawns": "^0.2.0",
+    "stares": "^1.5.0",
+    "tar": "^0.1.18",
+    "shrinked": "^0.1.2"
   },
   "engines": {
     "node": ">=0.11.0"
@@ -52,9 +55,9 @@
     "cortex": "bin/cortex-cli.js"
   },
   "devDependencies": {
-    "mocha": "~1.16.2",
-    "chai": "~1.8.1",
-    "fs-sync": "~0.2.4"
+    "mocha": "^1.16.2",
+    "chai": "^1.8.1",
+    "fs-sync": "^0.2.4"
   },
   "scripts": {
     "test": "mocha test/.*"
