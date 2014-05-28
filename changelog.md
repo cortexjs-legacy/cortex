@@ -2,6 +2,7 @@
 
 ## 3.x 
 
+- 3.27.0: #341: Support package.engines.
 - 3.26.0: #338, 339: Support install from cortex-shrinkwrap.json; Support more directories.
 - 3.25.0: #325, Better support for plugins. Eliminates all synchronous invocations of fs.
 - 3.24.0: #284, #285, Builder and initializer are now built-in modules.
