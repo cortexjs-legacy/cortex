@@ -2,6 +2,7 @@
 
 ## 3.x 
 
+- 3.28.0: #344, #342: Migrate cortex plugin shrinkwrap as a builtin command.
 - 3.27.0: #341: Support package.engines.
 - 3.26.0: #338, 339: Support install from cortex-shrinkwrap.json; Support more directories.
 - 3.25.0: #325, Better support for plugins. Eliminates all synchronous invocations of fs.
