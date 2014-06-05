@@ -18,6 +18,7 @@ index.php
 *.vi
 *~
 *.sass-cache
+*.dump
 
 # OS or Editor folders
 .DS_Store
