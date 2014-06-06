@@ -1,8 +1,15 @@
 # Change Log
 
-## 3.x 
+## 4.x
 
-- 3.29.0: Cortex install --save and update will also update cortex-shrinkwrap.json(if exists).
+4.x contains several important refactors, including:
+
+<!-- - 4.1.0: Removes `config.server_mode`, and uses `fs.link` to the server root. -->
+- 4.0.0: #351, Redesigns, removes `directories.css`, `directories.template`. Supports package with only css files.
+
+## 3.x
+
+- 3.29.0: `cortex install --save` and `cortex update` will also update cortex-shrinkwrap.json(if exists).
 - 3.28.0: #344, #342: Migrate cortex plugin shrinkwrap as a builtin command.
 - 3.27.0: #341: Support package.engines.
 - 3.26.0: #338, 339: Support install from cortex-shrinkwrap.json; Support more directories.
@@ -15,22 +22,7 @@
 - 3.19.0: Redesigns path calculation to make sure it won't be wrong.
 
 
+## Former
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 1.x
+Oh, the changes are too old to track :p
 
