@@ -39,7 +39,7 @@
     "neuron-builder": "^1.0.0",
     "neuropil": "^4.0.0",
     "open": "0.0.4",
-    "read-cortex-json": "^1.0.0",
+    "read-cortex-json": "^2.0.0",
     "request": "^2.34.0",
     "semver": "^2.2.1",
     "semver-stable": "^1.1.0",
@@ -47,7 +47,8 @@
     "stares": "^1.5.0",
     "tar": "^0.1.18",
     "shrinked": "^0.1.2",
-    "cortex-shrinkwrap": "^1.0.0"
+    "cortex-shrinkwrap": "^1.0.0",
+    "cortex-package-files": "^0.1.1"
   },
   "engines": {
     "node": ">=0.11.0"
