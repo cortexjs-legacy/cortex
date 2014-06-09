@@ -34,7 +34,6 @@
     "fs-expand": "^0.1.0",
     "fs-extra": "^0.8.1",
     "fstream": "^0.1.24",
-    "ignore": "^2.2.0",
     "loggie": "^0.1.8",
     "neuron-builder": "^1.0.0",
     "neuropil": "^4.0.0",
