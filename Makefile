@@ -5,4 +5,7 @@ test:
 			--reporter $(REPORTER) \
 			./test/*.js
 
+canary:
+	  node nightly-build.js
+
 .PHONY: test

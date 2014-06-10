@@ -58,7 +58,8 @@
   "devDependencies": {
     "mocha": "^1.16.2",
     "chai": "^1.8.1",
-    "fs-sync": "^0.2.4"
+    "fs-sync": "^0.2.4",
+    "jsonfile": "~1.1.1"
   },
   "scripts": {
     "test": "mocha test/.*"
