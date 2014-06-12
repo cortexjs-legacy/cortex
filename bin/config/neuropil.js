@@ -14,7 +14,7 @@ module.exports = neuropil({
 
   username: profile.get('username'),
   password: profile.get('password'),
-  email: 'i@kael.me',
+  email: profile.get('email'),
 
   port: profile.get('registry_port'),
   host: profile.get('registry'),
