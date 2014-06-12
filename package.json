@@ -27,7 +27,7 @@
     "async": "^0.2.9",
     "comfort": "^3.1.0",
     "cortex-init-prompts": "^0.3.0",
-    "cortex-profile": "^1.0.0",
+    "cortex-profile": "^2.0.0",
     "cortex-scaffold-generator": "^1.0.1",
     "editor": "^0.0.4",
     "express": "^3.4.8",
