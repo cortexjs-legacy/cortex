@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "4.1.1",
+  "version": "4.2.0",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -56,13 +56,13 @@
     "cortex": "bin/cortex-cli.js"
   },
   "devDependencies": {
-    "mocha": "^1.16.2",
-    "chai": "^1.8.1",
+    "mocha": "*",
+    "chai": "*",
     "fs-sync": "^0.2.4",
     "jsonfile": "~1.1.1"
   },
   "scripts": {
-    "test": "mocha test/.*"
+    "test": "make test"
   },
   "repository": {
     "type": "git",

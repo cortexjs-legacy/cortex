@@ -5,6 +5,8 @@
 4.x contains several important refactors, including:
 
 <!-- - 4.1.0: Removes `config.server_mode`, and uses `fs.link` to the server root. -->
+- 4.2.0: #372, Better cortex update.
+- 4.1.0: #362, `cortex.css` supports glob.
 - 4.0.0: #351, Redesigns, removes `directories.css`, `directories.template`. Supports package with only css files.
 
 ## 3.x
