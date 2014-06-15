@@ -59,7 +59,7 @@ var cases = [
   }, 'later will not override former, non-production'],
 ];
 
-describe("deps.get_dep_names()", function(){
+describe("deps", function(){
   cases.forEach(function (c) {
     it(c[4], function(){
       var ex = c[3];
