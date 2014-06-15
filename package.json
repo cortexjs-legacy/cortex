@@ -47,7 +47,8 @@
     "tar": "^0.1.18",
     "shrinked": "^0.1.2",
     "cortex-shrinkwrap": "^1.0.0",
-    "cortex-package-files": "^0.1.1"
+    "cortex-package-files": "^0.1.1",
+    "underscore": "~1.6.0"
   },
   "engines": {
     "node": ">=0.11.0"
