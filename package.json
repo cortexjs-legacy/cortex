@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -48,7 +48,8 @@
     "shrinked": "^0.1.2",
     "cortex-shrinkwrap": "^1.0.0",
     "cortex-package-files": "^0.3.0",
-    "underscore": "~1.6.0"
+    "underscore": "~1.6.0",
+    "cortex-command-errors": "~0.1.0"
   },
   "engines": {
     "node": ">=0.11.0"

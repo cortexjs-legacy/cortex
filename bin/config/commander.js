@@ -3,6 +3,7 @@
 var node_path = require('path');
 var comfort   = require('comfort');
 var logger    = require('./logger');
+var handler   = require('cortex-command-errors');
 
 var context = {
   profile: require('./profile'),
@@ -23,21 +24,6 @@ var commander = module.exports = comfort({
   name: 'cortex',
   context: context
 })
-.on('error', function(err) {
-  if (err instanceof Error) {
-    // loggie will deal with `Error` instances
-    logger.fatal(err);
-
-    // error code
-  } else if (typeof err === 'number') {
-    logger.fatal(err, 'Not ok, exit code: ' + err);
-
-  } else {
-    logger.fatal(err.exitcode, err.message || err);
-  }
-})
-.on('entry', function () {
-  
-});
+.on('error', handler(logger, profile));
 
 context.commander = commander;
