@@ -4,9 +4,10 @@ var node_path = require('path');
 var comfort   = require('comfort');
 var logger    = require('./logger');
 var handler   = require('cortex-command-errors');
+var profile   = require('./profile');
 
 var context = {
-  profile: require('./profile'),
+  profile: profile,
   neuropil: require('./neuropil'),
   locale: require('./i18n'),
   logger: logger
