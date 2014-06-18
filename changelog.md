@@ -6,7 +6,7 @@
 
 - **4.3.0**
   - [#381][381]: Removes `config.server_mode`; 
-  - [#281][281] Creates a symbolic link from "neurons" to `built_root`.
+  - [#281][281]: Creates a symbolic link from "neurons" to `built_root`.
 - **4.2.0**: [#372][372]: Better cortex update. No longer publish package.json by default.
 - **4.1.0**: [#362][362]: `cortex.css` supports glob.
 - **4.0.0**: [#351][351]: Redesigns, removes `directories.css`, `directories.template`. Supports package with only css files.
