@@ -4,6 +4,7 @@
 
 4.x contains several important refactors, including:
 
+- **4.4.0**: [#388][388]: Improves the performance of cortex build by using fs.symlink to create ranges.
 - **4.3.0**
   - [#381][381]: Removes `config.server_mode`; 
   - [#281][281]: Creates a symbolic link from "neurons" to `built_root`.
@@ -31,6 +32,7 @@
 Oh, the changes are too old to track :p
 
 
+[388]: https://github.com/cortexjs/cortex/issues/388
 [381]: https://github.com/cortexjs/cortex/issues/381
 [281]: https://github.com/cortexjs/cortex/issues/281
 [372]: https://github.com/cortexjs/cortex/issues/372
