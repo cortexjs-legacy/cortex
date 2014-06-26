@@ -13,16 +13,41 @@ See npm module, `clean` for details.
 
 ## option/install
 
-![img](../../screenshots/option-install.png)
-
 - **Errors**
   - NS: make No Sense
   - CNS: Can Not Save dependencies
-- **Warnings**
-  - DN: will Do Nothing
-- **Additional**
+  - NP: No Package file found
+
+- **Normal**
   - CS: Check if install a package into itSelf
-  - IG: Install Globally
   - CV: will Check duplicate Versions
-  - ID: Install packages from Dependencies
   - NC: No Checking
+    - NC(A): install packages Arbitrarily into `neurons`
+    - NC(G): install packages Globally
+  - R: Read dependencies, check self as a dependency
+
+R read
+
+Save | Global   | Packages | Repo | Type
+---- | -------- | -------- | ---- | ----   
+0    | 0        | 1        | 1    | CS
+1    | 0        | 1        | 1    | CS + CV
+
+0    | 0        | 0        | 1    | R
+0    | 1        | 0        | 1    | R
+1    | 0        | 0        | 1    | R -> ignore save
+
+0    | 0        | 1        | 0    | NC(A)
+0    | 1        | 1        | 0    | NC(G)
+0    | 1        | 1        | 1    | NC(G)
+
+0    | 0        | 0        | 0    | NP
+0    | 1        | 0        | 0    | NP
+
+1    | 0        | 0        | 0    | CNS
+1    | 0        | 1        | 0    | CNS
+
+1    | 1        | 0        | 0    | NS
+1    | 1        | 0        | 1    | NS
+1    | 1        | 1        | 0    | NS
+1    | 1        | 1        | 1    | NS
