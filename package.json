@@ -40,7 +40,7 @@
     "loggie": "^0.1.8",
     "neuron-builder": "^1.0.0",
     "neuron-config": "^0.1.1",
-    "neuronjs": "^6.2.1",
+    "neuronjs": "^6.3.0",
     "neuropil": "^4.1.0",
     "open": "0.0.4",
     "read-cortex-json": "^2.2.0",
