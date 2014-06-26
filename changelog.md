@@ -1,5 +1,11 @@
 # Change Log
 
+## 5.x
+
+- **5.0.0**: [#396][396]: 
+  - Full support for [semver ranges](https://github.com/mojombo/semver/issues/113). 
+  - Completely refactors module management and package management.
+
 ## 4.x
 
 4.x contains several important refactors, including:
@@ -9,9 +15,12 @@
 - **4.3.0**
   - [#381][381]: Removes `config.server_mode`; 
   - [#281][281]: Creates a symbolic link from "neurons" to `built_root`.
-- **4.2.0**: [#372][372]: Better cortex update. No longer publish package.json by default.
+- **4.2.0**: [#372][372]: Better cortex update. 
+  No longer publish package.json by default.
 - **4.1.0**: [#362][362]: `cortex.css` supports glob.
-- **4.0.0**: [#351][351]: Redesigns, removes `directories.css`, `directories.template`. Supports package with only css files.
+- **4.0.0**: 
+  - [#351][351]: Redesigns, removes `directories.css`, `directories.template`. 
+  - Supports package with only css files.
 
 ## 3.x
 
@@ -32,6 +41,7 @@
 
 Oh, the changes are too old to track :p
 
+[396]: https://github.com/cortexjs/cortex/issues/396
 [393]: https://github.com/cortexjs/cortex/issues/393
 [388]: https://github.com/cortexjs/cortex/issues/388
 [381]: https://github.com/cortexjs/cortex/issues/381
