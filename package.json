@@ -26,7 +26,7 @@
     "asks": "^1.0.0",
     "async": "^0.2.9",
     "comfort": "^3.1.0",
-    "cortex-command-errors": "^0.1.0",
+    "cortex-command-errors": "^1.0.0",
     "cortex-init-prompts": "^0.3.0",
     "cortex-package-files": "^0.3.0",
     "cortex-profile": "^2.1.0",
