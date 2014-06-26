@@ -40,22 +40,20 @@ var cases = [
   [gn, pkg_undefined, npk, [], 2],
   [gn, pkg_dep, pk, ['a'], 3],
   [gn, pkg_dep, npk, ['a'], 4],
-  [gn, pkg_deps, pk, ['a', 'c', 'd'], 'production'],
-  [gn, pkg_deps, npk, ['a', 'b', 'c', 'd'], 'non-production'],
+  [gn, pkg_deps, pk, ['a', 'c'], 'production'],
+  [gn, pkg_deps, npk, ['a', 'b', 'c'], 'non-production'],
   [gd, pkg_undefined, pk, {}, 5],
   [gd, pkg_undefined, npk, {}, 6],
   [gd, pkg_dep, pk, {a: '1.1.0'}, 7],
   [gd, pkg_dep, npk, {a: '1.1.0'}, 8],
   [gd, pkg_deps, pk, {
     a: '1.1.0',
-    c: '1.1.2',
-    d: '1.1.3'
+    c: '1.1.2'
   }, 'later will not override former, production'],
   [gd, pkg_deps, npk, {
     a: '1.1.0',
     b: '1.1.1',
-    c: '1.1.2',
-    d: '1.1.3'
+    c: '1.1.2'
   }, 'later will not override former, non-production'],
 ];
 
