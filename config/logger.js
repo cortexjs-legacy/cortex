@@ -28,16 +28,9 @@ logger.register('fatal', {
 
 var fatal = logger.fatal;
 
-logger.fatal = function(exit_code, msg) {
-  // logger.fatal('error');
-  if (arguments.length === 1) {
-    msg = exit_code;
-    exit_code = 1;
-  }
-  // else logger.fatal(171, 'error')
-
-  exit_code = typeof exit_code === 'number' ? exit_code : 1;
-
+logger.fatal = function(msg, exit_code) {
   fatal.call(this, msg);
-  process.exit(exit_code);
+  if (typeof exit_code === 'number') {
+    process.exit(exit_code);
+  }
 };

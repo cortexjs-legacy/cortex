@@ -13,7 +13,7 @@ var context = {
   logger: logger
 };
 
-var root = node_path.join(__dirname, '..', '..');
+var root = node_path.join(__dirname, '..');
 
 // Commander for CLI
 // cli entrance
