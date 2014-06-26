@@ -7,7 +7,7 @@ var logger      = require('./logger');
 
 var node_url    = require('url');
 var node_path   = require('path');
-var server_error = require('../../lib/util/server-error');
+var server_error = require('../lib/util/server-error');
 
 module.exports = neuropil({
   logger: require('./logger'),

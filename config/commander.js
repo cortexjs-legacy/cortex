@@ -25,6 +25,8 @@ var commander = module.exports = comfort({
   name: 'cortex',
   context: context
 })
-.on('error', handler(logger, profile));
+.on('error', handler({
+  logger: logger
+}));
 
 context.commander = commander;
