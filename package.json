@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "5.0.8",
+  "version": "5.0.9",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
