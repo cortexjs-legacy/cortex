@@ -1,4 +1,4 @@
-# ![cortex](./screenshots/logo+text.png)
+# ![cortex](https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/logo+text.png)
 
 [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
