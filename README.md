@@ -1,6 +1,6 @@
-![cortex](./screenshots/logo+text.png)
+# ![cortex](./screenshots/logo+text.png)
 
-# Cortex [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
+[![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
 [简体中文](./README.zh-CN.md)
 
