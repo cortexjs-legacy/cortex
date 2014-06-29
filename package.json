@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "5.0.11",
+  "version": "5.1.0",
   "description": "Cortex is an npm-like package manager for the web.",
   "directories": {
     "test": "test",
@@ -45,7 +45,7 @@
     "neuronjs": "^6.3.0",
     "neuropil": "^4.1.0",
     "open": "0.0.4",
-    "read-cortex-json": "^2.3.0",
+    "read-cortex-json": "^3.0.0",
     "request": "^2.34.0",
     "semver": "^2.2.1",
     "semver-stable": "^1.1.0",

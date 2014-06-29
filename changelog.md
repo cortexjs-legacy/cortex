@@ -2,6 +2,7 @@
 
 ## 5.x
 
+- **5.1.0**: [#386][386]: Supports packages with entries but no main entry, but this kind of packages could not be published.
 - **5.0.0**: [#396][396]: 
   - Full support for [semver ranges](https://github.com/mojombo/semver/issues/113). 
   - Completely refactors module management and package management.
