@@ -19,7 +19,7 @@ Cortex is designed and maintained for large websites and collaborative developme
 
 ## Installation
 
-First, you need to install [node](http://nodejs.org) (>= 0.8.0), then run the following command in your command line:
+First, you need to install [node](http://nodejs.org) (>= 0.10.0), then run the following command in your command line:
 
 ```sh
 npm install -g cortex
@@ -29,4 +29,4 @@ npm install -g cortex
 
 Read this [getting-started guide](http://ctx.io/get-started) to get a general view.
 
-For more details about cortex, just visit the handbook: [cortexjs/the-guide-to-cortex](http://book.ctx.io/).
+For more details about cortex, just visit the handbook: [The Handbook of Cortex](http://book.ctx.io/).
