@@ -2,6 +2,8 @@
 
 ## 5.x
 
+- **5.3.0**: [#429][429]: Completely support [File Modules](http://nodejs.org/api/modules.html#modules_file_modules), `require()` directories, `__dirname` and `__filename`.
+- **5.2.0**: A new command `cortex ls` to print the dependency tree.
 - **5.1.0**: [#386][386]: Supports packages with entries but no main entry, but this kind of packages could not be published.
 - **5.0.0**: [#396][396]: 
   - Full support for [semver ranges](https://github.com/mojombo/semver/issues/113). 
