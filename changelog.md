@@ -46,6 +46,8 @@
 
 Oh, the changes are too old to track :p
 
+[429]: https://github.com/cortexjs/cortex/issues/429
+[430]: https://github.com/cortexjs/cortex/issues/430
 [396]: https://github.com/cortexjs/cortex/issues/396
 [393]: https://github.com/cortexjs/cortex/issues/393
 [388]: https://github.com/cortexjs/cortex/issues/388
