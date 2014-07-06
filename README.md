@@ -28,3 +28,8 @@ npm install -g cortex
 Read this [getting-started guide](http://ctx.io/get-started) to get a general view.
 
 For more details about cortex, just visit the handbook: [The Handbook of Cortex](http://book.ctx.io/).
+
+## Related
+
+- [cvm](https://github.com/cortexjs/cvm): Cortex Version Manager
+- [cortex-test](https://github.com/cortexjs/cortex-test): Cortex Test Plugin
