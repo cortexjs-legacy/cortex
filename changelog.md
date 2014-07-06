@@ -2,8 +2,8 @@
 
 ## 5.x
 
+- **5.4.0**: [#436][436]: Supports `cortex.as` to set the alias of a package.
 - **5.3.0**: 
-  - [#436][436]: Supports `cortex.as` to set the alias of a package.
   - [#429][429]: Completely support [File Modules](http://nodejs.org/api/modules.html#modules_file_modules), `require()` directories, `__dirname` and `__filename`.
   - [#430][430]: Cortex build will transform filenames to lowercased paths.
 - **5.2.0**: A new command `cortex ls` to print the dependency tree.
