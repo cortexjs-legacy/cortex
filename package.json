@@ -44,7 +44,7 @@
     "glob": "^4.0.2",
     "ignore": "^2.2.14",
     "loggie": "^0.1.8",
-    "neuron-builder": "^3.0.0",
+    "neuron-builder": "^3.1.0",
     "neuron-tree": "^2.0.0",
     "neuronjs": "^7.0.0",
     "neuropil": "^4.2.0",
