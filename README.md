@@ -25,7 +25,7 @@ npm install -g cortex
 
 ## Getting Started
 
-Read this [getting-started guide](http://ctx.io/get-started) to get a general view.
+Read this [Getting-Started Guide](http://ctx.io/get-started) to get a general view.
 
 For more details about cortex, just visit the handbook: [The Handbook of Cortex](http://book.ctx.io/).
 
