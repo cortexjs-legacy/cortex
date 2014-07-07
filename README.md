@@ -2,10 +2,10 @@
 
 [![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
-**Cortex** is a package manager for the web with a bunch of end-to-end integrated frontend solutions to make your websites better, including:
+**Cortex** is a package manager for the web with a bunch of full-stack frontend solutions to make your websites better, including:
 
 - Frontend package management with much better version control;
-- Compatible backend solutions for JAVA and node.js;
+- Compatible backend solutions for JAVA and node.js (will open to public soon);
 - Development environment for your entire workflow;
 - [CI](http://en.wikipedia.org/wiki/Continuous_integration) solutions to support multiple testing environment simultaneously;
 - Global registry service;
@@ -17,10 +17,10 @@ Cortex is designed and maintained for large websites and collaborative developme
 
 ## Installation
 
-First, you need to install [node](http://nodejs.org) (>= 0.10.0), then run the following command in your command line:
+First, [node](http://nodejs.org) is required (>= 0.10.0), then run the following command in your command line:
 
-```sh
-npm install -g cortex
+```bash
+$ npm install -g cortex
 ```
 
 ## Getting Started
@@ -38,3 +38,9 @@ For more details about cortex, just visit the handbook: [The Handbook of Cortex]
 ## License
 
 The [MIT](https://github.com/cortexjs/cortex/blob/master/LICENSE-MIT) license.
+
+##
+
+The modular world is much like the nerve system. Neuron cells processes and transmits chemical signals to others as well as javascript modules interact with others by passing runtime objects.
+
+![neuron](https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/neurons.jpg)
