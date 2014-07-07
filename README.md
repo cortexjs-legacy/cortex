@@ -39,7 +39,7 @@ For more details about cortex, just visit the handbook: [The Handbook of Cortex]
 
 The [MIT](https://github.com/cortexjs/cortex/blob/master/LICENSE-MIT) license.
 
-##
+## Naming
 
 The modular world is much like the nerve system. Neuron cells processes and transmits chemical signals to others as well as javascript modules interact with others by passing runtime objects.
 
