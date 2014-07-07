@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "5.4.2",
+  "version": "5.4.3",
   "description": "Cortex is an npm-like package manager for browsers.",
   "directories": {
     "test": "test",
@@ -52,7 +52,7 @@
     "read-cortex-json": "^3.3.0",
     "request": "^2.34.0",
     "semver": "^2.2.1",
-    "semver-stable": "^1.1.0",
+    "semver-stable": "^2.0.0",
     "shrinked": "^0.1.2",
     "spawns": "^0.2.0",
     "stares": "^1.5.0",
@@ -60,7 +60,7 @@
     "underscore": "^1.6.0"
   },
   "engines": {
-    "node": ">=0.11.0"
+    "node": ">=0.10.0"
   },
   "bin": {
     "cortex": "bin/cortex-cli.js"
