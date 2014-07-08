@@ -49,6 +49,8 @@ The [MIT](https://github.com/cortexjs/cortex/blob/master/LICENSE-MIT) license.
 
 ## Naming
 
-The modular world is much like the nerve system. Neuron cells processes and transmits chemical signals to others as well as javascript modules interact with others by passing runtime objects.
+The modular world is much like the nerve system. Neuron cells processes and transmits chemical signals to others as well as javascript packages interact with others by passing runtime objects.
+
+So, **cortex** is a neuron manager. That's it.
 
 ![neuron](https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/neurons.jpg)
