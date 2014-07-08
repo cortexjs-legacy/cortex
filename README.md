@@ -27,6 +27,14 @@ $ npm install -g cortex
 
 Read this [Getting-Started Guide](http://ctx.io/get-started) to get a general view.
 
+```bash
+mkdir hello
+cd hello
+cortex init
+cortex build
+open index.html # Hello World! Everything you need is commented in the source code!
+```
+
 For more details about cortex, just visit the handbook: [The Handbook of Cortex](http://book.ctx.io/).
 
 
