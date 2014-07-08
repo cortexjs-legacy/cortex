@@ -35,7 +35,7 @@ cortex build
 open index.html # Hello World! Everything you need is commented in the source code!
 ```
 
-For more details about cortex, just visit the handbook: [The Handbook of Cortex](http://book.ctx.io/).
+For more details about cortex, just visit our online gitbook: [The Handbook of Cortex](http://book.ctx.io/).
 
 
 ## Related
