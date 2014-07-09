@@ -1,9 +1,11 @@
-# Change Log
+# Change Log, TL;DR
 
 ## 5.x
 
 - **5.5.0**: 
   - [#443][443]: `cortex install --stable-only` to force install stable versions.
+  - [#442][442]: neuron.js will be a symlink.
+  - [#445][445]: `cortex shrinkwrap` will adds `engines` field of neuron by default.
 - **5.4.0**: [#436][436]: Supports `cortex.as` to set the alias of a package.
 - **5.3.0**: 
   - [#429][429]: Completely support [File Modules](http://nodejs.org/api/modules.html#modules_file_modules), `require()` directories, `__dirname` and `__filename`.
@@ -49,6 +51,9 @@
 
 Oh, the changes are too old to track :p
 
+[442]: https://github.com/cortexjs/cortex/issues/442
+[443]: https://github.com/cortexjs/cortex/issues/443
+[445]: https://github.com/cortexjs/cortex/issues/445
 [436]: https://github.com/cortexjs/cortex/issues/436
 [429]: https://github.com/cortexjs/cortex/issues/429
 [430]: https://github.com/cortexjs/cortex/issues/430
