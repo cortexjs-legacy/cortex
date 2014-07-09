@@ -47,7 +47,7 @@
     "neuron-builder": "^3.2.0",
     "neuron-tree": "^2.0.0",
     "neuronjs": "^7.0.0",
-    "neuropil": "^4.2.0",
+    "neuropil": "^5.0.0",
     "open": "0.0.4",
     "read-cortex-json": "^3.3.0",
     "request": "^2.34.0",
