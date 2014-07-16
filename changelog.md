@@ -2,6 +2,7 @@
 
 ## 5.x
 
+- **5.6.0**: [#452][452]: Completely support cyclic dependencies. Modules will run in complete separated sandboxes, supports all impossibilies of dependency graph.
 - **5.5.0**: 
   - [#443][443]: `cortex install --stable-only` to force install stable versions.
   - [#442][442]: neuron.js will be a symlink.
@@ -51,6 +52,7 @@
 
 Oh, the changes are too old to track :p
 
+[452]: https://github.com/cortexjs/cortex/issues/452
 [442]: https://github.com/cortexjs/cortex/issues/442
 [443]: https://github.com/cortexjs/cortex/issues/443
 [445]: https://github.com/cortexjs/cortex/issues/445
