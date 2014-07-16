@@ -1,6 +1,6 @@
 # ![cortex](https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/logo+text.png)
 
-[![NPM version](https://badge.fury.io/js/cortex.png)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.png?branch=master)](https://travis-ci.org/cortexjs/cortex)
+[![NPM version](https://badge.fury.io/js/cortex.svg)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.svg?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
 **Cortex** is a package manager for the web with a bunch of full-stack frontend solutions to make your websites better, including:
 

@@ -1,3 +1,3 @@
 # Documentations
 
-Documentations have been migrated to [cortexjs/wiki](https://github.com/cortexjs/wiki).
+Documentations have been migrated to [book.ctx.io](http://book.ctx.io)
