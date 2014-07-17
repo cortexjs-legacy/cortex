@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "5.5.2",
+  "version": "5.6.0",
   "description": "Cortex is an npm-like package manager for browsers.",
   "directories": {
     "test": "test",
@@ -45,8 +45,8 @@
     "ignore": "^2.2.14",
     "loggie": "^0.1.8",
     "neuron-builder": "^3.2.0",
-    "neuron-tree": "^2.0.0",
-    "neuronjs": "^7.0.0",
+    "neuron-graph": "^0.2.0",
+    "neuronjs": "^8.0.0",
     "neuropil": "^5.0.0",
     "open": "0.0.4",
     "read-cortex-json": "^3.3.0",
