@@ -4,7 +4,7 @@
 
 **Cortex** is a package manager for the web with a bunch of full-stack frontend solutions to make your websites better, including:
 
-<a href="http://book.ctx.io" target="_blank"><img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/cover.jpg" /></a>
+<a href="http://book.ctx.io" target="_blank"><img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/cover.png" /></a>
 
 - Frontend package management with much better version control;
 - Compatible backend solutions for JAVA and node.js (will open to public soon);
@@ -17,7 +17,7 @@ With [Cortex](https://github.com/cortexjs/cortex), we write web modules **exactl
 
 Cortex is designed and maintained for large websites and collaborative development and is also convenient for small projects.
 
-We have a small book on gitbook.io: [The Handbook of Cortex](http://book.ctx.io)
+We have a nice small book on gitbook.io: [The Handbook of Cortex](http://book.ctx.io)
 
 ## Installation
 
