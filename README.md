@@ -6,6 +6,8 @@
 
 <a href="http://book.ctx.io" target="_blank"><img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/cover.png" /></a>
 
+**TL;DR**
+
 - Frontend package management with much better version control;
 - Compatible backend solutions for JAVA and node.js (will open to public soon);
 - Development environment for your entire workflow;
@@ -41,6 +43,14 @@ open index.html # Hello World! Everything you need is commented in the source co
 
 For more details about cortex, just visit our online gitbook: [The Handbook of Cortex](http://book.ctx.io/).
 
+
+## A Package Manager in Production Over ONE yr.
+
+<img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/dianping.png" />
+
+Cortex is not a project only with specifications, and not a project we are just watching.
+
+Over 1 years in production, **ALL** mobile websites and hybrid applications of [dianping.com](http://m.dianping.com/) are using cortex.
 
 ## Related
 
