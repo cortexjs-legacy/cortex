@@ -44,7 +44,7 @@ open index.html # Hello World! Everything you need is commented in the source co
 For more details about cortex, just visit our online gitbook: [The Handbook of Cortex](http://book.ctx.io/).
 
 
-## A Package Manager in Production Over ONE yr.
+## Over 1 Years in Production
 
 <img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/dianping.png" />
 
