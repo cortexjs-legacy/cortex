@@ -2,9 +2,9 @@
 
 [![NPM version](https://badge.fury.io/js/cortex.svg)](http://badge.fury.io/js/cortex) [![Build Status](https://travis-ci.org/cortexjs/cortex.svg?branch=master)](https://travis-ci.org/cortexjs/cortex)
 
-<a href="http://book.ctx.io"><img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/cover.jpg" /></a>
-
 **Cortex** is a package manager for the web with a bunch of full-stack frontend solutions to make your websites better, including:
+
+<a href="http://book.ctx.io" target="_blank"><img align="right" alt="" src="https://raw.githubusercontent.com/cortexjs/cortex/master/screenshots/cover.jpg" /></a>
 
 - Frontend package management with much better version control;
 - Compatible backend solutions for JAVA and node.js (will open to public soon);
@@ -16,6 +16,8 @@
 With [Cortex](https://github.com/cortexjs/cortex), we write web modules **exactly** the same as we do with [node.js](http://nodejs.org), with no [Module/Wrappings](http://wiki.commonjs.org/wiki/Modules/Wrappings), no [AMD](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition), etc.
 
 Cortex is designed and maintained for large websites and collaborative development and is also convenient for small projects.
+
+We have a small book on gitbook.io: [The Handbook of Cortex](http://book.ctx.io)
 
 ## Installation
 
