@@ -1,5 +1,6 @@
 # Cortex project
 build/
+/neurons
 
 # php files
 index.php
