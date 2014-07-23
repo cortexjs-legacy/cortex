@@ -9,6 +9,7 @@ var node_url    = require('url');
 var node_path   = require('path');
 var server_error = require('../lib/util/server-error');
 
+
 module.exports = neuropil({
   logger: require('./logger'),
 
@@ -18,7 +19,7 @@ module.exports = neuropil({
 
   port: profile.get('registry_port'),
   host: profile.get('registry'),
-
+  proxy: profile.get('proxy'),
   cacheMapper: function(options, callback) {
     var pathname = node_url.parse(options.url).pathname;
 
