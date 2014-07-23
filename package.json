@@ -35,7 +35,7 @@
     "cortex-profile": "^2.1.0",
     "cortex-scaffold-generator": "^3.0.0",
     "cortex-search-utils": "^1.0.0",
-    "cortex-shrinkwrap": "^3.0.0",
+    "cortex-shrinkwrap": "^4.0.0",
     "editor": "^0.0.4",
     "express": "^3.4.8",
     "fs-expand": "^0.2.0",
