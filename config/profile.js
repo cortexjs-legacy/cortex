@@ -3,7 +3,12 @@
 var logger  = require('loggie')();
 var profile = require('cortex-profile');
 
-var p = module.exports = profile().on('error', function(err) {
+var p = 
+module.exports = 
+profile({
+  codec: 'ini'
+})
+.on('error', function(err) {
   logger.error(err.stack || err.message || err);
   process.exit(1);
 });
