@@ -1,6 +1,6 @@
 {
   "name": "cortex",
-  "version": "5.7.1",
+  "version": "5.7.2",
   "description": "Cortex is an npm-like package manager for browsers.",
   "directories": {
     "test": "test",
@@ -53,7 +53,7 @@
     "open": "0.0.4",
     "read-cortex-json": "^3.3.0",
     "request": "^2.34.0",
-    "semver": "^2.2.1",
+    "semver": "^3.0.0",
     "semver-stable": "^2.0.0",
     "shrinked": "^0.1.2",
     "spawns": "^0.2.0",
