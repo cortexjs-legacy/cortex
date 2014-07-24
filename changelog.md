@@ -2,7 +2,9 @@
 
 ## 5.x
 
-- **5.7.0**: [#458][458]: Use ini instead of JSON for more complicated configurations in the future.
+- **5.7.0**: 
+  - [#458][458]: Use ini instead of JSON for more complicated configurations in the future.
+  - [#463][463]: Cortex will explode NEURON_VERSION and current bin path when spawns.
 - **5.6.0**: [#452][452]: Completely support cyclic dependencies. Modules will run in complete separated sandboxes, supports all impossibilies of dependency graph.
 - **5.5.0**: 
   - [#443][443]: `cortex install --stable-only` to force install stable versions.
@@ -53,6 +55,8 @@
 
 Oh, the changes are too old to track :p
 
+
+[463]: https://github.com/cortexjs/cortex/issues/463
 [458]: https://github.com/cortexjs/cortex/issues/458
 [452]: https://github.com/cortexjs/cortex/issues/452
 [442]: https://github.com/cortexjs/cortex/issues/442
