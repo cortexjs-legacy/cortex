@@ -23,10 +23,12 @@ var commander = module.exports = comfort({
   option_root: node_path.join(root, 'lib', 'option'),
   root: root,
   name: 'cortex'
-})
+});
+
+context.commander = commander;
+
+commander
 .context(context)
 .on('error', handler({
   logger: logger
 }));
-
-context.commander = commander;
