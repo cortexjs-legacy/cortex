@@ -22,9 +22,9 @@ var commander = module.exports = comfort({
   command_root: node_path.join(root, 'lib', 'command'),
   option_root: node_path.join(root, 'lib', 'option'),
   root: root,
-  name: 'cortex',
-  context: context
+  name: 'cortex'
 })
+.context(context)
 .on('error', handler({
   logger: logger,
   harmony: true
