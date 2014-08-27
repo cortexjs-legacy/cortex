@@ -1,5 +1,13 @@
 # Change Log, TL;DR
 
+## 6.x
+
+- **6.1.0**:
+  - [#489][489]: Adds command `cortex link` to link a global dependency
+  - `cortex install` will skip existing packages by default but `--force` to force installing. [#491][491]
+- **6.0.0**:
+  - [#476][476]: Handle pre-release versions to solve the problem of deploying projects at different pre-release stages.
+
 ## 5.x
 
 - **5.7.0**: 
@@ -55,7 +63,9 @@
 
 Oh, the changes are too old to track :p
 
-
+[491]: https://github.com/cortexjs/cortex/issues/491
+[489]: https://github.com/cortexjs/cortex/issues/489
+[476]: https://github.com/cortexjs/cortex/issues/476
 [463]: https://github.com/cortexjs/cortex/issues/463
 [458]: https://github.com/cortexjs/cortex/issues/458
 [452]: https://github.com/cortexjs/cortex/issues/452
