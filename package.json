@@ -22,6 +22,7 @@
   ],
   "author": "kael",
   "dependencies": {
+    "MD5": "^1.2.1",
     "ansicolors": "^0.3.2",
     "argv-parser": "^0.1.4",
     "asks": "^1.0.0",
