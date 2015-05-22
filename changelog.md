@@ -2,6 +2,11 @@
 
 ## 6.x
 
+- **6.2.0**:
+  - support load module with md5 hash
+  - use cache object to prevent css background image copy multi times
+  - fix cortex install not read --dest argument
+  - fix bug in node-replier which will cause broken message on huge json send
 
 - **6.1.0**:
   - [#489][489]: Adds command `cortex link` to link a global dependency
