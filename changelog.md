@@ -7,6 +7,8 @@
   - use cache object to prevent css background image copy multi times
   - fix cortex install not read --dest argument
   - fix bug in node-replier which will cause broken message on huge json send
+  - improve cortex watch performance
+  - add `cortex neuron-version` to output bundled neuron version
 
 - **6.1.0**:
   - [#489][489]: Adds command `cortex link` to link a global dependency
