@@ -43,6 +43,7 @@
     "fs-extra": "^0.11.0",
     "fstream": "^0.1.24",
     "glob": "^4.0.2",
+    "httpolyglot": "^0.1.1",
     "ignore": "^2.2.14",
     "loggie": "^0.1.8",
     "make-array": "^0.1.1",
