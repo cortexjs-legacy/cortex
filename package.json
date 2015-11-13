@@ -53,6 +53,7 @@
     "neuronjs": "^8.3.0",
     "neuropil": "^7.0.0",
     "open": "0.0.4",
+    "promise": "^7.0.4",
     "read-cortex-json": "^3.6.0",
     "request": "^2.34.0",
     "semver-extra": "^2.0.0",
