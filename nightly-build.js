@@ -5,19 +5,17 @@ var jf = require('jsonfile');
 
 var pkg = jf.readFileSync('package.json');
 
-function changeName (name, old) {
+function changeName (name) {
   pkg.name = name;
-  pkg.bin[name] = pkg.bin[old];
-  delete pkg.bin[old];
   jf.writeFileSync('package.json', pkg);
   console.log('name changed to', name);
 }
 
 process.on('exit', function () {
-  changeName('cortex', 'cortex-canary');
+  changeName('cortex');
 });
 
-changeName('cortex-canary', 'cortex');
+changeName('cortex-canary');
 
 spawns('npm publish', {
   cwd: __dirname,
