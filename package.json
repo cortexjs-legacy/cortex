@@ -48,7 +48,7 @@
     "loggie": "^0.1.8",
     "make-array": "^0.1.1",
     "mix2": "^1.0.0",
-    "neuron-builder": "^4.0.0",
+    "cortex-neuron-builder": "^4.1.0",
     "neuron-graph": "^1.0.0",
     "neuronjs": "^8.3.0",
     "neuropil": "^7.0.0",
