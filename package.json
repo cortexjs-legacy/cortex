@@ -47,6 +47,7 @@
     "ignore": "^2.2.14",
     "loggie": "^0.1.8",
     "make-array": "^0.1.1",
+    "minimatch": "^3.0.0",
     "mix2": "^1.0.0",
     "cortex-neuron-builder": "^4.1.0",
     "neuron-graph": "^1.0.0",
